@@ -1,0 +1,3 @@
+tab .tab-icon-image:hover {
+	filter: url("chrome://mediamaestro/skin/filters.svg#icon_active");
+}
