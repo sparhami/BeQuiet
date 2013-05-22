@@ -5,15 +5,16 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.mediamaestro = com.sppad.mediamaestro || {};
 
-com.sppad.mediamaestro.Handler = function(aBrowser) {
+com.sppad.mediamaestro.Handler = function(aBrowser, aSub) {
 	
 	let self = this;
 	this.browser = aBrowser;
 	this.doc = aBrowser.contentDocument;
 	
+	this.sub = aSub;
+	this.initialized = false;
+	
 	this.onPlay = function(source) {
-		dump("handler onPlay\n");
-		
 		let evt = document.createEvent('Event');
 		evt.initEvent('com_sppad_media_play', true, true);
 		evt.handler = self;
@@ -22,12 +23,39 @@ com.sppad.mediamaestro.Handler = function(aBrowser) {
 	};
 	
 	this.onPause = function(source) {
-		dump("handler onPause\n");
-		
 		let evt = document.createEvent('Event');
 		evt.initEvent('com_sppad_media_pause', true, true);
 		evt.handler = self;
 		
 		document.dispatchEvent(evt);
 	};
+	
+	this.setup = function() {
+		dump("checking if initialized\n");
+		
+		self.initialized = self.sub.initialize();
+		
+		if(!self.initialized)
+			return;
+		
+		dump("initialized, registering listeners\n");
+			
+		self.browser.removeEventListener("DOMContentLoaded", self.setup);
+		self.sub.registerListeners();
+		
+		if(self.sub.isPlaying())
+			self.onPlay();
+	};
+	
+	this.cleanup = function() {
+		self.browser.removeEventListener("DOMContentLoaded", self.setup);
+		
+		if(!self.sub.initialized)
+			return;
+		
+		self.sub.unregisterListeners();
+	};
+	
+	self.browser.addEventListener("DOMContentLoaded", self.setup, false);
+	self.setup();
 }

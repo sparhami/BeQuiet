@@ -8,6 +8,7 @@
 	<script type="application/x-javascript" src="collect/SetMultiMap.js" />
 	<script type="application/x-javascript" src="Handler.js" />
 	<script type="application/x-javascript" src="sites/HtmlVideo.js" />
+	<script type="application/x-javascript" src="sites/LastFM.js" />
 	<script type="application/x-javascript" src="sites/Pandora.js" />
 	<script type="application/x-javascript" src="Main.js" />
 </overlay>

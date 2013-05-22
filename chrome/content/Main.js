@@ -11,8 +11,9 @@ com.sppad.mediamaestro.Main = new function() {
 	
 	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.mediamaestro.HtmlVideo },
 	                          { key: /sppad.com$/, value: com.sppad.mediamaestro.HtmlVideo },
-	                          { key: /sppad.com$/, value: com.sppad.mediamaestro.Pandora },
-	                          { key: /pandora.com$/, value: com.sppad.mediamaestro.Pandora } ];
+	                          { key: /sppad.com$/, value: com.sppad.mediamaestro.LastFM },
+	                          { key: /pandora.com$/, value: com.sppad.mediamaestro.Pandora },
+	                          { key: /last.fm$/, value: com.sppad.mediamaestro.LastFM } ];
 	
 	let self = this;
 

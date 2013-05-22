@@ -5,9 +5,9 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.mediamaestro = com.sppad.mediamaestro || {};
 
-com.sppad.mediamaestro.Pandora = function(aBrowser) {
+com.sppad.mediamaestro.LastFM = function(aBrowser) {
 	
-	const PLAY_BUTTON_INACTIVE = /display: none;/;
+	const PAUSED_CLASS = /paused/;
 	
 	let self = this;
 	
@@ -15,16 +15,16 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 		if(!self.initialized)
 			return false;
 		
-		let value = self.playButton.getAttribute('style');
+		let value = self.webRadio.getAttribute('class');
            
-		return !PLAY_BUTTON_INACTIVE.test(value);
+		return !PAUSED_CLASS.test(value);
 	};
 	
 	this.play = function() {
 		if(!self.initialized)
 			return;
 		
-		dump("playing Pandora\n");
+		dump("playing last.fm\n");
 		
 		self.playButton.click();
 	};
@@ -33,34 +33,35 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 		if(!self.initialized)
 			return;
 		
-		dump("pausing Pandora\n");
+		dump("pausing last.fm\n");
 		
 		self.pauseButton.click();
 	};
 	
 	this.playObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-            if(mutation.attributeName != 'style')
+            if(mutation.attributeName != 'class')
             	return;
-            
+        	
             window.setTimeout(function() {
             	if(self.isPlaying())
             		self.onPlay();
             	else
-                   	self.onPause();
+                	self.onPause();
             }, 1);
         });   
     });
 	
 	this.initialize = function() {
-		self.playButton = self.doc.getElementsByClassName('playButton')[0];
-		self.pauseButton = self.doc.getElementsByClassName('pauseButton')[0];
+		self.webRadio = self.doc.getElementById('webRadio');
+		self.playButton = self.doc.getElementById('radioControlPlay');
+		self.pauseButton = self.doc.getElementById('radioControlPause');
 		
-		return self.playButton != null &&  self.pauseButton != null;
+		return (self.webRadio != null) && (self.playButton != null) && (self.pauseButton != null);
 	};
 	
 	this.registerListeners = function() {
-	    self.playObserver.observe(self.playButton, { attributes: true });
+	    self.playObserver.observe(self.webRadio, { attributes: true });
 	};
 	
 	this.unregisterListeners = function() {
@@ -71,5 +72,5 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 	this.base(aBrowser, self);
 }
 
-com.sppad.mediamaestro.Pandora.prototype = Object.create(com.sppad.mediamaestro.Handler.prototype);
-com.sppad.mediamaestro.Pandora.prototype.constructor = com.sppad.mediamaestro.Pandora;
+com.sppad.mediamaestro.LastFM.prototype = Object.create(com.sppad.mediamaestro.Handler.prototype);
+com.sppad.mediamaestro.LastFM.prototype.constructor = com.sppad.mediamaestro.LastFM;
