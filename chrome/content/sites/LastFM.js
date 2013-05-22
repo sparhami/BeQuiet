@@ -3,9 +3,9 @@ if (typeof com == "undefined") {
 }
 
 com.sppad = com.sppad || {};
-com.sppad.mediamaestro = com.sppad.mediamaestro || {};
+com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
-com.sppad.mediamaestro.LastFM = function(aBrowser) {
+com.sppad.BeQuiet.LastFM = function(aBrowser) {
 	
 	const PAUSED_CLASS = /paused/;
 	
@@ -63,9 +63,9 @@ com.sppad.mediamaestro.LastFM = function(aBrowser) {
 		self.playObserver.disconnect();
 	};
 	
-	this.base = com.sppad.mediamaestro.Handler;
+	this.base = com.sppad.BeQuiet.Handler;
 	this.base(aBrowser, self);
 }
 
-com.sppad.mediamaestro.LastFM.prototype = Object.create(com.sppad.mediamaestro.Handler.prototype);
-com.sppad.mediamaestro.LastFM.prototype.constructor = com.sppad.mediamaestro.LastFM;
+com.sppad.BeQuiet.LastFM.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
+com.sppad.BeQuiet.LastFM.prototype.constructor = com.sppad.BeQuiet.LastFM;

@@ -3,9 +3,9 @@ if (typeof com == "undefined") {
 }
 
 com.sppad = com.sppad || {};
-com.sppad.mediamaestro = com.sppad.mediamaestro || {};
+com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
-com.sppad.mediamaestro.Pandora = function(aBrowser) {
+com.sppad.BeQuiet.Pandora = function(aBrowser) {
 	
 	const PLAY_ACTIVE = /display: none;/;
 	
@@ -62,9 +62,9 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 		self.playObserver.disconnect();
 	};
 	
-	this.base = com.sppad.mediamaestro.Handler;
+	this.base = com.sppad.BeQuiet.Handler;
 	this.base(aBrowser, self);
 }
 
-com.sppad.mediamaestro.Pandora.prototype = Object.create(com.sppad.mediamaestro.Handler.prototype);
-com.sppad.mediamaestro.Pandora.prototype.constructor = com.sppad.mediamaestro.Pandora;
+com.sppad.BeQuiet.Pandora.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
+com.sppad.BeQuiet.Pandora.prototype.constructor = com.sppad.BeQuiet.Pandora;

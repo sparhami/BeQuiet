@@ -3,9 +3,9 @@ if (typeof com == "undefined") {
 }
 
 com.sppad = com.sppad || {};
-com.sppad.mediamaestro = com.sppad.mediamaestro || {};
+com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
-com.sppad.mediamaestro.Handler = function(aBrowser, aSub) {
+com.sppad.BeQuiet.Handler = function(aBrowser, aSub) {
 	
 	let self = this;
 	this.browser = aBrowser;

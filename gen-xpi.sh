@@ -1,7 +1,7 @@
 #!/bin/sh
 
 buildDir=".build"
-buildTarget="mediamaestro"
+buildTarget="BeQuiet"
 buildExtension="xpi"
 
 # version is the branch/tag we are building from

@@ -2,7 +2,7 @@
 
 <?xml-stylesheet type="text/css" href="chrome://mediamaestro/content/browser.css"?>
 
-<overlay id="mediamaestro"
+<overlay id="BeQuiet"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 	<script type="application/x-javascript" src="collect/SetMultiMap.js" />

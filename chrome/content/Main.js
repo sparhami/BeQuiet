@@ -3,17 +3,15 @@ if (typeof com == "undefined") {
 }
 
 com.sppad = com.sppad || {};
-com.sppad.mediamaestro = com.sppad.mediamaestro || {};
+com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
-com.sppad.id = 0;
-
-com.sppad.mediamaestro.Main = new function() {
+com.sppad.BeQuiet.Main = new function() {
 	
-	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.mediamaestro.HtmlVideo },
-	                          { key: /sppad.com$/, value: com.sppad.mediamaestro.HtmlVideo },
-	                          { key: /sppad.com$/, value: com.sppad.mediamaestro.LastFM },
-	                          { key: /pandora.com$/, value: com.sppad.mediamaestro.Pandora },
-	                          { key: /last.fm$/, value: com.sppad.mediamaestro.LastFM } ];
+	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.BeQuiet.HtmlVideo },
+	                          { key: /sppad.com$/, value: com.sppad.BeQuiet.HtmlVideo },
+	                          { key: /sppad.com$/, value: com.sppad.BeQuiet.LastFM },
+	                          { key: /pandora.com$/, value: com.sppad.BeQuiet.Pandora },
+	                          { key: /last.fm$/, value: com.sppad.BeQuiet.LastFM } ];
 	
 	let self = this;
 

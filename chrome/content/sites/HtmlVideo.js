@@ -3,9 +3,9 @@ if (typeof com == "undefined") {
 }
 
 com.sppad = com.sppad || {};
-com.sppad.mediamaestro = com.sppad.mediamaestro || {};
+com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
-com.sppad.mediamaestro.HtmlVideo = function(aBrowser) {
+com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 	let self = this;
 	
 	this.isPlaying = function() {
@@ -45,9 +45,9 @@ com.sppad.mediamaestro.HtmlVideo = function(aBrowser) {
 		self.video.removeEventListener('pause', self.onPause);
 	};
 	
-	this.base = com.sppad.mediamaestro.Handler;
+	this.base = com.sppad.BeQuiet.Handler;
 	this.base(aBrowser, self);
 }
 
-com.sppad.mediamaestro.HtmlVideo.prototype = Object.create(com.sppad.mediamaestro.Handler.prototype);
-com.sppad.mediamaestro.HtmlVideo.prototype.constructor = com.sppad.mediamaestro.HtmlVideo;
+com.sppad.BeQuiet.HtmlVideo.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
+com.sppad.BeQuiet.HtmlVideo.prototype.constructor = com.sppad.BeQuiet.HtmlVideo;

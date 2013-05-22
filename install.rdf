@@ -2,7 +2,7 @@
     <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"  
          xmlns:em="http://www.mozilla.org/2004/em-rdf#">   
       <Description about="urn:mozilla:install-manifest"
-        em:id="mediamaestro@com.sppad"
+        em:id="BeQuiet@com.sppad"
         em:type="2"
         em:version="$VERSION">
          
@@ -17,8 +17,8 @@
         </em:targetApplication>  
          
         <!-- Front End MetaData -->  
-        <em:name>Media Maestro</em:name>  
-        <em:description>Tab media controls and more</em:description>  
+        <em:name>Be Quiet!</em:name>  
+        <em:description>Pauses music/video and more</em:description>  
         <em:creator>Sepand Parhami</em:creator>
       </Description>        
     </RDF>  
