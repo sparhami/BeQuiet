@@ -5,7 +5,7 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.collect = com.sppad.collect || {};
 
-com.sppad.collect.SetMutliMap = function() {
+com.sppad.collect.SetMultiMap = function() {
 
 	let self = this;
 	self.backingMap = new Map();
@@ -27,7 +27,7 @@ com.sppad.collect.SetMutliMap = function() {
 	};
 	
 	this.get = function(key) {
-		return self.backingMap.get(key);
+		return self.backingMap.get(key) || new Set();
 	};
 	
 	this.keys = function() {
@@ -55,10 +55,19 @@ com.sppad.collect.SetMutliMap = function() {
 	this.removeAll = function(key) {
 		self.backingMap.delete(key);
 	};
+	
+	this.size = function() {
+		let count = 0;
+		
+		for (let set of self.backingMap.values())
+			count += set.size;
+		
+		return count;
+	};
 
 	this.values = function() {
 		for (let set of self.backingMap.values())
-			for(let value of set.values())
+			for(let value of set)
 				yield value;
 	};
 };

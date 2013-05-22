@@ -5,11 +5,13 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.mediamaestro = com.sppad.mediamaestro || {};
 
+com.sppad.mediamaestro.idGen = 0;
 com.sppad.mediamaestro.Handler = function(aBrowser) {
 	
 	let self = this;
 	this.browser = aBrowser;
 	this.doc = aBrowser.contentDocument;
+	this.id = com.sppad.mediamaestro.idGen++;
 	
 	this.onPlay = function(source) {
 		dump("handler onPlay\n");

@@ -11,11 +11,12 @@ com.sppad.mediamaestro.Main = new function() {
 	
 	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.mediamaestro.HtmlVideo },
 	                          { key: /sppad.com$/, value: com.sppad.mediamaestro.HtmlVideo },
+	                          { key: /sppad.com$/, value: com.sppad.mediamaestro.Pandora },
 	                          { key: /pandora.com$/, value: com.sppad.mediamaestro.Pandora } ];
 	
 	let self = this;
 
-	self.handlers = new Map();
+	self.handlers = new com.sppad.collect.SetMultiMap();
     
     this.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
     	let doc = aBrowser.contentDocument;
@@ -25,27 +26,27 @@ com.sppad.mediamaestro.Main = new function() {
 	    if(!host)
 	    	return;
 	    
-		if(self.handlers.has(doc))
+		if(self.handlers.containsKey(doc))
 			return;
 	    
 	    win.addEventListener('unload', self.onPageUnload, false);
 	    
-		registerHandlers(host);
+		self.registerHandlers(host, aBrowser);
     };
     
-    this.registerHandlers = function(aHost) {
+    this.registerHandlers = function(aHost, aBrowser) {
     	HANDLER_MAPPING.forEach(function(entry) {
    			try {
-   				dump("checking " + host + " against " + entry.key + "\n");
+   				dump("checking " + aHost + " against " + entry.key + "\n");
    				
-   	  			if(entry.key.test(host)) {
+   	  			if(entry.key.test(aHost)) {
    	  				dump("matched, creating handler for " + entry.key + "\n");
    	  				
 	   				let constructor = entry.value;
 	   				let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
 	   				
 	   				let handler = new factoryFunction(aBrowser);
-	   			    self.handlers.set(doc, handler);
+	   			    self.handlers.put(aBrowser.contentDocument, handler);
 	   			}
    			} catch(err) {
    				dump("error: " + err + "\n");
@@ -56,13 +57,11 @@ com.sppad.mediamaestro.Main = new function() {
     
 	this.onPageUnload = function(aEvent) {
 		let doc = aEvent.originalTarget;
-		let handler =  self.handlers.get(doc);
 	    
-		if(!handler)
-			return;
-		
-		self.handlers.delete(doc);
-		handler.cleanup();
+		for(let handler of self.handlers.get(doc))
+			handler.cleanup();
+
+		self.handlers.removeAll(doc);
 	};
     
     this.pauseOther = function(obj) {

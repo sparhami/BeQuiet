@@ -21,12 +21,18 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 	};
 	
 	this.play = function() {
+		if(self.playButton == null)
+			return;
+		
 		dump("playing pandora\n");
 		
 		self.playButton.click();
 	};
 	
 	this.pause = function() {
+		if(self.pauseButton == null)
+			return;
+		
 		dump("pausing pandora\n");
 		
 		self.pauseButton.click();
