@@ -7,47 +7,36 @@ com.sppad.mediamaestro = com.sppad.mediamaestro || {};
 
 com.sppad.mediamaestro.Pandora = function(aBrowser) {
 	
-	let self = this;
+	const PLAY_BUTTON_INACTIVE = /display: none;/;
 	
-	self.browser = aBrowser;
-	self.doc = aBrowser.contentDocument;
+	let self = this;
+	this.base = com.sppad.mediamaestro.Handler;
+	this.base(aBrowser);
 	
 	this.isPlaying = function() {
 		
 	   let style = self.playButton.getAttribute('style');
            
-       return !/display: none;/.test(style);
+       return !PLAY_BUTTON_INACTIVE.test(style);
 	};
 	
 	this.play = function() {
 		dump("playing pandora\n");
+		
 		self.playButton.click();
 	};
 	
 	this.pause = function() {
 		dump("pausing pandora\n");
+		
 		self.pauseButton.click();
 	};
 	
 	this.cleanup = function() {
+		dump("cleaning up pandora\n");
+		
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		self.playButtonObserver.disconnect();
-	};
-	
-	this.onPlay = function() {
-		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_media_play', true, true);
-		evt.handler = self;
-		
-		document.dispatchEvent(evt);
-	};
-	
-	this.onPause = function() {
-		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_media_pause', true, true);
-		evt.handler = self;
-		
-		document.dispatchEvent(evt);
 	};
 	
 	this.playButtonObserver = new MutationObserver(function(mutations) {
@@ -64,11 +53,15 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
     });
 	
 	this.setup = function() {
+		dump("looking for buttons\n");
+		
 		self.playButton = self.doc.getElementsByClassName('playButton')[0];
 		self.pauseButton = self.doc.getElementsByClassName('pauseButton')[0];
 		
 		if(!self.playButton || !self.pauseButton)
 			return;
+		
+		dump("found buttons, setting up\n");
 		
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		
@@ -82,3 +75,4 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 	self.setup();
 }
 
+com.sppad.mediamaestro.Pandora.prototype = new com.sppad.mediamaestro.Handler;

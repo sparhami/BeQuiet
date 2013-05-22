@@ -5,12 +5,11 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.mediamaestro = com.sppad.mediamaestro || {};
 
-com.sppad.mediamaestro.YouTube = function(aBrowser) {
+com.sppad.mediamaestro.HtmlVideo = function(aBrowser) {
 	
 	let self = this;
-	
-	self.browser = aBrowser;
-	self.doc = aBrowser.contentDocument;
+	this.base = com.sppad.mediamaestro.Handler;
+	this.base(aBrowser);
 	
 	this.isPlaying = function() {
 		if(self.video == null)
@@ -23,6 +22,8 @@ com.sppad.mediamaestro.YouTube = function(aBrowser) {
 		if(self.video == null)
 			return;
 		
+		dump("playing html5\n");
+		
 		self.video.play();
 	};
 	
@@ -30,10 +31,14 @@ com.sppad.mediamaestro.YouTube = function(aBrowser) {
 		if(self.video == null)
 			return;
 		
-		self.video.play();
+		dump("pausing html5\n");
+		
+		self.video.pause();
 	};
 	
 	this.cleanup = function() {
+		dump("cleaning up html5\n");
+		
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		
 		if(self.video == null)
@@ -43,33 +48,21 @@ com.sppad.mediamaestro.YouTube = function(aBrowser) {
 		self.video.removeEventListener('pause', self.onPause);
 	};
 	
-	this.onPlay = function() {
-		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_media_play', true, true);
-		evt.browser = self.browser;
-		
-		document.dispatchEvent(evt);
-	};
-	
-	this.onPause = function() {
-		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_media_pause', true, true);
-		evt.browser = self.browser;
-		
-		document.dispatchEvent(evt);
-	};
-	
 	this.setup = function(aEvent) {
+		dump("looking for video tag\n");
+		
 		self.video = self.doc.getElementsByTagName('video')[0];
 		
 		if(self.video == null)
 			return;
 		
+		dump("found video, setting up\n");
+		
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		
 		self.video.addEventListener('play', self.onPlay, true);
 		self.video.addEventListener('pause', self.onPause, true);
-		
+			
 		if(self.isPlaying())
 			self.onPlay();
 	};
@@ -78,3 +71,4 @@ com.sppad.mediamaestro.YouTube = function(aBrowser) {
 	self.setup();
 }
 
+com.sppad.mediamaestro.HtmlVideo.prototype = new com.sppad.mediamaestro.Handler;

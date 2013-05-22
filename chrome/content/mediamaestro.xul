@@ -5,7 +5,8 @@
 <overlay id="mediamaestro"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-	<script type="application/x-javascript" src="sites/youtube.js" />
+	<script type="application/x-javascript" src="handler.js" />
+	<script type="application/x-javascript" src="sites/htmlVideo.js" />
 	<script type="application/x-javascript" src="sites/pandora.js" />
 	<script type="application/x-javascript" src="mediamaestro.js" />
 </overlay>
