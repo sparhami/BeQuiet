@@ -9,13 +9,12 @@ com.sppad.id = 0;
 
 com.sppad.mediamaestro.Main = new function() {
 	
-	const HANDLER_MAPPING = [ { key: 'youtube.com', value: com.sppad.mediamaestro.HtmlVideo },
-	                          { key: 'sppad.com', value: com.sppad.mediamaestro.HtmlVideo },
-	                          { key: 'pandora.com', value: com.sppad.mediamaestro.Pandora } ];
+	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.mediamaestro.HtmlVideo },
+	                          { key: /sppad.com$/, value: com.sppad.mediamaestro.HtmlVideo },
+	                          { key: /pandora.com$/, value: com.sppad.mediamaestro.Pandora } ];
 	
 	let self = this;
 
-	self.registered = Array();
 	self.handlers = new Map();
     
     this.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
@@ -31,18 +30,21 @@ com.sppad.mediamaestro.Main = new function() {
 	    
 	    win.addEventListener('unload', self.onPageUnload, false);
 	    
-		HANDLER_MAPPING.forEach(function(entry) {
+		registerHandlers(host);
+    };
+    
+    this.registerHandlers = function(aHost) {
+    	HANDLER_MAPPING.forEach(function(entry) {
    			try {
    				dump("checking " + host + " against " + entry.key + "\n");
    				
-	   			if(host.endsWith(entry.key)) {
-	   				dump("matched, creating handler for " + entry.key + "\n");
-	   				
+   	  			if(entry.key.test(host)) {
+   	  				dump("matched, creating handler for " + entry.key + "\n");
+   	  				
 	   				let constructor = entry.value;
 	   				let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
 	   				
 	   				let handler = new factoryFunction(aBrowser);
-	   				self.register(handler);
 	   			    self.handlers.set(doc, handler);
 	   			}
    			} catch(err) {
@@ -54,34 +56,19 @@ com.sppad.mediamaestro.Main = new function() {
     
 	this.onPageUnload = function(aEvent) {
 		let doc = aEvent.originalTarget;
-	    let host = doc.location.host;
-
 		let handler =  self.handlers.get(doc);
 	    
 		if(!handler)
 			return;
 		
 		self.handlers.delete(doc);
-		self.unregister(handler);
 		handler.cleanup();
 	};
-	
-    this.register = function(obj) {
-    	self.registered.push(obj);
-    };
-    
-    this.unregister = function(obj) {
-    	for(let i = 0; i < self.registered.length; i++)
-			if (self.registered[i] === obj)
-				self.registered.splice(i, 1);
-    };
     
     this.pauseOther = function(obj) {
-    	self.registered.forEach(function(item) {
-    		if(item !== obj) {
-    			item.pause();
-    		}
-    	});
+    	for (let value of self.handlers.values())
+    		if(value !== obj)
+    			value.pause();
     };
     
     this.onPause = function(aEvent) {

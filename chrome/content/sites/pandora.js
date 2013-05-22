@@ -75,4 +75,5 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 	self.setup();
 }
 
-com.sppad.mediamaestro.Pandora.prototype = new com.sppad.mediamaestro.Handler;
+com.sppad.mediamaestro.Pandora.prototype = Object.create(com.sppad.mediamaestro.Handler.prototype);
+com.sppad.mediamaestro.Pandora.prototype.constructor = com.sppad.mediamaestro.Pandora;

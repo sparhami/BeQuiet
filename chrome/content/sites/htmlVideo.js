@@ -71,4 +71,5 @@ com.sppad.mediamaestro.HtmlVideo = function(aBrowser) {
 	self.setup();
 }
 
-com.sppad.mediamaestro.HtmlVideo.prototype = new com.sppad.mediamaestro.Handler;
+com.sppad.mediamaestro.HtmlVideo.prototype = Object.create(com.sppad.mediamaestro.Handler.prototype);
+com.sppad.mediamaestro.HtmlVideo.prototype.constructor = com.sppad.mediamaestro.HtmlVideo;
