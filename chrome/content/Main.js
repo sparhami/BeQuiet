@@ -39,15 +39,16 @@ com.sppad.mediamaestro.Main = new function() {
    			try {
    				dump("checking " + aHost + " against " + entry.key + "\n");
    				
-   	  			if(entry.key.test(aHost)) {
-   	  				dump("matched, creating handler for " + entry.key + "\n");
-   	  				
-	   				let constructor = entry.value;
-	   				let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
-	   				
-	   				let handler = new factoryFunction(aBrowser);
-	   			    self.handlers.put(aBrowser.contentDocument, handler);
-	   			}
+   	  			if(!entry.key.test(aHost))
+   	  				return;
+   	  			
+  				dump("matched, creating handler for " + entry.key + "\n");
+  				
+   				let constructor = entry.value;
+   				let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
+   				
+   				let handler = new factoryFunction(aBrowser);
+   			    self.handlers.put(aBrowser.contentDocument, handler);
    			} catch(err) {
    				dump("error: " + err + "\n");
    				dump(err.stack);

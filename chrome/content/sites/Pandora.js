@@ -14,7 +14,6 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 	this.base(aBrowser);
 	
 	this.isPlaying = function() {
-		
 	   let style = self.playButton.getAttribute('style');
            
        return !PLAY_BUTTON_INACTIVE.test(style);
