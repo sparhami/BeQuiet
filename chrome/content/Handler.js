@@ -31,15 +31,11 @@ com.sppad.mediamaestro.Handler = function(aBrowser, aSub) {
 	};
 	
 	this.setup = function() {
-		dump("checking if initialized\n");
-		
 		self.initialized = self.sub.initialize();
 		
 		if(!self.initialized)
 			return;
 		
-		dump("initialized, registering listeners\n");
-			
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		self.sub.registerListeners();
 		

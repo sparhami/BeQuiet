@@ -7,7 +7,7 @@ com.sppad.mediamaestro = com.sppad.mediamaestro || {};
 
 com.sppad.mediamaestro.Pandora = function(aBrowser) {
 	
-	const PLAY_BUTTON_INACTIVE = /display: none;/;
+	const PLAY_ACTIVE = /display: none;/;
 	
 	let self = this;
 	
@@ -16,15 +16,12 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 			return false;
 		
 		let value = self.playButton.getAttribute('style');
-           
-		return !PLAY_BUTTON_INACTIVE.test(value);
+		return PLAY_ACTIVE.test(value);
 	};
 	
 	this.play = function() {
 		if(!self.initialized)
 			return;
-		
-		dump("playing Pandora\n");
 		
 		self.playButton.click();
 	};
@@ -32,8 +29,6 @@ com.sppad.mediamaestro.Pandora = function(aBrowser) {
 	this.pause = function() {
 		if(!self.initialized)
 			return;
-		
-		dump("pausing Pandora\n");
 		
 		self.pauseButton.click();
 	};

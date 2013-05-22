@@ -16,7 +16,6 @@ com.sppad.mediamaestro.LastFM = function(aBrowser) {
 			return false;
 		
 		let value = self.webRadio.getAttribute('class');
-           
 		return !PAUSED_CLASS.test(value);
 	};
 	
@@ -24,16 +23,12 @@ com.sppad.mediamaestro.LastFM = function(aBrowser) {
 		if(!self.initialized)
 			return;
 		
-		dump("playing last.fm\n");
-		
 		self.playButton.click();
 	};
 	
 	this.pause = function() {
 		if(!self.initialized)
 			return;
-		
-		dump("pausing last.fm\n");
 		
 		self.pauseButton.click();
 	};

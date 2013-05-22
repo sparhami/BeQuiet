@@ -19,16 +19,12 @@ com.sppad.mediamaestro.HtmlVideo = function(aBrowser) {
 		if(!self.initialized)
 			return;
 		
-		dump("playing html5\n");
-		
 		self.video.play();
 	};
 	
 	this.pause = function() {
 		if(!self.initialized)
 			return;
-		
-		dump("pausing html5\n");
 		
 		self.video.pause();
 	};
