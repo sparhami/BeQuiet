@@ -50,6 +50,9 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 			return;
 		
 		self.implementation.unregisterListeners();
+		
+		if(self.implementation.isPlaying())
+			self.onPause();
 	};
 	
 	self.browser.addEventListener("DOMContentLoaded", self.setup, false);
