@@ -46,16 +46,11 @@ com.sppad.BeQuiet.Main = new function() {
     	HANDLER_MAPPING.filter(function(entry) {
     		return entry.key.test(aHost);
     	}).forEach(function(entry) {
-   			try {
-   				let constructor = entry.value;
-   				let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
+			let constructor = entry.value;
+			let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
    				
-   				let handler = new factoryFunction(aBrowser);
-   			    self.handlers.put(aBrowser.contentDocument, handler);
-   			} catch(err) {
-   				dump("error: " + err + "\n");
-   				dump(err.stack);
-   			}
+			let handler = new factoryFunction(aBrowser);
+		    self.handlers.put(aBrowser.contentDocument, handler);
    		});
     };
     
