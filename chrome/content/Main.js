@@ -11,9 +11,10 @@ com.sppad.BeQuiet.Main = new function() {
 	 * Maps regular expressions to the handlers for that site. A site can have
 	 * more than one handler (e.g. YouTube, one for Flash and one for Hmtl5.
 	 */
-	const HANDLER_MAPPING = [ { key: new RegExp("."), value: com.sppad.BeQuiet.HtmlVideo },
+	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.BeQuiet.YouTube },
 	                          { key: /pandora.com$/, value: com.sppad.BeQuiet.Pandora },
-	                          { key: /last.fm$/, value: com.sppad.BeQuiet.LastFM } ];
+	                          { key: /last.fm$/, value: com.sppad.BeQuiet.LastFM },
+	                          { key: new RegExp("."), value: com.sppad.BeQuiet.HtmlVideo } ];
 	
 	let self = this;
 
@@ -43,15 +44,20 @@ com.sppad.BeQuiet.Main = new function() {
     };
     
     this.registerHandlers = function(aHost, aBrowser) {
-    	HANDLER_MAPPING.filter(function(entry) {
-    		return entry.key.test(aHost);
-    	}).forEach(function(entry) {
+    	// Only register first mapping for site for now since they can step on
+		// each other (e.g. on YouTube)
+    	for(let entry of HANDLER_MAPPING) {
+    		if(!entry.key.test(aHost))
+    			continue;
+    		
 			let constructor = entry.value;
 			let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
    				
 			let handler = new factoryFunction(aBrowser);
 		    self.handlers.put(aBrowser.contentDocument, handler);
-   		});
+    		
+    		break;
+    	}
     };
     
     this.unregisterHandlers = function(aDocument) {
