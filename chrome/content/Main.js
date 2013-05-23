@@ -7,6 +7,10 @@ com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
 com.sppad.BeQuiet.Main = new function() {
 	
+	/**
+	 * Maps regular expressions to the handlers for that site. A site can have
+	 * more than one handler (e.g. YouTube, one for Flash and one for Hmtl5.
+	 */
 	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.BeQuiet.HtmlVideo },
 	                          { key: /sppad.com$/, value: com.sppad.BeQuiet.HtmlVideo },
 	                          { key: /sppad.com$/, value: com.sppad.BeQuiet.LastFM },
@@ -15,7 +19,14 @@ com.sppad.BeQuiet.Main = new function() {
 	
 	let self = this;
 
+	/** Maps documents to the handlers for that document */
 	self.handlers = new com.sppad.collect.SetMultiMap();
+	
+	/** A handler that was playing, but was paused due to another starting */
+	self.lastPlayingHandler = null;
+	
+	/** Used to prevent a loop when a video is paused */
+	self.pausingOtherVideos = false;
     
     this.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
     	let doc = aBrowser.contentDocument;
@@ -34,15 +45,10 @@ com.sppad.BeQuiet.Main = new function() {
     };
     
     this.registerHandlers = function(aHost, aBrowser) {
-    	HANDLER_MAPPING.forEach(function(entry) {
+    	HANDLER_MAPPING.filter(function(entry) {
+    		return entry.key.test(aHost);
+    	}).forEach(function(entry) {
    			try {
-   				dump("checking " + aHost + " against " + entry.key + "\n");
-   				
-   	  			if(!entry.key.test(aHost))
-   	  				return;
-   	  			
-  				dump("matched, creating handler for " + entry.key + "\n");
-  				
    				let constructor = entry.value;
    				let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
    				
@@ -55,29 +61,52 @@ com.sppad.BeQuiet.Main = new function() {
    		});
     };
     
-	this.onPageUnload = function(aEvent) {
-		let doc = aEvent.originalTarget;
-	    
-		for(let handler of self.handlers.get(doc))
+    this.unregisterHandlers = function(aDocument) {
+		for(let handler of self.handlers.get(aDocument))
 			handler.cleanup();
 
-		self.handlers.removeAll(doc);
+		self.handlers.removeAll(aDocument);
+    };
+    
+	this.onPageUnload = function(aEvent) {
+	    self.unregisterHandlers(aEvent.originalTarget);
 	};
     
     this.pauseOther = function(obj) {
-    	for (let value of self.handlers.values())
-    		if(value !== obj)
-    			value.pause();
+    	for (let handler of self.handlers.values()) {
+    		if(handler === obj)
+    			continue;
+    		
+    		if(handler.isPlaying())
+    			self.lastPlaying = handler;
+    		
+    		handler.pause();
+    	}
+    };
+    
+    this.resumeLast = function() {
+    	if(self.lastPlaying != null)
+    		self.lastPlaying.play();
+    	
+    	self.lastPlaying = null;
     };
     
     this.onPause = function(aEvent) {
-		dump("media onPause\n");
+		// Make sure being paused due to a play doesn't resume the paused video
+		if(self.pausingOtherVideos)
+			return;
+		
+		self.resumeLast();
     };
     
     this.onPlay = function(aEvent) {
-		dump("media onPlay\n");
-		
+		self.pausingOtherVideos = true;
 		self.pauseOther(aEvent.handler);
+		
+		// Give enough time for paused videos to go through onPause
+		window.setTimeout(function() {
+			self.pausingOtherVideos = false;
+		}, 100);
     };
     
 	window.addEventListener("load", function() {
@@ -86,7 +115,6 @@ com.sppad.BeQuiet.Main = new function() {
 		document.addEventListener("com_sppad_media_play", self.onPlay, false);
 		document.addEventListener("com_sppad_media_pause", self.onPause, false);
 	});
-	
 };
 
 

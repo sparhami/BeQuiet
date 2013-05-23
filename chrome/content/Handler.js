@@ -5,13 +5,13 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
-com.sppad.BeQuiet.Handler = function(aBrowser, aSub) {
+com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
 	let self = this;
 	this.browser = aBrowser;
 	this.doc = aBrowser.contentDocument;
 	
-	this.sub = aSub;
+	this.implementation = aImplementation;
 	this.initialized = false;
 	
 	this.onPlay = function(source) {
@@ -31,25 +31,25 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aSub) {
 	};
 	
 	this.setup = function() {
-		self.initialized = self.sub.initialize();
+		self.initialized = self.implementation.initialize();
 		
 		if(!self.initialized)
 			return;
 		
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
-		self.sub.registerListeners();
+		self.implementation.registerListeners();
 		
-		if(self.sub.isPlaying())
+		if(self.implementation.isPlaying())
 			self.onPlay();
 	};
 	
 	this.cleanup = function() {
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		
-		if(!self.sub.initialized)
+		if(!self.implementation.initialized)
 			return;
 		
-		self.sub.unregisterListeners();
+		self.implementation.unregisterListeners();
 	};
 	
 	self.browser.addEventListener("DOMContentLoaded", self.setup, false);
