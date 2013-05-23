@@ -18,6 +18,7 @@ com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	
 	const PLAYER_STATE_PLAYING = 1;
+	const JAVASCRIPT_INJECTION_DELAY = 600;
 	
 	let self = this;
 	self.playing = undefined;
@@ -115,7 +116,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
         window.setTimeout(function() {
     		self.doc.defaultView.wrappedJSObject.com_sppad_register();
             self.playing = self.isPlaying();
-        }, 300);
+        }, JAVASCRIPT_INJECTION_DELAY);
 	};
 	
 	this.unregisterListeners = function() {
