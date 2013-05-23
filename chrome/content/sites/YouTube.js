@@ -20,7 +20,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	const PLAYER_STATE_PLAYING = 1;
 	
 	let self = this;
-	self.playing = false;
+	self.playing = undefined;
 	
 	this.isPlaying = function() {
 		if(!self.initialized)
@@ -52,7 +52,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		let nowPlaying = self.isPlaying();
 
 		// don't want to do onPause if going from one stopped state to another
-		if(self.playing == nowPlaying)
+		if(self.playing === nowPlaying)
 			return;
 		
 		self.playing = nowPlaying;
