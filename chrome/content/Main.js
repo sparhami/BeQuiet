@@ -44,8 +44,6 @@ com.sppad.BeQuiet.Main = new function() {
     };
     
     this.registerHandlers = function(aHost, aBrowser) {
-    	// Only register first mapping for site for now since they can step on
-		// each other (e.g. on YouTube)
     	for(let entry of HANDLER_MAPPING) {
     		if(!entry.key.test(aHost))
     			continue;
@@ -55,8 +53,6 @@ com.sppad.BeQuiet.Main = new function() {
    				
 			let handler = new factoryFunction(aBrowser);
 		    self.handlers.put(aBrowser.contentDocument, handler);
-    		
-    		break;
     	}
     };
     

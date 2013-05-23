@@ -100,7 +100,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	this.initialize = function() {
 		let moviePlayer = self.doc.getElementById('movie_player');
 		
-		return moviePlayer != null;
+		return moviePlayer && !moviePlayer.classList.contains('html5-video-player');
 	};
 	
 	this.registerListeners = function() {
