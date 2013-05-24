@@ -22,9 +22,10 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	const JAVASCRIPT_INJECTION_DELAY = 600;
 	
 	let self = this;
+	self.ready = false;
 	
 	this.isPlaying = function() {
-		if(!self.initialized)
+		if(!self.initialized || !self.ready)
 			return false;
 		
 		let state = self.doc.defaultView.wrappedJSObject.com_sppad_getState();
@@ -103,6 +104,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		 */
         window.setTimeout(function() {
     		self.doc.defaultView.wrappedJSObject.com_sppad_register();
+    		self.ready = true;
             self.updatePlayingState();
         }, JAVASCRIPT_INJECTION_DELAY);
 	};
