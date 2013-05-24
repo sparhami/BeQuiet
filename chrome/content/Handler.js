@@ -5,6 +5,20 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
+/**
+ * A generic web-page handler.
+ * 
+ * @param aBrowser The browser object the handler handles
+ * @param aImplementation An object with the following functions:
+ * <ul>
+ * <li>isPlaying
+ * <li>play
+ * <li>pause
+ * <li>initialize
+ * <li>registerListeners
+ * <li>unregisterListeners
+ * </ul>
+ */
 com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
 	let self = this;
@@ -15,7 +29,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	this.initialized = false;
 	this.playing = undefined;
 	
-	this.onPlay = function(source) {
+	this.onPlay = function() {
 		if(self.playing === true)
 			return;
 		
@@ -28,7 +42,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		document.dispatchEvent(evt);
 	};
 	
-	this.onPause = function(source) {
+	this.onPause = function() {
 		if(self.playing === false)
 			return;
 		
@@ -57,8 +71,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		self.implementation.registerListeners();
 		
-		if(self.implementation.isPlaying())
-			self.onPlay();
+		self.updatePlayingState();
 	};
 	
 	this.cleanup = function() {

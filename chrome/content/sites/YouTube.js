@@ -6,18 +6,19 @@ com.sppad = com.sppad || {};
 com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
 /**
- * This consists of mostly a hugely ugly hack since adding an event listener for
- * the youtube flash api requires a function name rather than a function. As a
- * result, the function to listen for the state change has to be injected into
- * the page content using a script tag. In addition, the registration of the
- * listener has to be injected as well.
+ * Handles Flash videos on YouTube. While it mostly works for HMTL5 videos, it
+ * can be unreliable. As such, it does not attempt to handle any HMTL5 videos,
+ * letting the HmtlVideo handler deal with it instead.
  * <p>
- * The injected code then creates an event that the add-on can listen for an use
- * accordingly.
+ * JavaScript code is injected into the web page in order to interact with the
+ * YouTube flash player. In order to add the event listener, which takes in a
+ * function name and not a function, as well as using the functions to control
+ * playback, injected code must be used.
  */
 com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	
 	const PLAYER_STATE_PLAYING = 1;
+	
 	const JAVASCRIPT_INJECTION_DELAY = 600;
 	
 	let self = this;
@@ -98,8 +99,8 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		self.injectJavaScript();
         
 	    /*
-		 * This doesn't work without the timeout. It seems that
-		 * movie_player is not setup yet.
+		 * This doesn't work without the timeout. Seems like something
+		 * is not initialized properly yet.
 		 */
         window.setTimeout(function() {
     		self.doc.defaultView.wrappedJSObject.com_sppad_register();

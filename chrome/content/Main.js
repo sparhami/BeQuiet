@@ -9,7 +9,7 @@ com.sppad.BeQuiet.Main = new function() {
 	
 	/**
 	 * Maps regular expressions to the handlers for that site. A site can have
-	 * more than one handler (e.g. YouTube, one for Flash and one for Hmtl5.
+	 * more than one handler (e.g. YouTube, one for Flash and one for Hmtl5).
 	 */
 	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.BeQuiet.YouTube },
 	                          { key: /pandora.com$/, value: com.sppad.BeQuiet.Pandora },
@@ -98,10 +98,13 @@ com.sppad.BeQuiet.Main = new function() {
 		self.pausingOtherVideos = true;
 		self.pauseOther(aEvent.handler);
 		
-		// Give enough time for paused videos to go through onPause
+		/*
+		 * Give enough time for paused handlers to go through onPause, for Flash
+		 * sites that check a DOM node's attributes/class.
+		 */
 		window.setTimeout(function() {
 			self.pausingOtherVideos = false;
-		}, 100);
+		}, 200);
     };
     
 	window.addEventListener("load", function() {
