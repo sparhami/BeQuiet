@@ -103,7 +103,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		 */
         window.setTimeout(function() {
     		self.doc.defaultView.wrappedJSObject.com_sppad_register();
-            self.playing = self.isPlaying();
+            self.updatePlayingState();
         }, JAVASCRIPT_INJECTION_DELAY);
 	};
 	
