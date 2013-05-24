@@ -7,7 +7,7 @@ com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
 com.sppad.BeQuiet.LastFM = function(aBrowser) {
 	
-	const PAUSED_CLASS = /paused/;
+	const PAUSED_CLASS = 'paused';
 	
 	let self = this;
 	
@@ -15,8 +15,7 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 		if(!self.initialized)
 			return false;
 		
-		let value = self.webRadio.getAttribute('class');
-		return !PAUSED_CLASS.test(value);
+		return !self.webRadio.classList.contains(PAUSED_CLASS);
 	};
 	
 	this.play = function() {
