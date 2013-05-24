@@ -29,7 +29,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	this.initialized = false;
 	this.playing = undefined;
 	
-	this.onPlay = function() {
+	this.onPlay = function( ) {
 		if(self.playing === true)
 			return;
 		

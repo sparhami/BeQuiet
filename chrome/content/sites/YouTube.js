@@ -53,11 +53,10 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		self.updatePlayingState();
     };
 	
-
     /**
 	 * Allows access to the to the player controls and status by injecting a
-	 * JavaScript node into the DOM. Need to use
-	 * self.doc.defaultView.wrappedJSObject to access the functions.
+	 * JavaScript script. Need to use self.doc.defaultView.wrappedJSObject
+	 * to access the functions. Cannot access the functions otherwise.
 	 */
 	this.injectJavaScript = function() {
 		let text = '\
