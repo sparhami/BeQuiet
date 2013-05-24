@@ -13,8 +13,14 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
 	this.implementation = aImplementation;
 	this.initialized = false;
+	this.playing = undefined;
 	
 	this.onPlay = function(source) {
+		if(self.playing === true)
+			return;
+		
+		self.playing = true;
+			
 		let evt = document.createEvent('Event');
 		evt.initEvent('com_sppad_media_play', true, true);
 		evt.handler = self;
@@ -23,11 +29,23 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	};
 	
 	this.onPause = function(source) {
+		if(self.playing === false)
+			return;
+		
+		self.playing = false;
+		
 		let evt = document.createEvent('Event');
 		evt.initEvent('com_sppad_media_pause', true, true);
 		evt.handler = self;
 		
 		document.dispatchEvent(evt);
+	};
+	
+	this.updatePlayingState = function() {
+		if(self.isPlaying())
+			self.onPlay();
+		else
+			self.onPause();
 	};
 	
 	this.setup = function() {

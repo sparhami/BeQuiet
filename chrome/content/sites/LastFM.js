@@ -7,7 +7,7 @@ com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
 com.sppad.BeQuiet.LastFM = function(aBrowser) {
 	
-	const PAUSED_CLASS = 'paused';
+	const PAUSED_CLASS = 'playing';
 	
 	let self = this;
 	
@@ -15,7 +15,7 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 		if(!self.initialized)
 			return false;
 		
-		return !self.webRadio.classList.contains(PAUSED_CLASS);
+		return self.webRadio.classList.contains(PAUSED_CLASS);
 	};
 	
 	this.play = function() {
@@ -38,10 +38,7 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
             	return;
         	
             window.setTimeout(function() {
-            	if(self.isPlaying())
-            		self.onPlay();
-            	else
-                	self.onPause();
+        		self.updatePlayingState();
             }, 1);
         });   
     });

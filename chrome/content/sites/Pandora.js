@@ -39,10 +39,7 @@ com.sppad.BeQuiet.Pandora = function(aBrowser) {
             	return;
             
             window.setTimeout(function() {
-            	if(self.isPlaying())
-            		self.onPlay();
-            	else
-                   	self.onPause();
+        		self.updatePlayingState();
             }, 1);
         });   
     });

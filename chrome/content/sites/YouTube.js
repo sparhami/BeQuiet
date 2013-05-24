@@ -21,7 +21,6 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	const JAVASCRIPT_INJECTION_DELAY = 600;
 	
 	let self = this;
-	self.playing = undefined;
 	
 	this.isPlaying = function() {
 		if(!self.initialized)
@@ -50,18 +49,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		if(aEvent.target != self.doc)
 			return;
 		
-		let nowPlaying = self.isPlaying();
-
-		// don't want to do onPause if going from one stopped state to another
-		if(self.playing === nowPlaying)
-			return;
-		
-		self.playing = nowPlaying;
-		
-		if(self.playing)
-			self.onPlay();
-		else
-			self.onPause();
+		self.updatePlayingState();
     };
 	
 
