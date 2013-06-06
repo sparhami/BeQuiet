@@ -17,22 +17,24 @@
 <stop stop-color="#FFF" offset="0"/>
 <stop stop-color="#FFF" stop-opacity="0" offset="1"/>
 </linearGradient>
-<linearGradient id="linearGradient2800" y2="52.5" xlink:href="#linearGradient3081" gradientUnits="userSpaceOnUse" x2="14" gradientTransform="translate(-4e-4,-9.426e-2)" y1="15.3" x1="15.1"/>
-<linearGradient id="linearGradient2803" y2="93.2" xlink:href="#linearGradient2697" gradientUnits="userSpaceOnUse" x2="169" gradientTransform="matrix(1,0,0,1.004384,-145.0004,-71.4625)" y1="110" x1="169"/>
-<radialGradient id="radialGradient2809" xlink:href="#linearGradient2679" gradientUnits="userSpaceOnUse" cy="100" cx="170" gradientTransform="matrix(3.562309e-6,-1.07205,1.992104,-1.250658e-6,-175.6121,212.6949)" r="11"/>
-<linearGradient id="linearGradient2823" y2="105" xlink:href="#linearGradient2817" gradientUnits="userSpaceOnUse" x2="175" gradientTransform="matrix(1.103262,0,0,1.054917,-163.1228,-76.31138)" y1="84.3" x1="175"/>
+<linearGradient id="linearGradient3077" y2="105" xlink:href="#linearGradient2817" gradientUnits="userSpaceOnUse" x2="175" gradientTransform="matrix(1.103262,0,0,1.054917,-163.1228,-76.31138)" y1="84.3" x1="175"/>
+<radialGradient id="radialGradient3079" xlink:href="#linearGradient2679" gradientUnits="userSpaceOnUse" cy="100" cx="170" gradientTransform="matrix(3.562309e-6,-1.07205,1.992104,-1.250658e-6,-175.6121,212.6949)" r="11"/>
+<linearGradient id="linearGradient3082" y2="93.2" xlink:href="#linearGradient2697" gradientUnits="userSpaceOnUse" x2="169" gradientTransform="matrix(1,0,0,1.004384,-145.0004,-71.4625)" y1="110" x1="169"/>
+<linearGradient id="linearGradient3084" y2="52.5" xlink:href="#linearGradient3081" gradientUnits="userSpaceOnUse" x2="14" gradientTransform="translate(-4e-4,-0.09426)" y1="15.3" x1="15.1"/>
 </defs>
-<path opacity="0.15" stroke-linejoin="round" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M26.1,12.8v22.2h8.8v-22.2h-8.8z" stroke-dashoffset="0" stroke="url(#linearGradient2823)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.99999952" fill="none"/>
-<path style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" fill-rule="evenodd" fill="url(#radialGradient2809)" d="M26.5,13.4v21h8v-21h-8z"/>
-<path stroke-linejoin="round" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M26.5,13.4v21.1h8v-21.1h-8z" stroke-dashoffset="0" stroke="url(#linearGradient2803)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.00000012" fill="none"/>
-<path stroke-linejoin="miter" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M27.5,14.4v19h6v-19h-6z" stroke-dashoffset="0" stroke="url(#linearGradient2800)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="0.9999997" fill="none"/>
-<path opacity="0.5" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M28,14.9v8.4l5-0.6v-7.8h-5z" fill-rule="nonzero" display="block" fill="#f7f7f7"/>
+<g transform="matrix(1.3455386,0,0,1.3239832,-8.3110461,-7.6507862)">
+<path opacity="0.15" stroke-linejoin="round" style="color:#000000;" fill="none" stroke-dashoffset="0" stroke="url(#linearGradient3077)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.99999952" d="m26.1,12.8,0,22.2,8.83,0,0-22.2-8.83,0z"/>
+<path style="color:#000000;" d="m26.5,13.4,0,21,8,0,0-21-8,0z" fill-rule="evenodd" fill="url(#radialGradient3079)"/>
+<path stroke-linejoin="round" style="color:#000000;" d="m26.5,13.4,0,21.1,8,0,0-21.1-8,0z" stroke-dashoffset="0" stroke="url(#linearGradient3082)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.00000012" fill="none"/>
+<path stroke-linejoin="miter" style="color:#000000;" d="m27.5,14.4,0,19,6,0,0-19-6,0z" stroke-dashoffset="0" stroke="url(#linearGradient3084)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="0.9999997" fill="none"/>
+<path opacity="0.5" style="color:#000000;" fill-rule="nonzero" display="block" fill="#f7f7f7" d="m28,14.9,0,8.39,4.99-0.619,0-7.86-4.99,0.0884z"/>
 <g transform="translate(-12.97229,0)">
-<path opacity="0.15" stroke-linejoin="round" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M26.1,12.8v22.2h8.8v-22.2h-8.8z" stroke-dashoffset="0" stroke="url(#linearGradient2823)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.99999952" fill="none"/>
-<path style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" fill-rule="evenodd" fill="url(#radialGradient2809)" d="M26.5,13.4v21h8v-21h-8z"/>
-<path stroke-linejoin="round" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M26.5,13.4v21.1h8v-21.1h-8z" stroke-dashoffset="0" stroke="url(#linearGradient2803)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.00000012" fill="none"/>
-<path stroke-linejoin="miter" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M27.5,14.4v19h6v-19h-6z" stroke-dashoffset="0" stroke="url(#linearGradient2800)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="0.9999997" fill="none"/>
-<path opacity="0.5" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" fill-rule="nonzero" display="block" fill="#f7f7f7" d="M28,14.9v10.1l5-0.6v-9.5h-5z"/>
+<path opacity="0.15" stroke-linejoin="round" style="color:#000000;" d="m26.1,12.8,0,22.2,8.83,0,0-22.2-8.83,0z" stroke-dashoffset="0" stroke="url(#linearGradient3077)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.99999952" fill="none"/>
+<path style="color:#000000;" d="m26.5,13.4,0,21,8,0,0-21-8,0z" fill-rule="evenodd" fill="url(#radialGradient3079)"/>
+<path stroke-linejoin="round" style="color:#000000;" fill="none" stroke-dashoffset="0" stroke="url(#linearGradient3082)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.00000012" d="m26.5,13.4,0,21.1,8,0,0-21.1-8,0z"/>
+<path stroke-linejoin="miter" style="color:#000000;" d="m27.5,14.4,0,19,6,0,0-19-6,0z" stroke-dashoffset="0" stroke="url(#linearGradient3084)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="0.9999997" fill="none"/>
+<path opacity="0.5" style="color:#000000;" d="m28,14.9,0,10.1,4.99-0.619,0-9.53-4.99,0.0884z" fill-rule="nonzero" display="block" fill="#f7f7f7"/>
+</g>
 </g>
 <metadata>
 <rdf:RDF>
