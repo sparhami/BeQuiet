@@ -1,10 +1,3 @@
-if (typeof com == "undefined") {
-  var com = {};
-}
-
-com.sppad = com.sppad || {};
-com.sppad.BeQuiet = com.sppad.BeQuiet || {};
-
 /**
  * A generic web-page handler.
  * 
@@ -28,15 +21,21 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	this.implementation = aImplementation;
 	this.initialized = false;
 	this.playing = undefined;
+	this.lastPlayTime = 0;
 	
-	this.onPlay = function( ) {
+	this.getLastPlayTime = function() {
+		return self.lastPlayTime;
+	};
+	
+	this.onPlay = function() {
 		if(self.playing === true)
 			return;
 		
 		self.playing = true;
+		self.lastPlayTime = Date.now();
 			
 		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_media_play', true, true);
+		evt.initEvent('com_sppad_handler_play', false, false);
 		evt.handler = self;
 		
 		document.dispatchEvent(evt);
@@ -49,7 +48,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		self.playing = false;
 		
 		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_media_pause', true, true);
+		evt.initEvent('com_sppad_handler_pause', false, false);
 		evt.handler = self;
 		
 		document.dispatchEvent(evt);

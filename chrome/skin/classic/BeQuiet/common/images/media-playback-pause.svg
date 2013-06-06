@@ -1,0 +1,83 @@
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="48px" width="48px" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<defs>
+<linearGradient id="linearGradient2817">
+<stop stop-color="#000" offset="0"/>
+<stop stop-color="#FFF" stop-opacity="0.48453608" offset="1"/>
+</linearGradient>
+<linearGradient id="linearGradient2697">
+<stop stop-color="#babdb6" offset="0"/>
+<stop stop-color="#555753" offset="1"/>
+</linearGradient>
+<linearGradient id="linearGradient2679">
+<stop stop-color="#f7f7f7" offset="0"/>
+<stop stop-color="#ccd0c7" offset="1"/>
+</linearGradient>
+<linearGradient id="linearGradient3081">
+<stop stop-color="#FFF" offset="0"/>
+<stop stop-color="#FFF" stop-opacity="0" offset="1"/>
+</linearGradient>
+<linearGradient id="linearGradient2800" y2="52.5" xlink:href="#linearGradient3081" gradientUnits="userSpaceOnUse" x2="14" gradientTransform="translate(-4e-4,-9.426e-2)" y1="15.3" x1="15.1"/>
+<linearGradient id="linearGradient2803" y2="93.2" xlink:href="#linearGradient2697" gradientUnits="userSpaceOnUse" x2="169" gradientTransform="matrix(1,0,0,1.004384,-145.0004,-71.4625)" y1="110" x1="169"/>
+<radialGradient id="radialGradient2809" xlink:href="#linearGradient2679" gradientUnits="userSpaceOnUse" cy="100" cx="170" gradientTransform="matrix(3.562309e-6,-1.07205,1.992104,-1.250658e-6,-175.6121,212.6949)" r="11"/>
+<linearGradient id="linearGradient2823" y2="105" xlink:href="#linearGradient2817" gradientUnits="userSpaceOnUse" x2="175" gradientTransform="matrix(1.103262,0,0,1.054917,-163.1228,-76.31138)" y1="84.3" x1="175"/>
+</defs>
+<path opacity="0.15" stroke-linejoin="round" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M26.1,12.8v22.2h8.8v-22.2h-8.8z" stroke-dashoffset="0" stroke="url(#linearGradient2823)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.99999952" fill="none"/>
+<path style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" fill-rule="evenodd" fill="url(#radialGradient2809)" d="M26.5,13.4v21h8v-21h-8z"/>
+<path stroke-linejoin="round" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M26.5,13.4v21.1h8v-21.1h-8z" stroke-dashoffset="0" stroke="url(#linearGradient2803)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.00000012" fill="none"/>
+<path stroke-linejoin="miter" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M27.5,14.4v19h6v-19h-6z" stroke-dashoffset="0" stroke="url(#linearGradient2800)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="0.9999997" fill="none"/>
+<path opacity="0.5" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M28,14.9v8.4l5-0.6v-7.8h-5z" fill-rule="nonzero" display="block" fill="#f7f7f7"/>
+<g transform="translate(-12.97229,0)">
+<path opacity="0.15" stroke-linejoin="round" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M26.1,12.8v22.2h8.8v-22.2h-8.8z" stroke-dashoffset="0" stroke="url(#linearGradient2823)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.99999952" fill="none"/>
+<path style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" fill-rule="evenodd" fill="url(#radialGradient2809)" d="M26.5,13.4v21h8v-21h-8z"/>
+<path stroke-linejoin="round" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M26.5,13.4v21.1h8v-21.1h-8z" stroke-dashoffset="0" stroke="url(#linearGradient2803)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="1.00000012" fill="none"/>
+<path stroke-linejoin="miter" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" d="M27.5,14.4v19h6v-19h-6z" stroke-dashoffset="0" stroke="url(#linearGradient2800)" stroke-linecap="square" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="0.9999997" fill="none"/>
+<path opacity="0.5" style="marker-end:none;color:#000000;marker-start:none;marker-mid:none;" fill-rule="nonzero" display="block" fill="#f7f7f7" d="M28,14.9v10.1l5-0.6v-9.5h-5z"/>
+</g>
+<metadata>
+<rdf:RDF>
+<cc:Work>
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+<dc:publisher>
+<cc:Agent rdf:about="http://openclipart.org/">
+<dc:title>Open Clip Art Library</dc:title>
+</cc:Agent>
+</dc:publisher>
+<dc:title/>
+<dc:date>2010-03-11T09:13:16</dc:date>
+<dc:description>&quot;Pause&quot; icon from &lt;A href=&quot;http://tango.freedesktop.org/Tango_Desktop_Project&quot;&gt; Tango Project &lt;/A&gt; 
+\n&lt;BR&gt;&lt;BR&gt;
+\nSince version 0.8.90 Tango Project icons are Public Domain: &lt;A href=&quot;http://tango.freedesktop.org/Frequently_Asked_Questions#Terms_of_Use.3F&quot;&gt; Tango Project FAQ &lt;/A&gt;</dc:description>
+<dc:source>http://openclipart.org/detail/31009/tango-media-pause-by-warszawianka</dc:source>
+<dc:creator>
+<cc:Agent>
+<dc:title>warszawianka</dc:title>
+</cc:Agent>
+</dc:creator>
+<dc:subject>
+<rdf:Bag>
+<rdf:li>audio</rdf:li>
+<rdf:li>button</rdf:li>
+<rdf:li>clip art</rdf:li>
+<rdf:li>clipart</rdf:li>
+<rdf:li>icon</rdf:li>
+<rdf:li>media</rdf:li>
+<rdf:li>pause</rdf:li>
+<rdf:li>playback</rdf:li>
+<rdf:li>sign</rdf:li>
+<rdf:li>symbol</rdf:li>
+<rdf:li>tango</rdf:li>
+<rdf:li>xternalsource</rdf:li>
+</rdf:Bag>
+</dc:subject>
+</cc:Work>
+<cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+<cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+<cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+<cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+</cc:License>
+</rdf:RDF>
+</metadata>
+</svg>

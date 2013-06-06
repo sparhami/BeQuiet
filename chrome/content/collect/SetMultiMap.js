@@ -1,8 +1,3 @@
-if (typeof com == "undefined") {
-  var com = {};
-}
-
-com.sppad = com.sppad || {};
 com.sppad.collect = com.sppad.collect || {};
 
 com.sppad.collect.SetMultiMap = function() {

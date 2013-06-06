@@ -1,10 +1,3 @@
-if (typeof com == "undefined") {
-  var com = {};
-}
-
-com.sppad = com.sppad || {};
-com.sppad.BeQuiet = com.sppad.BeQuiet || {};
-
 /**
  * Handles Flash videos on YouTube. While it mostly works for HMTL5 videos, it
  * can be unreliable. As such, it does not attempt to handle any HMTL5 videos,

@@ -1,3 +1,5 @@
 content 	BeQuiet 							chrome/content/
 	
 overlay chrome://browser/content/browser.xul chrome://BeQuiet/content/browser.xul
+
+skin	 	BeQuiet 			classic/1.0		chrome/skin/classic/BeQuiet/common/
