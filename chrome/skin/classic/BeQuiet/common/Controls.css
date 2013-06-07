@@ -1,12 +1,12 @@
-#com_sppad_beQuiet_mediaControl image {
+#com_sppad_beQuiet_media_playPause image {
 	width: 16px;
 	height: 16px;
 }
 
-#com_sppad_beQuiet_mediaControl[playing] {
-	list-style-image: url("chrome://BeQuiet/skin/images/media-playback-pause.svg");
+#com_sppad_beQuiet_media_playPause {
+	list-style-image: url("chrome://BeQuiet/skin/images/play.svg");
 }
 
-#com_sppad_beQuiet_mediaControl:not([playing]) {
-	list-style-image: url("chrome://BeQuiet/skin/images/media-playback-start.svg");
+#com_sppad_beQuiet_media_playPause[playing] {
+	list-style-image: url("chrome://BeQuiet/skin/images/pause.svg");
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 
+<!DOCTYPE overlay SYSTEM "chrome://BeQuiet/locale/locale.dtd">
+
 <?xml-stylesheet type="text/css" href="chrome://BeQuiet/skin/Controls.css"?>
 
 <overlay id="BeQuiet"
@@ -28,7 +30,7 @@
 	</keyset>
 
 	<toolbarpalette id="BrowserToolbarPalette">
-		<toolbarbutton id="com_sppad_beQuiet_mediaControl"
+		<toolbarbutton id="com_sppad_beQuiet_media_playPause" label="&media_playPause.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional" command="cmd_mediaToggleState">
 		</toolbarbutton>
 	</toolbarpalette>

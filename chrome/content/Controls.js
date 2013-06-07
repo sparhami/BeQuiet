@@ -5,7 +5,7 @@ com.sppad.BeQuiet.Controls = new function() {
 	self.playing = false;
 	
 	this.setButtonState	 = function(playing) {
-		let control = document.getElementById('com_sppad_beQuiet_mediaControl');
+		let control = document.getElementById('com_sppad_beQuiet_media_playPause');
 		
 		if(!control)
 			return;
