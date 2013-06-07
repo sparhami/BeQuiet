@@ -59,4 +59,14 @@ com.sppad.BeQuiet.Main = new function() {
 	});
 };
 
-
+window.addEventListener("load", function() {
+	Application.getExtensions(function (extensions) {
+	    if (extensions.get("BeQuiet@com.sppad").firstRun) {
+	        var toolbar = document.getElementById('nav-bar');
+	
+	        toolbar.insertItem('com_sppad_beQuiet_media_playPause', null);
+	        toolbar.setAttribute("currentset", toolbar.currentSet);
+	        document.persist(toolbar.id, "currentset");
+	    }
+	});
+});
