@@ -8,6 +8,7 @@ com.sppad.BeQuiet.Main = new function() {
 	                          { key: /pandora.com$/, value: com.sppad.BeQuiet.Pandora },
 	                          { key: /last.fm$/, value: com.sppad.BeQuiet.LastFM },
 	                          { key: /grooveshark.com$/, value: com.sppad.BeQuiet.Grooveshark },
+	                          { key: /playlist.com$/, value: com.sppad.BeQuiet.Playlist },
 	                          { key: new RegExp("."), value: com.sppad.BeQuiet.HtmlVideo } ];
 	
 	let self = this;

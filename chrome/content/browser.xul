@@ -14,6 +14,7 @@
 	<script type="application/x-javascript" src="sites/HtmlVideo.js" />
 	<script type="application/x-javascript" src="sites/LastFM.js" />
 	<script type="application/x-javascript" src="sites/Pandora.js" />
+	<script type="application/x-javascript" src="sites/Playlist.js" />
 	<script type="application/x-javascript" src="sites/YouTube.js" />
 	<script type="application/x-javascript" src="Controls.js" />
 	<script type="application/x-javascript" src="MediaState.js" />
