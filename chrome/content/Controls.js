@@ -2,6 +2,7 @@ com.sppad.BeQuiet.Controls = new function() {
 	
 	let self = this;
 	
+	self.strings = null;
 	self.playing = false;
 	
 	this.setButtonState	 = function(playing) {
@@ -10,14 +11,21 @@ com.sppad.BeQuiet.Controls = new function() {
 		if(!control)
 			return;
 		
-		if(playing) {
+		if(playing)
 			control.setAttribute('playing', true);
-			control.setAttribute('tooltiptext', 'Pause');
-		} else {
+		else
 			control.removeAttribute('playing');
-			control.setAttribute('tooltiptext', 'Play');
-		}
-	}
+	};
+	
+	this.updateToggleTooltip = function(aEvent) {
+		let text = self.strings.getString(self.playing ? 'pause' : 'play');
+		
+		aEvent.target.setAttribute('label', text);
+	};
+	
+	this.isPlaying = function() {
+		return self.playing;
+	};
 	
 	this.onPlay = function(aEvent) {
 		self.playing = true;
@@ -53,6 +61,8 @@ com.sppad.BeQuiet.Controls = new function() {
 	};
 	
 	window.addEventListener("load", function() {
+		self.strings = document.getElementById('com_sppad_BeQuiet_strings');
+		
 		document.addEventListener("com_sppad_media_play", self.onPlay, false);
 		document.addEventListener("com_sppad_media_pause", self.onPause, false);
 	});

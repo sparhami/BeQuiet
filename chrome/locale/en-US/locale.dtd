@@ -1,3 +1,6 @@
+<!ENTITY next.label "Next">
+<!ENTITY previous.label "Previous">
+
 <!ENTITY preference.window.title "BeQuiet Preferences">
 <!ENTITY preference.generalPrefPane.label "General">
 

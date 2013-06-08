@@ -66,6 +66,12 @@
 			oncommand="com.sppad.BeQuiet.Controls.previous();" />
 	</commandset>
 
+	<stringbundleset id="stringbundleset">
+		<stringbundle
+			id="com_sppad_BeQuiet_strings"
+			src="chrome://BeQuiet/locale/locale.properties" />
+	</stringbundleset>
+
 	<keyset>
 		<key
 			id="com_sppad_mediaToggleState"
@@ -84,24 +90,35 @@
 			modifiers="alt,shift" />
 	</keyset>
 
+	<window>
+		<popupset>
+			<tooltip
+				id="com_sppad_beQuiet_media_playPause.tooltip"
+				onpopupshowing="com.sppad.BeQuiet.Controls.updateToggleTooltip(event);" />
+		</popupset>
+	</window>
+
 	<toolbarpalette id="BrowserToolbarPalette">
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_playPause"
 			label="&mediaToggleState.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional"
-			command="cmd_mediaToggleState">
+			command="cmd_mediaToggleState"
+			tooltip="com_sppad_beQuiet_media_playPause.tooltip">
 		</toolbarbutton>
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_previous"
 			label="&mediaPrevious.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional"
-			command="cmd_mediaPrevious">
+			command="cmd_mediaPrevious"
+			tooltiptext="&previous.label;">
 		</toolbarbutton>
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_next"
 			label="&mediaNext.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional"
-			command="cmd_mediaNext">
+			command="cmd_mediaNext"
+			tooltiptext="&next.label;">
 		</toolbarbutton>
 	</toolbarpalette>
 </overlay>
