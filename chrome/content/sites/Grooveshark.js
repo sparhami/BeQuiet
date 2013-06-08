@@ -1,4 +1,4 @@
-com.sppad.BeQuiet.LastFM = function(aBrowser) {
+com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 	
 	const PLAYING_CLASS = 'playing';
 	
@@ -8,21 +8,24 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 		if(!self.initialized)
 			return false;
 		
-		return self.webRadio.classList.contains(PLAYING_CLASS);
+		return self.button.classList.contains(PLAYING_CLASS);
 	};
+	
 	
 	this.play = function() {
 		if(!self.initialized)
 			return;
 		
-		self.playButton.click();
+		if(!self.isPlaying())
+			self.button.click();
 	};
 	
 	this.pause = function() {
 		if(!self.initialized)
 			return;
 		
-		self.pauseButton.click();
+		if(self.isPlaying())
+			self.button.click();
 	};
 	
 	this.playObserver = new MutationObserver(function(mutations) {
@@ -37,15 +40,13 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
     });
 	
 	this.initialize = function() {
-		self.webRadio = self.doc.getElementById('webRadio');
-		self.playButton = self.doc.getElementById('radioControlPlay');
-		self.pauseButton = self.doc.getElementById('radioControlPause');
+		self.button = self.doc.getElementById('play-pause');
 		
-		return (self.webRadio != null) && (self.playButton != null) && (self.pauseButton != null);
+		return self.button != null;
 	};
 	
 	this.registerListeners = function() {
-	    self.playObserver.observe(self.webRadio, { attributes: true });
+	    self.playObserver.observe(self.button, { attributes: true });
 	};
 	
 	this.unregisterListeners = function() {
@@ -56,5 +57,5 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 	this.base(aBrowser, self);
 }
 
-com.sppad.BeQuiet.LastFM.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
-com.sppad.BeQuiet.LastFM.prototype.constructor = com.sppad.BeQuiet.LastFM;
+com.sppad.BeQuiet.Grooveshark.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
+com.sppad.BeQuiet.Grooveshark.prototype.constructor = com.sppad.BeQuiet.Grooveshark;

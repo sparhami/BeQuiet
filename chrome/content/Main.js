@@ -7,6 +7,7 @@ com.sppad.BeQuiet.Main = new function() {
 	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: com.sppad.BeQuiet.YouTube },
 	                          { key: /pandora.com$/, value: com.sppad.BeQuiet.Pandora },
 	                          { key: /last.fm$/, value: com.sppad.BeQuiet.LastFM },
+	                          { key: /grooveshark.com$/, value: com.sppad.BeQuiet.Grooveshark },
 	                          { key: new RegExp("."), value: com.sppad.BeQuiet.HtmlVideo } ];
 	
 	let self = this;
