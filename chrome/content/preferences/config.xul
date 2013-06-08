@@ -4,6 +4,7 @@
 
 <?xml-stylesheet href="config.css" type="text/css"?>
 <?xml-stylesheet href="chrome://BeQuiet/skin/preferences/config.css" type="text/css"?>
+<?xml-stylesheet href="chrome://BeQuiet-platform/skin/preferences/config.css" type="text/css"?>
 
 <!DOCTYPE prefwindow SYSTEM "chrome://BeQuiet/locale/locale.dtd">
 

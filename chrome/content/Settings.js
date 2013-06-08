@@ -21,17 +21,16 @@ com.sppad.BeQuiet.Settings = new function() {
     };
     
     /**
-     * Note: currently requires browser restart in order to change key-bind.
+     * Note: currently requires browser restart in order to change keybinding.
      */
     this.updateKeybind = function(name) {
-      	dump("updating keybind " + name + "\n");
-    	
     	let branch = "shortcut." + name + ".";
+    	let modBranch = branch + "modifiers.";
     	
     	let key = self.prefs[branch + "key"];
     	let enabled = key != '';
     	let modifiers = ['alt', 'shift', 'control', 'meta']
-    		.filter(function(mod) { return self.prefs[branch + "modifiers." + mod]; })
+    		.filter(function(mod) { return self.prefs[modBranch + mod]; })
     		.join(',');
     	
     	let commandNode = document.getElementById(name);
@@ -44,14 +43,14 @@ com.sppad.BeQuiet.Settings = new function() {
 
     	commandNode.setAttribute('key', key);   	
     	commandNode.setAttribute('modifiers', modifiers);
-    	
-    	dump("done updating keybind " + name + "\n");
     };
 
     window.addEventListener('load', function() {
     	com.sppad.BeQuiet.Preferences.addListener(self);
     	
-    	let prefs = ['shortcut.com_sppad_mediaToggleState.'];
+    	let prefs = ['shortcut.com_sppad_mediaToggleState.',
+    	             'shortcut.com_sppad_mediaNext.',
+    	             'shortcut.com_sppad_mediaPrevious.'];
     	
         prefs.forEach(function(pref) {
             self.prefChanged(pref, self.prefs[pref]);

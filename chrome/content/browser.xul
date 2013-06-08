@@ -56,17 +56,22 @@
 
 	<commandset id="mainCommandSet">
 		<command
+			id="cmd_mediaToggleState"
+			oncommand="com.sppad.BeQuiet.Controls.toggle();" />
+		<command
 			id="cmd_mediaNext"
 			oncommand="com.sppad.BeQuiet.Controls.next();" />
 		<command
 			id="cmd_mediaPrevious"
 			oncommand="com.sppad.BeQuiet.Controls.previous();" />
-		<command
-			id="cmd_mediaToggleState"
-			oncommand="com.sppad.BeQuiet.Controls.toggle();" />
 	</commandset>
 
 	<keyset>
+		<key
+			id="com_sppad_mediaToggleState"
+			command="cmd_mediaToggleState"
+			key="p"
+			modifiers="alt" />
 		<key
 			id="com_sppad_mediaNext"
 			command="cmd_mediaNext"
@@ -75,13 +80,8 @@
 		<key
 			id="com_sppad_mediaPrevious"
 			command="cmd_mediaPrevious"
-			key="k"
-			modifiers="alt" />
-		<key
-			id="com_sppad_mediaToggleState"
-			command="cmd_mediaToggleState"
-			key="p"
-			modifiers="alt" />
+			key="n"
+			modifiers="alt,shift" />
 	</keyset>
 
 	<toolbarpalette id="BrowserToolbarPalette">
@@ -90,6 +90,18 @@
 			label="&mediaToggleState.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional"
 			command="cmd_mediaToggleState">
+		</toolbarbutton>
+		<toolbarbutton
+			id="com_sppad_beQuiet_media_previous"
+			label="&mediaPrevious.label;"
+			class="toolbarbutton-1 chromeclass-toolbar-additional"
+			command="cmd_mediaPrevious">
+		</toolbarbutton>
+		<toolbarbutton
+			id="com_sppad_beQuiet_media_next"
+			label="&mediaNext.label;"
+			class="toolbarbutton-1 chromeclass-toolbar-additional"
+			command="cmd_mediaNext">
 		</toolbarbutton>
 	</toolbarpalette>
 </overlay>

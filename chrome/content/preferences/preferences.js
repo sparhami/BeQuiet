@@ -31,10 +31,10 @@ com.sppad.BeQuiet.PREFS = {
 	    },
 	    
 	    com_sppad_mediaPrevious: {
-	    	key: '',
+	    	key: 'n',
 	    	modifiers: {
-	    		shift: false,
-	    		alt: false,
+	    		shift: true,
+	    		alt: true,
 	    		control: false,
 	    		meta: false,
 	    	},

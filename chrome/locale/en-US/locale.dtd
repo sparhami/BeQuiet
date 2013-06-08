@@ -12,7 +12,7 @@
 <!ENTITY mediaPrevious.label "Media previous">
 
 <!ENTITY preference.keybindings.label "Key Bindings">
-<!ENTITY preference.keybindingsNote.label "Note:changing key or modifiers requires a browser restart.">
+<!ENTITY preference.keybindingsNote.label "Note:changing a key binding requires a browser restart.">
 
 <!ENTITY preference.mediaNext.label "Media next">
 <!ENTITY preference.mediaPrevious.label "Media previous">

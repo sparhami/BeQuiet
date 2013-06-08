@@ -1,6 +1,12 @@
+#com_sppad_beQuiet_media_next image,
+#com_sppad_beQuiet_media_previous image,
 #com_sppad_beQuiet_media_playPause image {
 	width: 16px;
 	height: 16px;
+}
+
+#com_sppad_beQuiet_media_previous image {
+	transform: scaleX(-1);
 }
 
 #com_sppad_beQuiet_media_playPause {
@@ -9,4 +15,9 @@
 
 #com_sppad_beQuiet_media_playPause[playing] {
 	list-style-image: url("chrome://BeQuiet/skin/images/pause.svg");
+}
+
+#com_sppad_beQuiet_media_next,
+#com_sppad_beQuiet_media_previous {
+	list-style-image: url("chrome://BeQuiet/skin/images/next.svg");
 }
