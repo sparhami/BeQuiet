@@ -1,3 +1,19 @@
+<!ENTITY preference.window.title "BeQuiet Preferences">
+<!ENTITY preference.generalPrefPane.label "General">
 
-<!ENTITY media_playPause.label "Media play/pause">
+<!ENTITY preference.key.label "Key">
+<!ENTITY preference.shift.label "Shift">
+<!ENTITY preference.alt.label "Alt">
+<!ENTITY preference.control.label "Control">
+<!ENTITY preference.meta.label "Command">
 
+<!ENTITY mediaToggleState.label "Media play/pause">
+<!ENTITY mediaNext.label "Media next">
+<!ENTITY mediaPrevious.label "Media previous">
+
+<!ENTITY preference.keybindings.label "Key Bindings">
+<!ENTITY preference.keybindingsNote.label "Note:changing key or modifiers requires a browser restart.">
+
+<!ENTITY preference.mediaNext.label "Media next">
+<!ENTITY preference.mediaPrevious.label "Media previous">
+<!ENTITY preference.mediaToggleState.label "Media play/pause">

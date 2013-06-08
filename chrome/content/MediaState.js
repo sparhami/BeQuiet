@@ -26,7 +26,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 		let lastPlayingHandler = null;
 
 		for(let handler of com.sppad.BeQuiet.Main.handlers.values()) {
-			if(handler.getLastPlayTime() >= lastPlayTime) {
+			if(handler.isActive() && handler.getLastPlayTime() >= lastPlayTime) {
 				lastPlayTime = handler.getLastPlayTime();
 				lastPlayingHandler = handler;
 			}
@@ -34,6 +34,16 @@ com.sppad.BeQuiet.MediaState = new function() {
 		
 		if(lastPlayingHandler != null)
 			lastPlayingHandler.play();
+	};
+	
+	this.next = function() {
+		if(self.playingHandler)
+			self.playingHandler.next();
+	};
+	
+	this.previous = function() {
+		if(self.playingHandler)
+			self.playingHandler.previous();
 	};
 	
 	this.resume = function() {

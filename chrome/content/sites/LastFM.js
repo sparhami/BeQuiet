@@ -25,6 +25,17 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 		self.pauseButton.click();
 	};
 	
+	this.next = function() {
+		if(!self.initialized)
+			return;
+		
+		self.nextButton.click();
+	};
+	
+	this.previous = function() {
+
+	};
+	
 	this.playObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if(mutation.attributeName != 'class')
@@ -40,6 +51,7 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 		self.webRadio = self.doc.getElementById('webRadio');
 		self.playButton = self.doc.getElementById('radioControlPlay');
 		self.pauseButton = self.doc.getElementById('radioControlPause');
+		self.nextButton = self.doc.getElementById('radioControlSkip');
 		
 		return (self.webRadio != null) && (self.playButton != null) && (self.pauseButton != null);
 	};

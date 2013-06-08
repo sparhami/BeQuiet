@@ -26,6 +26,17 @@ com.sppad.BeQuiet.Pandora = function(aBrowser) {
 		self.pauseButton.click();
 	};
 	
+	this.next = function() {
+		if(!self.initialized)
+			return;
+		
+		self.nextButton.click();
+	};
+	
+	this.previous = function() {
+		
+	};
+	
 	this.playObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if(mutation.attributeName != 'style')
@@ -40,6 +51,7 @@ com.sppad.BeQuiet.Pandora = function(aBrowser) {
 	this.initialize = function() {
 		self.playButton = self.doc.getElementsByClassName('playButton')[0];
 		self.pauseButton = self.doc.getElementsByClassName('pauseButton')[0];
+		self.nextButton = self.doc.getElementsByClassName('skipButton')[0];
 		
 		return self.playButton != null &&  self.pauseButton != null;
 	};

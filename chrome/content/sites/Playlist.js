@@ -26,6 +26,20 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
 		self.pauseButton.click();
 	};
 	
+	this.next = function() {
+		if(!self.initialized)
+			return;
+		
+		self.nextButton.click();
+	};
+	
+	this.previous = function() {
+		if(!self.initialized)
+			return;
+		
+		self.prevButton.click();
+	};
+	
 	this.playObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if(mutation.attributeName != 'style')
@@ -40,6 +54,8 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
 	this.initialize = function() {
 		self.playButton = self.doc.getElementsByClassName('jp-play')[0];
 		self.pauseButton = self.doc.getElementsByClassName('jp-pause')[0];
+		self.nextButton = self.doc.getElementsByClassName('jp-next')[0];
+		self.prevButton = self.doc.getElementsByClassName('jp-prev')[0];
 		
 		return self.playButton != null &&  self.pauseButton != null;
 	};

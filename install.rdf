@@ -4,7 +4,8 @@
       <Description about="urn:mozilla:install-manifest"
         em:id="BeQuiet@com.sppad"
         em:type="2"
-        em:version="$VERSION">
+        em:version="$VERSION"
+       	em:optionsURL="chrome://BeQuiet/content/preferences/config.xul">>
          
         <!-- Target Application this extension can install into,   
              with minimum and maximum supported versions. -->   

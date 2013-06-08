@@ -39,6 +39,14 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		self.doc.defaultView.wrappedJSObject.com_sppad_pause();
 	};
 	
+	this.next = function() {
+		
+	};
+	
+	this.previous = function() {
+
+	};
+	
 	this.stateChange = function(aEvent) {
 		// event name is shared by all handlers, ensure its the same document
 		if(aEvent.target != self.doc)

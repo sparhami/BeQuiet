@@ -7,6 +7,8 @@
  * <li>isPlaying
  * <li>play
  * <li>pause
+ * <li>next
+ * <li>previous
  * <li>initialize
  * <li>registerListeners
  * <li>unregisterListeners
@@ -25,6 +27,10 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
 	this.getLastPlayTime = function() {
 		return self.lastPlayTime;
+	};
+	
+	this.isActive = function() {
+		return self.initialized;
 	};
 	
 	this.onPlay = function() {

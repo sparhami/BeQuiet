@@ -44,6 +44,14 @@ com.sppad.BeQuiet.Controls = new function() {
 			self.play();
 	};
 	
+	this.next = function() {
+		com.sppad.BeQuiet.MediaState.next();
+	};
+	
+	this.previous = function() {
+		com.sppad.BeQuiet.MediaState.previous();
+	};
+	
 	window.addEventListener("load", function() {
 		document.addEventListener("com_sppad_media_play", self.onPlay, false);
 		document.addEventListener("com_sppad_media_pause", self.onPause, false);

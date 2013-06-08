@@ -4,36 +4,92 @@
 
 <?xml-stylesheet type="text/css" href="chrome://BeQuiet/skin/Controls.css"?>
 
-<overlay id="BeQuiet"
+<overlay
+	id="BeQuiet"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-	<script type="application/x-javascript" src="ns.js" />
-	<script type="application/x-javascript" src="collect/SetMultiMap.js" />
-	<script type="application/x-javascript" src="Handler.js" />
-	<script type="application/x-javascript" src="sites/Grooveshark.js" />
-	<script type="application/x-javascript" src="sites/HtmlVideo.js" />
-	<script type="application/x-javascript" src="sites/LastFM.js" />
-	<script type="application/x-javascript" src="sites/Pandora.js" />
-	<script type="application/x-javascript" src="sites/Playlist.js" />
-	<script type="application/x-javascript" src="sites/YouTube.js" />
-	<script type="application/x-javascript" src="Controls.js" />
-	<script type="application/x-javascript" src="MediaState.js" />
-	<script type="application/x-javascript" src="Main.js" />
+	<script
+		type="application/x-javascript"
+		src="ns.js" />
+	<script
+		type="application/x-javascript"
+		src="utils.js" />
+	<script
+		type="application/x-javascript"
+		src="preferences/preferences.js" />
+	<script
+		type="application/x-javascript"
+		src="Settings.js" />
+	<script
+		type="application/x-javascript"
+		src="collect/SetMultiMap.js" />
+	<script
+		type="application/x-javascript"
+		src="Handler.js" />
+	<script
+		type="application/x-javascript"
+		src="sites/Grooveshark.js" />
+	<script
+		type="application/x-javascript"
+		src="sites/HtmlVideo.js" />
+	<script
+		type="application/x-javascript"
+		src="sites/LastFM.js" />
+	<script
+		type="application/x-javascript"
+		src="sites/Pandora.js" />
+	<script
+		type="application/x-javascript"
+		src="sites/Playlist.js" />
+	<script
+		type="application/x-javascript"
+		src="sites/YouTube.js" />
+	<script
+		type="application/x-javascript"
+		src="Controls.js" />
+	<script
+		type="application/x-javascript"
+		src="MediaState.js" />
+	<script
+		type="application/x-javascript"
+		src="Main.js" />
 
 	<commandset id="mainCommandSet">
-		<command id="cmd_mediaToggleState" oncommand="com.sppad.BeQuiet.Controls.toggle();" />
-		<command id="cmd_mediaPlay" oncommand="com.sppad.BeQuiet.Controls.play();" />
-		<command id="cmd_mediaPause" oncommand="com.sppad.BeQuiet.Controls.pause();" />
+		<command
+			id="cmd_mediaNext"
+			oncommand="com.sppad.BeQuiet.Controls.next();" />
+		<command
+			id="cmd_mediaPrevious"
+			oncommand="com.sppad.BeQuiet.Controls.previous();" />
+		<command
+			id="cmd_mediaToggleState"
+			oncommand="com.sppad.BeQuiet.Controls.toggle();" />
 	</commandset>
 
 	<keyset>
-		<key id="com_sppad_BeQuiet_media_toggle" modifiers="alt" key="p"
-			command="cmd_mediaToggleState" />
+		<key
+			id="com_sppad_mediaNext"
+			command="cmd_mediaNext"
+			key="n"
+			modifiers="alt" />
+		<key
+			id="com_sppad_mediaPrevious"
+			command="cmd_mediaPrevious"
+			key="k"
+			modifiers="alt" />
+		<key
+			id="com_sppad_mediaToggleState"
+			command="cmd_mediaToggleState"
+			key="p"
+			modifiers="alt" />
 	</keyset>
 
 	<toolbarpalette id="BrowserToolbarPalette">
-		<toolbarbutton id="com_sppad_beQuiet_media_playPause" label="&media_playPause.label;"
-			class="toolbarbutton-1 chromeclass-toolbar-additional" command="cmd_mediaToggleState">
+		<toolbarbutton
+			id="com_sppad_beQuiet_media_playPause"
+			label="&mediaToggleState.label;"
+			class="toolbarbutton-1 chromeclass-toolbar-additional"
+			command="cmd_mediaToggleState">
 		</toolbarbutton>
 	</toolbarpalette>
 </overlay>

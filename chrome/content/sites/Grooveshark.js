@@ -28,6 +28,21 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 			self.button.click();
 	};
 	
+	this.next = function() {
+		if(!self.initialized)
+			return;
+		
+		if(self.isPlaying())
+			self.nextButton.click();
+	};
+	
+	this.previous = function() {
+		if(!self.initialized)
+			return;
+		
+		self.prevButton.click();
+	};
+	
 	this.playObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if(mutation.attributeName != 'class')
@@ -41,6 +56,8 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 	
 	this.initialize = function() {
 		self.button = self.doc.getElementById('play-pause');
+		self.nextButton = self.doc.getElementById('play-next');
+		self.prevButton = self.doc.getElementById('play-prev');
 		
 		return self.button != null;
 	};

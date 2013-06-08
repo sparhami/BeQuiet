@@ -22,6 +22,10 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 		self.video.pause();
 	};
 	
+	this.next = function() {
+		
+	};
+	
 	this.initialize = function() {
 		self.video = self.doc.getElementsByTagName('video')[0];
 		
