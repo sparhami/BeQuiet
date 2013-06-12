@@ -78,7 +78,7 @@ com.sppad.BeQuiet.MediaState = new function() {
     	if(currentHandler != null)
     		currentHandler.pause();
 		
-		self.pausedHandler = self.playingHandler;
+		self.pausedHandler = currentHandler;
     	self.playingHandler = handler;
       	
       	self.firePlayEvent();
