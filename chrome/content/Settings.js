@@ -34,7 +34,6 @@ com.sppad.BeQuiet.Settings = new function() {
     		.join(',');
     	
     	let commandNode = document.getElementById(name);
-    	let keySet = commandNode.parentNode;
     	
     	if(enabled)
     		commandNode.removeAttribute('disabled');

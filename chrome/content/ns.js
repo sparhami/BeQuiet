@@ -4,3 +4,5 @@ if (typeof com == "undefined") {
 
 com.sppad = com.sppad || {};
 com.sppad.BeQuiet = com.sppad.BeQuiet || {};
+
+com.sppad.collect = com.sppad.collect || {};

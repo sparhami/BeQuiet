@@ -1,5 +1,3 @@
-com.sppad.collect = com.sppad.collect || {};
-
 com.sppad.collect.SetMultiMap = function() {
 
 	let self = this;

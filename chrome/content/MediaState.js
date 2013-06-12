@@ -22,15 +22,9 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	this.play = function() {
-		let lastPlayTime = -1;
-		let lastPlayingHandler = null;
-
-		for(let handler of com.sppad.BeQuiet.Main.handlers.values()) {
-			if(handler.isActive() && handler.getLastPlayTime() >= lastPlayTime) {
-				lastPlayTime = handler.getLastPlayTime();
-				lastPlayingHandler = handler;
-			}
-		}
+		let lastPlayingHandler = new com.sppad.collect.Iterable(com.sppad.BeQuiet.Main.handlers.values())
+			.filter(function(a) { return a.isActive() })
+			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime() });
 		
 		if(lastPlayingHandler != null)
 			lastPlayingHandler.play();

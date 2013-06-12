@@ -25,6 +25,9 @@
 		src="collect/SetMultiMap.js" />
 	<script
 		type="application/x-javascript"
+		src="collect/Iterable.js" />
+	<script
+		type="application/x-javascript"
 		src="Handler.js" />
 	<script
 		type="application/x-javascript"
