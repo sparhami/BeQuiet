@@ -8,16 +8,14 @@ com.sppad.BeQuiet.MediaState = new function() {
 	/** The handler that is currently playing media */
 	self.playingHandler = null;
     
-    this.setPlayingHandler = function(aHandler) {
-      	if(self.playingHandler != null)
-    		self.playingHandler.pause();
-		
-		self.pausedHandler = self.playingHandler;
-    	self.playingHandler = aHandler;
-    };
-	
 	this.pause = function() {
-		self.setPlayingHandler(null);
+		let currentHandler = self.playingHandler;
+		
+   		self.pausedHandler = null;
+		self.playingHandler = null;
+		
+		currentHandler.pause();
+
 	  	self.firePauseEvent();
 	};
 	
@@ -71,7 +69,14 @@ com.sppad.BeQuiet.MediaState = new function() {
     };
     
     this.onPlay = function(aEvent) {
-      	self.setPlayingHandler(aEvent.handler);
+    	let handler = aEvent.handler;
+    	
+    	if(self.playingHandler != null)
+    		self.playingHandler.pause();
+		
+		self.pausedHandler = self.playingHandler;
+    	self.playingHandler = handler;
+      	
       	self.firePlayEvent();
     };
     
