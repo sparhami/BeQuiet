@@ -6,8 +6,11 @@ com.sppad.collect.Iterable = function(iterator) {
 	
 	
 	/**
+	 * Performs a filter, returning an Iterable that will skip over any elements
+	 * not selected by the predicate.
+	 * 
 	 * @param predicate
-	 *            A function returns true if the item should be included
+	 *            A function that returns true if the item should be included
 	 */
 	this.filter = function(predicate) {
 		return new com.sppad.collect.Iterable(new function() {
@@ -17,8 +20,10 @@ com.sppad.collect.Iterable = function(iterator) {
 		});
 	};
 	
-	
 	/**
+	 * Peforms a map, returning an Iterable that will apply the mapping function
+	 * to each item while iterating, yielding the mapped value.
+	 * 
 	 * @param func
 	 *            A function that maps an input parameter to an output parameter
 	 */
@@ -26,6 +31,19 @@ com.sppad.collect.Iterable = function(iterator) {
 		return new com.sppad.collect.Iterable(new function() {
 			for(let item of self.iterator)
 				yield func(item);
+		});
+	};
+	
+	/**
+	 * Iterates over the values, performing a function for each value.
+	 * 
+	 * @param func
+	 *            A function to apply on each element
+	 */
+	this.forEach = function(func) {
+		return new com.sppad.collect.Iterable(new function() {
+			for(let item of self.iterator)
+				func(item);
 		});
 	};
 	
@@ -52,6 +70,8 @@ com.sppad.collect.Iterable = function(iterator) {
 	};
 
 	/**
+	 * Returns the maximum value in the Iterable.
+	 * 
 	 * @param comparator
 	 *            A function(a, b) that returns less than 0, 0 or greater than 0
 	 *            as a is less than, equal to or greater than b
@@ -63,6 +83,8 @@ com.sppad.collect.Iterable = function(iterator) {
 	};
 	
 	/**
+	 * Returns the minimum value in the Iterable.
+	 * 
 	 * @param comparator
 	 *            A function(a, b) that returns less than 0, 0 or greater than 0
 	 *            as a is less than, equal to or greater than b
@@ -86,9 +108,16 @@ com.sppad.collect.Iterable = function(iterator) {
 	};
 	
 	/**
-	 * @return A Set containing the items in the iterator
+	 * @return A Set containing the unique items in the iterator
 	 */
 	this.toSet = function() {
 		return new Set(self.iterator);
+	};
+	
+	/**
+	 * @return The iterator for this iterable, allowing direct iteration
+	 */
+	this.__iterator__ = function() {
+		return self.iterator;
 	};
 }
