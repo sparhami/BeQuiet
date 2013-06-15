@@ -124,15 +124,22 @@ com.sppad.collect.Iterable = function(iterator) {
 	this.toSet = function() {
 		return new Set(self.iterator);
 	};
-	
-	/**
-	 * @return The iterator for this iterable, allowing direct iteration
-	 */
-	this.__iterator__ = function() {
-		return self.iterator;
-	};
 };
 
-com.sppad.collect.Iterable.from = function(iterator) {
-	return new com.sppad.collect.Iterable(iterator);
+/**
+ * Creates an Iterable from one or more iterators.
+ */
+com.sppad.collect.Iterable.from = function() {
+	let args = arguments;
+	
+	if(args.length == 0)
+		throw new ReferenceError("Need an iterator to operate on");
+	else if(args.length == 1)
+		return new com.sppad.collect.Iterable(args[0]);
+	else
+		return new com.sppad.collect.Iterable(new function() {
+			for(let i=0; i<args.length; i++)
+				for(let item of args[i])
+					yield item;
+		});
 };

@@ -1,25 +1,56 @@
 com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 	let self = this;
 	
+	self.media = null;
+	self.videos = null;
+	self.audios = null;
+	
 	this.isPlaying = function() {
-		if(!self.initialized)
+		if(self.media == null)
 			return false;
 		
-		return !self.video.paused;
+		return !self.media.paused;
 	};
 	
 	this.play = function() {
-		if(!self.initialized)
-			return;
+		let media = self.media || self.getFirstMedia();
 		
-		self.video.play();
+		if(media != null)
+			media.play();
 	};
 	
 	this.pause = function() {
-		if(!self.initialized)
+		if(self.media != null)
+			self.media.pause();
+	};
+	
+	this.isActive = function() {
+		return self.media != null || self.getFirstMedia() != null;
+	};
+	
+	this.getFirstMedia = function() {
+		return self.videos[0] || self.audios[0];
+	};
+	
+	this.mediaPlay = function(aEvent) {
+		let media = aEvent.target;
+		let tagName = media.tagName.toUpperCase();
+		
+		if(tagName != "VIDEO" && tagName != "AUDIO")
 			return;
 		
-		self.video.pause();
+		self.media = media;
+		
+		com.sppad.collect.Iterable.from(self.videos, self.audios)
+			.filter(function(item) { return item !== self.media })
+			.forEach(function(item) { item.pause(); });
+		
+		self.onPlay();
+	};
+	
+	this.mediaPause = function(aEvent) {
+		if(self.media === aEvent.target)
+			self.onPause();
 	};
 	
 	this.next = function() {
@@ -27,19 +58,21 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 	};
 	
 	this.initialize = function() {
-		self.video = self.doc.getElementsByTagName('video')[0];
+		// Live collections, so can just get them once during init
+		self.videos = self.doc.getElementsByTagName('video');
+		self.audios = self.doc.getElementsByTagName('audio');
 		
-		return self.video != null;
-	};
+		return true;
+	};	
 	
 	this.registerListeners = function() {
-		self.video.addEventListener('play', self.onPlay, true);
-		self.video.addEventListener('pause', self.onPause, true);
+		self.doc.addEventListener('play', self.mediaPlay, true);
+		self.doc.addEventListener('pause', self.mediaPause, true);
 	};
 	
 	this.unregisterListeners = function() {
-		self.video.removeEventListener('play', self.onPlay);
-		self.video.removeEventListener('pause', self.onPause);
+		self.doc.removeEventListener('play', self.mediaPlay);
+		self.doc.removeEventListener('pause', self.mediaause);
 	};
 	
 	this.base = com.sppad.BeQuiet.Handler;

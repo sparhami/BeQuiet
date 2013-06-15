@@ -8,16 +8,15 @@ com.sppad.BeQuiet.Menu = new function() {
 	
 	this.preparePlayContext = function(event) {
 		
-		let node = event.target;
+		let menu = event.target;
 		
-		while (node.firstChild) {
-		    node.removeChild(node.firstChild);
+		while (menu.firstChild) {
+			menu.removeChild(menu.firstChild);
 		}
 		
-		com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
-			.filter(function(item) { return item.isActive() })
-			.forEach(function(item) { self.addMenuitem(node, item); });
-		
+		for(let handler of com.sppad.BeQuiet.Main.handlers.values())
+			if(handler.isActive())
+				self.addMenuitem(menu, handler);
 	};
 	
 	this.addMenuitem = function(menu, handler) {
