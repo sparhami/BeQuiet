@@ -21,7 +21,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	this.play = function() {
-		let lastPlayingHandler = new com.sppad.collect.Iterable(com.sppad.BeQuiet.Main.handlers.values())
+		let lastPlayingHandler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isActive() })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime() });
 		

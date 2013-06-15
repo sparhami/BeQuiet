@@ -96,6 +96,17 @@ com.sppad.collect.Iterable = function(iterator) {
 	};
 	
 	/**
+	 * @return The first element in the Iterable
+	 */
+	this.first = function() {
+		try {
+			return self.iterator.next();
+		} catch(e) {
+			return undefined;
+		}
+	};
+	
+	/**
 	 * @return An array containing the items in the iterator
 	 */
 	this.toArray = function() {
@@ -120,4 +131,8 @@ com.sppad.collect.Iterable = function(iterator) {
 	this.__iterator__ = function() {
 		return self.iterator;
 	};
-}
+};
+
+com.sppad.collect.Iterable.from = function(iterator) {
+	return new com.sppad.collect.Iterable(iterator);
+};

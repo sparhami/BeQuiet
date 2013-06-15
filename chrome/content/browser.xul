@@ -2,7 +2,7 @@
 
 <!DOCTYPE overlay SYSTEM "chrome://BeQuiet/locale/locale.dtd">
 
-<?xml-stylesheet type="text/css" href="chrome://BeQuiet/skin/Controls.css"?>
+<?xml-stylesheet type="text/css" href="chrome://BeQuiet/skin/browser.css"?>
 
 <overlay
 	id="BeQuiet"
@@ -52,7 +52,13 @@
 		src="Controls.js" />
 	<script
 		type="application/x-javascript"
+		src="Menu.js" />
+	<script
+		type="application/x-javascript"
 		src="MediaState.js" />
+	<script
+		type="application/x-javascript"
+		src="Tabs.js" />
 	<script
 		type="application/x-javascript"
 		src="Main.js" />
@@ -98,6 +104,9 @@
 			<tooltip
 				id="com_sppad_beQuiet_media_playPause.tooltip"
 				onpopupshowing="com.sppad.BeQuiet.Controls.updateToggleTooltip(event);" />
+			<menupopup
+				id="com_sppad_beQuiet_playPauseContext"
+				onpopupshowing="com.sppad.BeQuiet.Menu.preparePlayContext(event);" />
 		</popupset>
 	</window>
 
@@ -107,6 +116,7 @@
 			label="&mediaToggleState.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional"
 			command="cmd_mediaToggleState"
+			context="com_sppad_beQuiet_playPauseContext"
 			tooltip="com_sppad_beQuiet_media_playPause.tooltip">
 		</toolbarbutton>
 		<toolbarbutton

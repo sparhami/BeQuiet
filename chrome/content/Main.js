@@ -55,7 +55,13 @@ com.sppad.BeQuiet.Main = new function() {
 	this.onPageUnload = function(aEvent) {
 	    self.unregisterHandlers(aEvent.originalTarget);
 	};
-
+	
+	this.getTabForBrowser = function(aBrowser) {
+		return com.sppad.collect.Iterable.from(gBrowser.tabs)
+			.filter(function(tab) { return gBrowser.getBrowserForTab(tab) === aBrowser })
+			.first();
+	};
+	
 	window.addEventListener("load", function() {
 		gBrowser.addTabsProgressListener(self);
 	});

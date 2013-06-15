@@ -1,0 +1,7 @@
+@import url("Controls.css");
+
+@namespace BeQuiet url("http://sppad.com/ns/BeQuiet");
+
+tab[BeQuiet|mediaPlaying] {
+	background-color: blue !important;
+}
