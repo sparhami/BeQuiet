@@ -5,6 +5,10 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 	self.videos = null;
 	self.audios = null;
 	
+	this.isActive = function() {
+		return self.media != null || self.getFirstMedia() != null;
+	};
+	
 	this.isPlaying = function() {
 		if(self.media == null)
 			return false;
@@ -22,10 +26,6 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 	this.pause = function() {
 		if(self.media != null)
 			self.media.pause();
-	};
-	
-	this.isActive = function() {
-		return self.media != null || self.getFirstMedia() != null;
 	};
 	
 	this.getFirstMedia = function() {

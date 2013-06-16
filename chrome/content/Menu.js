@@ -28,10 +28,12 @@ com.sppad.BeQuiet.Menu = new function() {
 		
 		item.setAttribute('class', 'menuitem-iconic');
 		item.setAttribute('label', label);
-		item.setAttribute('selected', handler.playing);
+		item.setAttribute('playing', handler.playing);
 
 		self.faviconService.getFaviconURLForPage(browser.currentURI, function(icon) {
-			let image = icon ? icon.asciiSpec : 'chrome://mozapps/skin/places/defaultFavicon.png';
+			let image = handler.playing ? 'chrome://BeQuiet/skin/images/note.svg'
+					: icon ? icon.asciiSpec
+				    : 'chrome://mozapps/skin/places/defaultFavicon.png';
 			
 			item.setAttribute('image', image);	
 		});

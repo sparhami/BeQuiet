@@ -4,6 +4,10 @@ com.sppad.BeQuiet.Pandora = function(aBrowser) {
 	
 	let self = this;
 	
+	this.isActive = function() {
+		return self.initialized;
+	};
+	
 	this.isPlaying = function() {
 		if(!self.initialized)
 			return false;

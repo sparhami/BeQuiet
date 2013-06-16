@@ -17,6 +17,10 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	let self = this;
 	self.ready = false;
 	
+	this.isActive = function() {
+		return self.initialized;
+	};
+	
 	this.isPlaying = function() {
 		if(!self.initialized || !self.ready)
 			return false;

@@ -4,6 +4,7 @@
  * @param aBrowser The browser object the handler handles
  * @param aImplementation An object with the following functions:
  * <ul>
+ * <li>isActive
  * <li>isPlaying
  * <li>play
  * <li>pause
@@ -27,10 +28,6 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
 	this.getLastPlayTime = function() {
 		return self.lastPlayTime;
-	};
-	
-	this.isActive = function() {
-		return self.initialized;
 	};
 	
 	this.onPlay = function() {

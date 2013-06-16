@@ -21,3 +21,7 @@
 #com_sppad_beQuiet_media_previous {
 	list-style-image: url("chrome://BeQuiet/skin/images/next.svg");
 }
+
+#com_sppad_beQuiet_playPauseContext menuitem[playing="true"] {
+	font-weight: bold;
+}

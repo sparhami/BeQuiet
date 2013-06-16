@@ -2,6 +2,35 @@
 
 @namespace BeQuiet url("http://sppad.com/ns/BeQuiet");
 
-tab[BeQuiet|mediaPlaying] {
-	background-color: blue !important;
+tab[BeQuiet|mediaPlaying] .tab-icon-image {
+	position: relative;
+	animation: bounce 1000ms linear 0s 3 alternate;
+	margin-top: 0px !important;
+}
+
+@keyframes bounce { 
+	0% {
+        top: 0%;
+       	margin-top: -5px !important;
+    }
+    
+    35% {
+        top: 20%;
+		transform: scaleY(1.0);
+    }
+    
+    55% {
+        top: 30%;
+		transform: scaleY(0.7);
+    }
+    
+    65% {
+        top: 20%;
+   		transform: scaleY(1.0);
+    }
+    
+    100% {
+        top: 0%;
+        margin-top: -5px !important;
+    }
 }
