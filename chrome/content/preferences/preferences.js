@@ -15,6 +15,9 @@ com.sppad.BeQuiet.PREFS = {
 	
 	/* Delay after pausing before resuming last playing media */
 	resumeDelay: 0,
+	
+	usePlayingIcon: true,
+	usePlayingAnimation: true,
 		
 	shortcut: {
 		com_sppad_mediaToggleState: {

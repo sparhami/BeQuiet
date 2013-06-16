@@ -2,7 +2,7 @@
 
 @namespace BeQuiet url("http://sppad.com/ns/BeQuiet");
 
-tab[BeQuiet|mediaPlaying] .tab-icon-image {
+tab[BeQuiet|mediaPlaying][BeQuiet|usePlayingAnimation] .tab-icon-image {
 	position: relative;
 	animation: bounce 1000ms linear 0s 3 alternate;
 	margin-top: 0px !important;

@@ -1,9 +1,10 @@
 com.sppad.BeQuiet.Tabs = new function() {
 	
-	let self = this;
-	
-	self.faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
+	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	const faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
 		.getService(Components.interfaces.mozIAsyncFavicons);
+	
+	let self = this;
 	
     this.onPause = function(aEvent) {
     	let browser = aEvent.handler.browser;
@@ -11,10 +12,12 @@ com.sppad.BeQuiet.Tabs = new function() {
     	let tab = com.sppad.BeQuiet.Main.getTabForBrowser(browser);
     	tab.removeAttributeNS(com.sppad.BeQuiet.xmlns, 'mediaPlaying');
     	
-    	self.faviconService.getFaviconURLForPage(browser.currentURI, function(icon) {
+    	faviconService.getFaviconURLForPage(browser.currentURI, function(icon) {
 			let image = icon ? icon.asciiSpec : 'chrome://mozapps/skin/places/defaultFavicon.png';
 			tab.setAttribute('image', image);	
 		});
+    	
+   		tab.removeAttributeNS(com.sppad.BeQuiet.xmlns, 'usePlayingAnimation');
     };
     
     this.onPlay = function(aEvent) {
@@ -23,7 +26,13 @@ com.sppad.BeQuiet.Tabs = new function() {
     	let tab = com.sppad.BeQuiet.Main.getTabForBrowser(browser);
       	tab.setAttributeNS(com.sppad.BeQuiet.xmlns, 'mediaPlaying', 'true');
       	
-    	tab.setAttribute('image', 'chrome://BeQuiet/skin/images/note.svg');
+      	if(prefs.usePlayingIcon) {
+        	tab.setAttribute('image', 'chrome://BeQuiet/skin/images/note.svg');		
+      	}
+      	
+      	if(prefs.usePlayingAnimation) {
+      		tab.setAttributeNS(com.sppad.BeQuiet.xmlns, 'usePlayingAnimation', 'true');
+      	}
     };
     
 	window.addEventListener("load", function() {
