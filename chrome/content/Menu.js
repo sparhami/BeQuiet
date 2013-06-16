@@ -24,7 +24,7 @@ com.sppad.BeQuiet.Menu = new function() {
 		let label = browser.contentTitle || browser.currentURI.asciiSpec;
 		
 		let item = document.createElement('menuitem');
-		item.browser = browser;
+		item.handler = handler;
 		
 		item.setAttribute('class', 'menuitem-iconic');
 		item.setAttribute('label', label);
@@ -45,9 +45,7 @@ com.sppad.BeQuiet.Menu = new function() {
 	
 	this.menuitemCommand = function(aEvent) {
 		let item = aEvent.target;
-		let tab = com.sppad.BeQuiet.Main.getTabForBrowser(item.browser);
-		
-		gBrowser.selectedTab = tab;
+		item.handler.play();
 	};
 	
 };
