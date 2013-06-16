@@ -1,9 +1,9 @@
 com.sppad.BeQuiet.Settings = new function() {
 	
+	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	
 	let self = this;
 	
-	self.prefs = com.sppad.BeQuiet.CurrentPrefs;
-
     this.handleEvent = function(aEvent) {
         switch (aEvent.type) {
             case com.sppad.BeQuiet.Preferences.EVENT_PREFERENCE_CHANGED:
@@ -27,10 +27,10 @@ com.sppad.BeQuiet.Settings = new function() {
     	let branch = "shortcut." + name + ".";
     	let modBranch = branch + "modifiers.";
     	
-    	let key = self.prefs[branch + "key"];
+    	let key = prefs[branch + "key"];
     	let enabled = key != '';
     	let modifiers = ['alt', 'shift', 'control', 'meta']
-    		.filter(function(mod) { return self.prefs[modBranch + mod]; })
+    		.filter(function(mod) { return prefs[modBranch + mod]; })
     		.join(',');
     	
     	let commandNode = document.getElementById(name);
@@ -52,7 +52,7 @@ com.sppad.BeQuiet.Settings = new function() {
     	             'shortcut.com_sppad_mediaPrevious.'];
     	
         prefs.forEach(function(pref) {
-            self.prefChanged(pref, self.prefs[pref]);
+            self.prefChanged(pref, prefs[pref]);
         });
     });
 	

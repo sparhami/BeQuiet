@@ -9,6 +9,13 @@ com.sppad.BeQuiet.PREF_WINDOW_FILE = "chrome://BeQuiet/content/preferences/confi
 com.sppad.BeQuiet.PREF_WINDOW_ID = "BeQuiet-preferences-window";
 com.sppad.BeQuiet.PREF_BRANCH = "extensions.BeQuiet.";
 com.sppad.BeQuiet.PREFS = {
+		
+	/* Delay after detecting a potential pause before firing a pause event */
+	pauseCheckDelay: 200,
+	
+	/* Delay after pausing before resuming last playing media */
+	resumeDelay: 0,
+		
 	shortcut: {
 		com_sppad_mediaToggleState: {
 	    	key: 'p',

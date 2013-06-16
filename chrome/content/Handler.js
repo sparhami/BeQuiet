@@ -17,6 +17,8 @@
  */
 com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
+	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	
 	let self = this;
 	this.browser = aBrowser;
 	this.doc = aBrowser.contentDocument;
@@ -25,6 +27,8 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	this.initialized = false;
 	this.playing = undefined;
 	this.lastPlayTime = 0;
+	
+	this.pauseCheckTimer = null;
 	
 	this.getLastPlayTime = function() {
 		return self.lastPlayTime;
@@ -45,16 +49,23 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	};
 	
 	this.onPause = function() {
-		if(self.playing === false)
-			return;
+		// Guard against brief pauses (e.g. changing video location)
+		window.clearTimeout(self.pauseCheckTimer);
+		self.pauseCheckTimer = window.setTimeout(function() {
+			if(self.playing === false)
+				return;
+			
+			if(self.implementation.isPlaying())
+				return;
 		
-		self.playing = false;
-		
-		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_handler_pause', false, false);
-		evt.handler = self;
-		
-		document.dispatchEvent(evt);
+			self.playing = false;
+			
+			let evt = document.createEvent('Event');
+			evt.initEvent('com_sppad_handler_pause', false, false);
+			evt.handler = self;
+			
+			document.dispatchEvent(evt);
+		}, prefs.pauseCheckDelay);
 	};
 	
 	this.updatePlayingState = function() {

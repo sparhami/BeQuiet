@@ -1,5 +1,7 @@
 com.sppad.BeQuiet.MediaState = new function() {
 	
+	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	
 	let self = this;
 	
 	/** The handler that was playing, but was paused */
@@ -7,6 +9,9 @@ com.sppad.BeQuiet.MediaState = new function() {
 	
 	/** The handler that is currently playing media */
 	self.playingHandler = null;
+	
+	/** Timer that delays resuming video per preference */
+	self.resumeDelayTimer = null;
     
 	this.pause = function() {
 		let currentHandler = self.playingHandler;
@@ -39,8 +44,11 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	this.resume = function() {
-		if(self.pausedHandler != null)
-    		self.pausedHandler.play();
+		window.clearTimeout(self.resumeDelayTimer);
+		self.resumeDelayTimer = window.setTimeout(function() {
+			if(self.pausedHandler != null)
+	    		self.pausedHandler.play();
+		}, prefs.resumeDelay - prefs.pauseCheckDleay);
 	};
 
 	this.firePlayEvent = function() {
@@ -69,6 +77,8 @@ com.sppad.BeQuiet.MediaState = new function() {
     };
     
     this.onPlay = function(aEvent) {
+    	window.clearTimeout(self.resumeDelayTimer);
+    	
     	let handler = aEvent.handler;
     	
 		self.pausedHandler = self.playingHandler;
