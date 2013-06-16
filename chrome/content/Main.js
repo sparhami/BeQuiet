@@ -62,6 +62,10 @@ com.sppad.BeQuiet.Main = new function() {
 			.first();
 	};
 	
+	this.handlesSelectedTab = function(aHandler) {
+		return self.getTabForBrowser(aHandler.browser) === gBrowser.selectedTab;
+	};
+	
 	window.addEventListener("load", function() {
 		gBrowser.addTabsProgressListener(self);
 	});

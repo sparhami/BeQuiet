@@ -19,6 +19,8 @@ com.sppad.BeQuiet.PREFS = {
 	usePlayingIcon: true,
 	usePlayingAnimation: true,
 		
+	prioritizeCurrentTabForPlay: true,
+	
 	shortcut: {
 		com_sppad_mediaToggleState: {
 	    	key: 'p',

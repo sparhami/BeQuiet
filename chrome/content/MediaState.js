@@ -25,12 +25,31 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	this.play = function() {
-		let lastPlayingHandler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
+		let handler = null;
+		
+		if(prefs.prioritizeCurrentTabForPlay)
+			handler = self.getCurrentPageHandler();
+		
+		handler = handler || self.getLastHandler();
+		
+		if(handler != null)
+			handler.play();
+	};
+	
+	this.getLastHandler = function() {
+		let handler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isActive() })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime() });
 		
-		if(lastPlayingHandler != null)
-			lastPlayingHandler.play();
+		return handler;
+	};
+	
+	this.getCurrentPageHandler = function() {
+		let handler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
+			.filter(function(a) { return a.isActive() && com.sppad.BeQuiet.Main.handlesSelectedTab(a) })
+			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime() });
+	
+		return handler;
 	};
 	
 	this.next = function() {
