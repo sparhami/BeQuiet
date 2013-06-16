@@ -5,34 +5,34 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 	self.videos = null;
 	self.audios = null;
 	
-	this.isActive = function() {
+	self.isActive = function() {
 		return self.media != null || self.getFirstMedia() != null;
 	};
 	
-	this.isPlaying = function() {
+	self.isPlaying = function() {
 		if(self.media == null)
 			return false;
 		
 		return !self.media.paused;
 	};
 	
-	this.play = function() {
+	self.play = function() {
 		let media = self.media || self.getFirstMedia();
 		
 		if(media != null)
 			media.play();
 	};
 	
-	this.pause = function() {
+	self.pause = function() {
 		if(self.media != null)
 			self.media.pause();
 	};
 	
-	this.getFirstMedia = function() {
+	self.getFirstMedia = function() {
 		return self.videos[0] || self.audios[0];
 	};
 	
-	this.mediaPlay = function(aEvent) {
+	self.mediaPlay = function(aEvent) {
 		let media = aEvent.target;
 		let tagName = media.tagName.toUpperCase();
 		
@@ -48,16 +48,16 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 		self.onPlay();
 	};
 	
-	this.mediaPause = function(aEvent) {
+	self.mediaPause = function(aEvent) {
 		if(self.media === aEvent.target)
 			self.onPause();
 	};
 	
-	this.next = function() {
+	self.next = function() {
 		
 	};
 	
-	this.initialize = function() {
+	self.initialize = function() {
 		// Live collections, so can just get them once during init
 		self.videos = self.doc.getElementsByTagName('video');
 		self.audios = self.doc.getElementsByTagName('audio');
@@ -65,18 +65,18 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 		return true;
 	};	
 	
-	this.registerListeners = function() {
+	self.registerListeners = function() {
 		self.doc.addEventListener('play', self.mediaPlay, true);
 		self.doc.addEventListener('pause', self.mediaPause, true);
 	};
 	
-	this.unregisterListeners = function() {
+	self.unregisterListeners = function() {
 		self.doc.removeEventListener('play', self.mediaPlay);
 		self.doc.removeEventListener('pause', self.mediaause);
 	};
 	
-	this.base = com.sppad.BeQuiet.Handler;
-	this.base(aBrowser, self);
+	self.base = com.sppad.BeQuiet.Handler;
+	self.base(aBrowser, self);
 }
 
 com.sppad.BeQuiet.HtmlVideo.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);

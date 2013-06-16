@@ -13,7 +13,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 	/** Timer that delays resuming video per preference */
 	self.resumeDelayTimer = null;
     
-	this.pause = function() {
+	self.pause = function() {
 		let currentHandler = self.playingHandler;
 		self.playingHandler = null;
   		self.pausedHandler = null;
@@ -24,7 +24,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 	  	self.firePauseEvent();
 	};
 	
-	this.play = function() {
+	self.play = function() {
 		let handler = null;
 		
 		if(prefs.prioritizeCurrentTabForPlay)
@@ -36,7 +36,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 			handler.play();
 	};
 	
-	this.getLastHandler = function() {
+	self.getLastHandler = function() {
 		let handler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isActive(); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
@@ -44,7 +44,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 		return handler;
 	};
 	
-	this.getCurrentPageHandler = function() {
+	self.getCurrentPageHandler = function() {
 		let handler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isActive() && com.sppad.BeQuiet.Main.handlesSelectedTab(a); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
@@ -56,7 +56,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 	 * Pauses all handlers except for the most recently started currently
 	 * playing handler.
 	 */
-	this.forceOnePlayingHandler = function() {
+	self.forceOnePlayingHandler = function() {
 		let lastStartedHandler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isPlaying(); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
@@ -66,17 +66,17 @@ com.sppad.BeQuiet.MediaState = new function() {
 				handler.pause();
 	};
 	
-	this.next = function() {
+	self.next = function() {
 		if(self.playingHandler)
 			self.playingHandler.next();
 	};
 	
-	this.previous = function() {
+	self.previous = function() {
 		if(self.playingHandler)
 			self.playingHandler.previous();
 	};
 	
-	this.resume = function() {
+	self.resume = function() {
 		window.clearTimeout(self.resumeDelayTimer);
 		self.resumeDelayTimer = window.setTimeout(function() {
 			if(self.pausedHandler != null)
@@ -84,19 +84,19 @@ com.sppad.BeQuiet.MediaState = new function() {
 		}, prefs.resumeDelay - prefs.pauseCheckDleay);
 	};
 
-	this.firePlayEvent = function() {
+	self.firePlayEvent = function() {
     	let evt = document.createEvent('Event');
 		evt.initEvent('com_sppad_media_play', false, false);
 		document.dispatchEvent(evt);
 	};
 	
-	this.firePauseEvent = function() {
+	self.firePauseEvent = function() {
     	let evt = document.createEvent('Event');
 		evt.initEvent('com_sppad_media_pause', false, false);
 		document.dispatchEvent(evt);
 	};
 	
-    this.onPause = function(aEvent) {
+	self.onPause = function(aEvent) {
     	if(!prefs.enablePauseResume)
     		return;
     	
@@ -112,7 +112,7 @@ com.sppad.BeQuiet.MediaState = new function() {
        	self.resume();
     };
     
-    this.onPlay = function(aEvent) {
+    self.onPlay = function(aEvent) {
     	if(!prefs.enablePauseResume)
     		return;
     	

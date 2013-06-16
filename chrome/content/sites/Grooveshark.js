@@ -4,11 +4,11 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 	
 	let self = this;
 	
-	this.isActive = function() {
+	self.isActive = function() {
 		return self.initialized;
 	};
 	
-	this.isPlaying = function() {
+	self.isPlaying = function() {
 		if(!self.initialized)
 			return false;
 		
@@ -16,7 +16,7 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 	};
 	
 	
-	this.play = function() {
+	self.play = function() {
 		if(!self.initialized)
 			return;
 		
@@ -24,7 +24,7 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 			self.button.click();
 	};
 	
-	this.pause = function() {
+	self.pause = function() {
 		if(!self.initialized)
 			return;
 		
@@ -32,7 +32,7 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 			self.button.click();
 	};
 	
-	this.next = function() {
+	self.next = function() {
 		if(!self.initialized)
 			return;
 		
@@ -40,14 +40,14 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 			self.nextButton.click();
 	};
 	
-	this.previous = function() {
+	self.previous = function() {
 		if(!self.initialized)
 			return;
 		
 		self.prevButton.click();
 	};
 	
-	this.playObserver = new MutationObserver(function(mutations) {
+	self.playObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if(mutation.attributeName != 'class')
             	return;
@@ -58,7 +58,7 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
         });   
     });
 	
-	this.initialize = function() {
+	self.initialize = function() {
 		self.button = self.doc.getElementById('play-pause');
 		self.nextButton = self.doc.getElementById('play-next');
 		self.prevButton = self.doc.getElementById('play-prev');
@@ -66,16 +66,16 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 		return self.button != null;
 	};
 	
-	this.registerListeners = function() {
+	self.registerListeners = function() {
 	    self.playObserver.observe(self.button, { attributes: true });
 	};
 	
-	this.unregisterListeners = function() {
+	self.unregisterListeners = function() {
 		self.playObserver.disconnect();
 	};
 	
-	this.base = com.sppad.BeQuiet.Handler;
-	this.base(aBrowser, self);
+	self.base = com.sppad.BeQuiet.Handler;
+	self.base(aBrowser, self);
 }
 
 com.sppad.BeQuiet.Grooveshark.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);

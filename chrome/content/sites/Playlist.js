@@ -4,11 +4,11 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
 	
 	let self = this;
 	
-	this.isActive = function() {
+	self.isActive = function() {
 		return self.initialized;
 	};
 	
-	this.isPlaying = function() {
+	self.isPlaying = function() {
 		if(!self.initialized)
 			return false;
 		
@@ -16,35 +16,35 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
 		return PLAY_ACTIVE.test(value);
 	};
 	
-	this.play = function() {
+	self.play = function() {
 		if(!self.initialized)
 			return;
 		
 		self.playButton.click();
 	};
 	
-	this.pause = function() {
+	self.pause = function() {
 		if(!self.initialized)
 			return;
 		
 		self.pauseButton.click();
 	};
 	
-	this.next = function() {
+	self.next = function() {
 		if(!self.initialized)
 			return;
 		
 		self.nextButton.click();
 	};
 	
-	this.previous = function() {
+	self.previous = function() {
 		if(!self.initialized)
 			return;
 		
 		self.prevButton.click();
 	};
 	
-	this.playObserver = new MutationObserver(function(mutations) {
+	self.playObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if(mutation.attributeName != 'style')
             	return;
@@ -55,7 +55,7 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
         });   
     });
 	
-	this.initialize = function() {
+	self.initialize = function() {
 		self.playButton = self.doc.getElementsByClassName('jp-play')[0];
 		self.pauseButton = self.doc.getElementsByClassName('jp-pause')[0];
 		self.nextButton = self.doc.getElementsByClassName('jp-next')[0];
@@ -64,16 +64,16 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
 		return self.playButton != null &&  self.pauseButton != null;
 	};
 	
-	this.registerListeners = function() {
+	self.registerListeners = function() {
 	    self.playObserver.observe(self.playButton, { attributes: true });
 	};
 	
-	this.unregisterListeners = function() {
+	self.unregisterListeners = function() {
 		self.playObserver.disconnect();
 	};
 	
-	this.base = com.sppad.BeQuiet.Handler;
-	this.base(aBrowser, self);
+	self.base = com.sppad.BeQuiet.Handler;
+	self.base(aBrowser, self);
 }
 
 com.sppad.BeQuiet.Playlist.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);

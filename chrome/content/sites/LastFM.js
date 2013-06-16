@@ -4,43 +4,43 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 	
 	let self = this;
 	
-	this.isActive = function() {
+	self.isActive = function() {
 		return self.initialized;
 	};
 	
-	this.isPlaying = function() {
+	self.isPlaying = function() {
 		if(!self.initialized)
 			return false;
 		
 		return self.webRadio.classList.contains(PLAYING_CLASS);
 	};
 	
-	this.play = function() {
+	self.play = function() {
 		if(!self.initialized)
 			return;
 		
 		self.playButton.click();
 	};
 	
-	this.pause = function() {
+	self.pause = function() {
 		if(!self.initialized)
 			return;
 		
 		self.pauseButton.click();
 	};
 	
-	this.next = function() {
+	self.next = function() {
 		if(!self.initialized)
 			return;
 		
 		self.nextButton.click();
 	};
 	
-	this.previous = function() {
+	self.previous = function() {
 
 	};
 	
-	this.playObserver = new MutationObserver(function(mutations) {
+	self.playObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if(mutation.attributeName != 'class')
             	return;
@@ -51,7 +51,7 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
         });   
     });
 	
-	this.initialize = function() {
+	self.initialize = function() {
 		self.webRadio = self.doc.getElementById('webRadio');
 		self.playButton = self.doc.getElementById('radioControlPlay');
 		self.pauseButton = self.doc.getElementById('radioControlPause');
@@ -60,16 +60,16 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 		return (self.webRadio != null) && (self.playButton != null) && (self.pauseButton != null);
 	};
 	
-	this.registerListeners = function() {
+	self.registerListeners = function() {
 	    self.playObserver.observe(self.webRadio, { attributes: true });
 	};
 	
-	this.unregisterListeners = function() {
+	self.unregisterListeners = function() {
 		self.playObserver.disconnect();
 	};
 	
-	this.base = com.sppad.BeQuiet.Handler;
-	this.base(aBrowser, self);
+	self.base = com.sppad.BeQuiet.Handler;
+	self.base(aBrowser, self);
 }
 
 com.sppad.BeQuiet.LastFM.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);

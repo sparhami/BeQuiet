@@ -12,7 +12,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 * @param predicate
 	 *            A function that returns true if the item should be included
 	 */
-	this.filter = function(predicate) {
+	self.filter = function(predicate) {
 		return new com.sppad.collect.Iterable(new function() {
 			for(let item of self.iterator)
 				if(predicate(item))
@@ -27,7 +27,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 * @param func
 	 *            A function that maps an input parameter to an output parameter
 	 */
-	this.map = function(func) {
+	self.map = function(func) {
 		return new com.sppad.collect.Iterable(new function() {
 			for(let item of self.iterator)
 				yield func(item);
@@ -40,7 +40,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 * @param func
 	 *            A function to apply on each element
 	 */
-	this.forEach = function(func) {
+	self.forEach = function(func) {
 		return new com.sppad.collect.Iterable(new function() {
 			for(let item of self.iterator)
 				func(item);
@@ -52,7 +52,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 *            A function(current, previous) that performs a reduction over
 	 *            the iterator
 	 */
-	this.reduce = function(func) {
+	self.reduce = function(func) {
 		try {
 			let previous = self.iterator.next();
 			
@@ -76,7 +76,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 *            A function(a, b) that returns less than 0, 0 or greater than 0
 	 *            as a is less than, equal to or greater than b
 	 */
-	this.max = function(comparator) {
+	self.max = function(comparator) {
 		return self.reduce(function (previous, current) {
 			return comparator(previous, current) > 0 ? previous : current;
 		});
@@ -89,7 +89,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 *            A function(a, b) that returns less than 0, 0 or greater than 0
 	 *            as a is less than, equal to or greater than b
 	 */
-	this.min = function(comparator) {
+	self.min = function(comparator) {
 		return self.reduce(function (previous, current) {
 			return comparator(previous, current) < 0 ? previous : current;
 		});
@@ -98,7 +98,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	/**
 	 * @return The first element in the Iterable
 	 */
-	this.first = function() {
+	self.first = function() {
 		try {
 			return self.iterator.next();
 		} catch(e) {
@@ -109,7 +109,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	/**
 	 * @return An array containing the items in the iterator
 	 */
-	this.toArray = function() {
+	self.toArray = function() {
 		let items = [];
 		
 		for(let item of self.iterator)
@@ -121,7 +121,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	/**
 	 * @return A Set containing the unique items in the iterator
 	 */
-	this.toSet = function() {
+	self.toSet = function() {
 		return new Set(self.iterator);
 	};
 };

@@ -17,11 +17,11 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	let self = this;
 	self.ready = false;
 	
-	this.isActive = function() {
+	self.isActive = function() {
 		return self.initialized;
 	};
 	
-	this.isPlaying = function() {
+	self.isPlaying = function() {
 		if(!self.initialized || !self.ready)
 			return false;
 		
@@ -29,29 +29,29 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		return state == PLAYER_STATE_PLAYING;
 	};
 	
-	this.play = function() {
+	self.play = function() {
 		if(!self.initialized)
 			return;
 		
 		self.doc.defaultView.wrappedJSObject.com_sppad_play();
 	};
 	
-	this.pause = function() {
+	self.pause = function() {
 		if(!self.initialized)
 			return;
 		
 		self.doc.defaultView.wrappedJSObject.com_sppad_pause();
 	};
 	
-	this.next = function() {
+	self.next = function() {
 		
 	};
 	
-	this.previous = function() {
+	self.previous = function() {
 
 	};
 	
-	this.stateChange = function(aEvent) {
+	self.stateChange = function(aEvent) {
 		// event name is shared by all handlers, ensure its the same document
 		if(aEvent.target != self.doc)
 			return;
@@ -64,7 +64,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	 * JavaScript script. Need to use self.doc.defaultView.wrappedJSObject
 	 * to access the functions. Cannot access the functions otherwise.
 	 */
-	this.injectJavaScript = function() {
+	self.injectJavaScript = function() {
 		let text = '\
 			com_sppad_stateChangeListener = function(data) {\n\
 			  var evt = document.createEvent("Events");\n\
@@ -92,19 +92,19 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		self.doc.body.appendChild(script);
 	};
     
-	this.initialize = function() {
+	self.initialize = function() {
 		let moviePlayer = self.doc.getElementById('movie_player');
 		
 		return moviePlayer && !moviePlayer.classList.contains('html5-video-player');
 	};
 	
-	this.registerListeners = function() {
+	self.registerListeners = function() {
         document.addEventListener("com_sppad_ytStateChange", self.stateChange, false, true);
 		
 		self.injectJavaScript();
         
 	    /*
-		 * This doesn't work without the timeout. Seems like something
+		 * self doesn't work without the timeout. Seems like something
 		 * is not initialized properly yet.
 		 */
         window.setTimeout(function() {
@@ -114,12 +114,12 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
         }, JAVASCRIPT_INJECTION_DELAY);
 	};
 	
-	this.unregisterListeners = function() {
+	self.unregisterListeners = function() {
 	    document.removeEventListener("com_sppad_ytStateChange", self.stateChange);
 	};
 	
-	this.base = com.sppad.BeQuiet.Handler;
-	this.base(aBrowser, self);
+	self.base = com.sppad.BeQuiet.Handler;
+	self.base(aBrowser, self);
 }
 
 com.sppad.BeQuiet.YouTube.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);

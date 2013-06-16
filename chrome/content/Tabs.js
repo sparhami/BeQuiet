@@ -6,7 +6,7 @@ com.sppad.BeQuiet.Tabs = new function() {
 	
 	let self = this;
 	
-    this.onPause = function(aEvent) {
+    self.onPause = function(aEvent) {
     	let browser = aEvent.handler.browser;
     	
     	let tab = com.sppad.BeQuiet.Main.getTabForBrowser(browser);
@@ -20,7 +20,7 @@ com.sppad.BeQuiet.Tabs = new function() {
    		tab.removeAttributeNS(com.sppad.BeQuiet.xmlns, 'usePlayingAnimation');
     };
     
-    this.onPlay = function(aEvent) {
+    self.onPlay = function(aEvent) {
     	let browser = aEvent.handler.browser;
     	
     	let tab = com.sppad.BeQuiet.Main.getTabForBrowser(browser);

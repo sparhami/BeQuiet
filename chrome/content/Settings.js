@@ -4,17 +4,17 @@ com.sppad.BeQuiet.Settings = new function() {
 	
 	let self = this;
 	
-    this.handleEvent = function(aEvent) {
+    self.handleEvent = function(aEvent) {
         switch (aEvent.type) {
             case com.sppad.BeQuiet.Preferences.EVENT_PREFERENCE_CHANGED:
-                this.prefChanged(aEvent.name, aEvent.value);
+                self.prefChanged(aEvent.name, aEvent.value);
                 break;
             default:
                 break;
         }
     };
 
-    this.prefChanged = function(name, value) {
+    self.prefChanged = function(name, value) {
         switch(name) {
         	case 'enablePauseResume': 
         		self.enablePauseResume(value);
@@ -27,7 +27,7 @@ com.sppad.BeQuiet.Settings = new function() {
         }
     };
     
-    this.enablePauseResume = function(enabled) {
+    self.enablePauseResume = function(enabled) {
     	com.sppad.BeQuiet.Controls.setControlsEnabled(enabled);
     	com.sppad.BeQuiet.Menu.updateToggleButtonState();
 		com.sppad.BeQuiet.MediaState.forceOnePlayingHandler();
@@ -36,7 +36,7 @@ com.sppad.BeQuiet.Settings = new function() {
     /**
      * Note: currently requires browser restart in order to change keybinding.
      */
-    this.updateKeybind = function(name) {
+    self.updateKeybind = function(name) {
     	let branch = "shortcut." + name + ".";
     	let modBranch = branch + "modifiers.";
     	

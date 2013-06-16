@@ -20,21 +20,21 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	const prefs = com.sppad.BeQuiet.CurrentPrefs;
 	
 	let self = this;
-	this.browser = aBrowser;
-	this.doc = aBrowser.contentDocument;
+	self.browser = aBrowser;
+	self.doc = aBrowser.contentDocument;
 	
-	this.implementation = aImplementation;
-	this.initialized = false;
-	this.playing = undefined;
-	this.lastPlayTime = 0;
+	self.implementation = aImplementation;
+	self.initialized = false;
+	self.playing = undefined;
+	self.lastPlayTime = 0;
 	
-	this.pauseCheckTimer = null;
+	self.pauseCheckTimer = null;
 	
-	this.getLastPlayTime = function() {
+	self.getLastPlayTime = function() {
 		return self.lastPlayTime;
 	};
 	
-	this.onPlay = function() {
+	self.onPlay = function() {
 		if(self.playing === true)
 			return;
 		
@@ -48,7 +48,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		document.dispatchEvent(evt);
 	};
 	
-	this.onPause = function() {
+	self.onPause = function() {
 		// Guard against brief pauses (e.g. changing video location)
 		window.clearTimeout(self.pauseCheckTimer);
 		self.pauseCheckTimer = window.setTimeout(function() {
@@ -68,14 +68,14 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		}, prefs.pauseCheckDelay);
 	};
 	
-	this.updatePlayingState = function() {
+	self.updatePlayingState = function() {
 		if(self.isPlaying())
 			self.onPlay();
 		else
 			self.onPause();
 	};
 	
-	this.setup = function() {
+	self.setup = function() {
 		self.initialized = self.implementation.initialize();
 		
 		if(!self.initialized)
@@ -87,7 +87,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		self.updatePlayingState();
 	};
 	
-	this.cleanup = function() {
+	self.cleanup = function() {
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		
 		if(!self.implementation.initialized)

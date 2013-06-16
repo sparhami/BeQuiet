@@ -6,7 +6,6 @@
 com.sppad.BeQuiet.Utils = (function() {
 	
 	return {
-		
 		removeFromArray: function(array,  obj) {
 			for(let i = 0; i < array.length; i++)
 				if (array[i] == obj)
@@ -29,7 +28,7 @@ com.sppad.BeQuiet.EventSupport = function() {
     self._typeSpecificListeners = {};
     self._allTypeListeners = [];
 	
-    this._fireForListeners = function(event, listeners) {
+    self._fireForListeners = function(event, listeners) {
         for (let i=0; i < listeners.length; i++) {
             try {
                 if (typeof(listeners[i]) == "function") {
@@ -43,7 +42,7 @@ com.sppad.BeQuiet.EventSupport = function() {
         }
     };
 	    
-    this._getListeners = function(type) {
+    self._getListeners = function(type) {
         if(type)
             return self._typeSpecificListeners[type] = self._typeSpecificListeners[type] || [];
         else

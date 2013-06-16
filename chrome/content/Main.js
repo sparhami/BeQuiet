@@ -16,7 +16,7 @@ com.sppad.BeQuiet.Main = new function() {
 	/** Maps documents to the handlers for that document */
 	self.handlers = new com.sppad.collect.SetMultiMap();
 	
-    this.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
+	self.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
     	let doc = aBrowser.contentDocument;
 		let win = doc.defaultView;
 	    let host = doc.location.host;
@@ -32,7 +32,7 @@ com.sppad.BeQuiet.Main = new function() {
 		self.registerHandlers(host, aBrowser);
     };
     
-    this.registerHandlers = function(aHost, aBrowser) {
+    self.registerHandlers = function(aHost, aBrowser) {
     	for(let entry of HANDLER_MAPPING) {
     		if(!entry.key.test(aHost))
     			continue;
@@ -45,24 +45,24 @@ com.sppad.BeQuiet.Main = new function() {
     	}
     };
     
-    this.unregisterHandlers = function(aDocument) {
+    self.unregisterHandlers = function(aDocument) {
 		for(let handler of self.handlers.get(aDocument))
 			handler.cleanup();
 
 		self.handlers.removeAll(aDocument);
     };
     
-	this.onPageUnload = function(aEvent) {
+    self.onPageUnload = function(aEvent) {
 	    self.unregisterHandlers(aEvent.originalTarget);
 	};
 	
-	this.getTabForBrowser = function(aBrowser) {
+	self.getTabForBrowser = function(aBrowser) {
 		return com.sppad.collect.Iterable.from(gBrowser.tabs)
 			.filter(function(tab) { return gBrowser.getBrowserForTab(tab) === aBrowser })
 			.first();
 	};
 	
-	this.handlesSelectedTab = function(aHandler) {
+	self.handlesSelectedTab = function(aHandler) {
 		return self.getTabForBrowser(aHandler.browser) === gBrowser.selectedTab;
 	};
 	

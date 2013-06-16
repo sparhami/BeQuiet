@@ -7,7 +7,7 @@ com.sppad.BeQuiet.Menu = new function() {
 	
 	let self = this;
 	
-	this.preparePlayContext = function(event) {
+	self.preparePlayContext = function(event) {
 		let menu = event.target;
 		
 		for(let item of menu.querySelectorAll('[dynamic]'))
@@ -23,12 +23,12 @@ com.sppad.BeQuiet.Menu = new function() {
     	self.updateToggleButtonState();
 	};
 	
-	this.updateToggleButtonState = function() {
+	self.updateToggleButtonState = function() {
 		let toggleButton = document.getElementById('com_sppad_beQuiet_toggleEnabledButton');
     	toggleButton.setAttribute('checked', prefs.enablePauseResume);
 	};
 	
-	this.addMenuitem = function(menu, handler) {
+	self.addMenuitem = function(menu, handler) {
 		let browser = handler.browser;
 		let label = browser.contentTitle || browser.currentURI.asciiSpec;
 		
@@ -53,7 +53,7 @@ com.sppad.BeQuiet.Menu = new function() {
 		menu.appendChild(item);
 	};
 	
-	this.menuitemCommand = function(aEvent) {
+	self.menuitemCommand = function(aEvent) {
 		let item = aEvent.target;
 		item.handler.play();
 	};

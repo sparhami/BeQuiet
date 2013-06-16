@@ -3,15 +3,15 @@ com.sppad.collect.SetMultiMap = function() {
 	let self = this;
 	self.backingMap = new Map();
 
-	this.clear = function() {
+	self.clear = function() {
 		self.backingMap.clear();
 	};
 	
-	this.containsKey = function(key) {
+	self.containsKey = function(key) {
 		return self.backingMap.has(key);
 	};
 	
-	this.containsValue = function(value) {
+	self.containsValue = function(value) {
 		for(let element of self.values())
 			if(element == value)
 				return true;
@@ -19,22 +19,22 @@ com.sppad.collect.SetMultiMap = function() {
 		return false;
 	};
 	
-	this.get = function(key) {
+	self.get = function(key) {
 		return self.backingMap.get(key) || new Set();
 	};
 	
-	this.keys = function() {
+	self.keys = function() {
 		return self.backingMap.keys();
 	};
 	
-	this.put = function(key, value) {
+	self.put = function(key, value) {
 		if(!self.backingMap.has(key))
 			self.backingMap.set(key, new Set());
 		
 		self.backingMap.get(key).add(value);
 	};
 
-	this.remove = function(key, value) {
+	self.remove = function(key, value) {
 		if(!self.backingMap.has(key))
 			return;
 		
@@ -45,11 +45,11 @@ com.sppad.collect.SetMultiMap = function() {
 			self.backingMap.delete(set);
 	};
 	
-	this.removeAll = function(key) {
+	self.removeAll = function(key) {
 		self.backingMap.delete(key);
 	};
 	
-	this.size = function() {
+	self.size = function() {
 		let count = 0;
 		
 		for (let set of self.backingMap.values())
@@ -58,7 +58,7 @@ com.sppad.collect.SetMultiMap = function() {
 		return count;
 	};
 
-	this.values = function() {
+	self.values = function() {
 		for (let set of self.backingMap.values())
 			for(let value of set)
 				yield value;

@@ -5,7 +5,7 @@ com.sppad.BeQuiet.Controls = new function() {
 	self.strings = null;
 	self.playing = false;
 	
-	this.setButtonState	 = function(playing) {
+	self.setButtonState	 = function(playing) {
 		let control = document.getElementById('com_sppad_beQuiet_media_playPause');
 		
 		if(!control)
@@ -17,13 +17,13 @@ com.sppad.BeQuiet.Controls = new function() {
 			control.removeAttribute('playing');
 	};
 	
-	this.updateToggleTooltip = function(aEvent) {
+	self.updateToggleTooltip = function(aEvent) {
 		let text = self.strings.getString(self.playing ? 'pause' : 'play');
 		
 		aEvent.target.setAttribute('label', text);
 	};
 	
-	this.setControlsEnabled = function(enabled) {
+	self.setControlsEnabled = function(enabled) {
 	 	let controls = document.getElementsByClassName('com_sppad_beQuiet_mediaControl');
     	for(let control of controls) {
     		if(enabled)
@@ -33,40 +33,40 @@ com.sppad.BeQuiet.Controls = new function() {
     	}
 	};
 	
-	this.isPlaying = function() {
+	self.isPlaying = function() {
 		return self.playing;
 	};
 	
-	this.onPlay = function(aEvent) {
+	self.onPlay = function(aEvent) {
 		self.playing = true;
 		self.setButtonState(true);
 	};
 	
-	this.onPause = function(aEvent) {
+	self.onPause = function(aEvent) {
 		self.playing = false;
 		self.setButtonState(false);
 	};
 	
-	this.play = function() {
+	self.play = function() {
 		com.sppad.BeQuiet.MediaState.play();
 	};
 	
-	this.pause = function() {
+	self.pause = function() {
 		com.sppad.BeQuiet.MediaState.pause();
 	};
 	
-	this.toggle = function() {
+	self.toggle = function() {
 		if(self.playing)
 			self.pause();
 		else
 			self.play();
 	};
 	
-	this.next = function() {
+	self.next = function() {
 		com.sppad.BeQuiet.MediaState.next();
 	};
 	
-	this.previous = function() {
+	self.previous = function() {
 		com.sppad.BeQuiet.MediaState.previous();
 	};
 	
