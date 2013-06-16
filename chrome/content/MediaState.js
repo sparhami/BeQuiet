@@ -38,18 +38,32 @@ com.sppad.BeQuiet.MediaState = new function() {
 	
 	this.getLastHandler = function() {
 		let handler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
-			.filter(function(a) { return a.isActive() })
-			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime() });
+			.filter(function(a) { return a.isActive(); })
+			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 		
 		return handler;
 	};
 	
 	this.getCurrentPageHandler = function() {
 		let handler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
-			.filter(function(a) { return a.isActive() && com.sppad.BeQuiet.Main.handlesSelectedTab(a) })
-			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime() });
+			.filter(function(a) { return a.isActive() && com.sppad.BeQuiet.Main.handlesSelectedTab(a); })
+			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 	
 		return handler;
+	};
+
+	/**
+	 * Pauses all handlers except for the most recently started currently
+	 * playing handler.
+	 */
+	this.forceOnePlayingHandler = function() {
+		let lastStartedHandler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
+			.filter(function(a) { return a.isPlaying(); })
+			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
+	
+		for(let handler of com.sppad.BeQuiet.Main.handlers.values())
+			if(handler !== lastStartedHandler)
+				handler.pause();
 	};
 	
 	this.next = function() {
@@ -83,6 +97,9 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
     this.onPause = function(aEvent) {
+    	if(!prefs.enablePauseResume)
+    		return;
+    	
     	let handler = aEvent.handler;
     	
     	// Paused due to onPlay or pause, ignore it
@@ -96,6 +113,9 @@ com.sppad.BeQuiet.MediaState = new function() {
     };
     
     this.onPlay = function(aEvent) {
+    	if(!prefs.enablePauseResume)
+    		return;
+    	
     	window.clearTimeout(self.resumeDelayTimer);
     	
     	let handler = aEvent.handler;

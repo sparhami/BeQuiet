@@ -23,6 +23,16 @@ com.sppad.BeQuiet.Controls = new function() {
 		aEvent.target.setAttribute('label', text);
 	};
 	
+	this.setControlsEnabled = function(enabled) {
+	 	let controls = document.getElementsByClassName('com_sppad_beQuiet_mediaControl');
+    	for(let control of controls) {
+    		if(enabled)
+    			control.removeAttribute('disabled');
+    		else
+    			control.setAttribute('disabled', true);
+    	}
+	};
+	
 	this.isPlaying = function() {
 		return self.playing;
 	};

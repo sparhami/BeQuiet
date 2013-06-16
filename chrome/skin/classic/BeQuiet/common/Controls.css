@@ -29,3 +29,11 @@
 #com_sppad_beQuiet_playPauseContext menuitem[disabled] {
 	font-style: italic;
 }
+
+#com_sppad_beQuiet_playPauseContext[noMediaSites="false"] #com_sppad_beQuiet_noMediaSites {
+	display: none;
+}
+
+#com_sppad_beQuiet_toggleEnabledButton[enabled="true"] {
+	font-weight: bold;
+}

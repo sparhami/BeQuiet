@@ -19,9 +19,6 @@
 		src="preferences/preferences.js" />
 	<script
 		type="application/x-javascript"
-		src="Settings.js" />
-	<script
-		type="application/x-javascript"
 		src="collect/SetMultiMap.js" />
 	<script
 		type="application/x-javascript"
@@ -62,6 +59,9 @@
 	<script
 		type="application/x-javascript"
 		src="Main.js" />
+	<script
+		type="application/x-javascript"
+		src="Settings.js" />
 
 	<commandset id="mainCommandSet">
 		<command
@@ -73,6 +73,12 @@
 		<command
 			id="cmd_mediaPrevious"
 			oncommand="com.sppad.BeQuiet.Controls.previous();" />
+		<command
+			id="cmd_com_sppad_BeQuiet_preferences"
+			oncommand="com.sppad.BeQuiet.Preferences.openPreferences(window);" />
+		<command
+			id="cmd_com_sppad_BeQuiet_toggleEnable"
+			oncommand="com.sppad.BeQuiet.Preferences.togglePreference('enablePauseResume');" />
 	</commandset>
 
 	<stringbundleset id="stringbundleset">
@@ -106,7 +112,20 @@
 				onpopupshowing="com.sppad.BeQuiet.Controls.updateToggleTooltip(event);" />
 			<menupopup
 				id="com_sppad_beQuiet_playPauseContext"
-				onpopupshowing="com.sppad.BeQuiet.Menu.preparePlayContext(event);" />
+				onpopupshowing="com.sppad.BeQuiet.Menu.preparePlayContext(event);">
+				<menuitem
+					label="&settings.label;"
+					command="cmd_com_sppad_BeQuiet_preferences" />
+				<menuitem
+					id="com_sppad_beQuiet_toggleEnabledButton"
+					label="&automaticallyPauseResume.label;"
+					command="cmd_com_sppad_BeQuiet_toggleEnable" />
+				<menuseparator />
+				<menuitem
+					id="com_sppad_beQuiet_noMediaSites"
+					disabled="true"
+					label="&noMediaSites.label;" />
+			</menupopup>
 		</popupset>
 	</window>
 
@@ -114,7 +133,7 @@
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_playPause"
 			label="&mediaToggleState.label;"
-			class="toolbarbutton-1 chromeclass-toolbar-additional"
+			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaToggleState"
 			context="com_sppad_beQuiet_playPauseContext"
 			tooltip="com_sppad_beQuiet_media_playPause.tooltip">
@@ -122,14 +141,14 @@
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_previous"
 			label="&mediaPrevious.label;"
-			class="toolbarbutton-1 chromeclass-toolbar-additional"
+			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaPrevious"
 			tooltiptext="&previous.label;">
 		</toolbarbutton>
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_next"
 			label="&mediaNext.label;"
-			class="toolbarbutton-1 chromeclass-toolbar-additional"
+			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaNext"
 			tooltiptext="&next.label;">
 		</toolbarbutton>

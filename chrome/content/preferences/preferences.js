@@ -21,6 +21,8 @@ com.sppad.BeQuiet.PREFS = {
 		
 	prioritizeCurrentTabForPlay: true,
 	
+	enablePauseResume: true,
+	
 	shortcut: {
 		com_sppad_mediaToggleState: {
 	    	key: 'p',

@@ -20,3 +20,8 @@
 <!ENTITY preference.mediaNext.label "Media next">
 <!ENTITY preference.mediaPrevious.label "Media previous">
 <!ENTITY preference.mediaToggleState.label "Media play/pause">
+
+
+<!ENTITY noMediaSites.label "No Media Sites To Play">
+<!ENTITY settings.label "Settings">
+<!ENTITY automaticallyPauseResume.label "Automatically pause/resume">

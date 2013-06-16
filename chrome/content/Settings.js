@@ -15,9 +15,22 @@ com.sppad.BeQuiet.Settings = new function() {
     };
 
     this.prefChanged = function(name, value) {
-        if(name.startsWith('shortcut')) {
-        	self.updateKeybind(name.split('\.')[1]);
+        switch(name) {
+        	case 'enablePauseResume': 
+        		self.enablePauseResume(value);
+        		break;
+            default:
+                if(name.startsWith('shortcut')) {
+                	self.updateKeybind(name.split('\.')[1]);
+                }
+                break;
         }
+    };
+    
+    this.enablePauseResume = function(enabled) {
+    	com.sppad.BeQuiet.Controls.setControlsEnabled(enabled);
+    	com.sppad.BeQuiet.Menu.updateToggleButtonState();
+		com.sppad.BeQuiet.MediaState.forceOnePlayingHandler();
     };
     
     /**
@@ -47,13 +60,13 @@ com.sppad.BeQuiet.Settings = new function() {
     window.addEventListener('load', function() {
     	com.sppad.BeQuiet.Preferences.addListener(self);
     	
-    	let prefs = ['shortcut.com_sppad_mediaToggleState.',
-    	             'shortcut.com_sppad_mediaNext.',
-    	             'shortcut.com_sppad_mediaPrevious.'];
+    	let initialPrefs = ['shortcut.com_sppad_mediaToggleState.',
+    	                    'shortcut.com_sppad_mediaNext.',
+    	                    'shortcut.com_sppad_mediaPrevious.',
+    	                    'enablePauseResume'];
     	
-        prefs.forEach(function(pref) {
-            self.prefChanged(pref, prefs[pref]);
-        });
+    	for(let pref of initialPrefs)
+            self.prefChanged(pref, prefs[pref]);	
     });
 	
 

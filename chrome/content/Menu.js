@@ -1,25 +1,31 @@
 com.sppad.BeQuiet.Menu = new function() {
 	
+	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	
+	const faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
+		.getService(Components.interfaces.mozIAsyncFavicons);
+	
 	let self = this;
 	
-	self.faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
-		.getService(Components.interfaces.mozIAsyncFavicons);
-
-	
 	this.preparePlayContext = function(event) {
-		
 		let menu = event.target;
 		
-		while (menu.firstChild) {
-			menu.removeChild(menu.firstChild);
-		}
+		for(let item of menu.querySelectorAll('[dynamic]'))
+			menu.removeChild(item);
 		
+		let handlerCount = 0;
 		for(let handler of com.sppad.BeQuiet.Main.handlers.values())
 			if(handler.isActive())
-				self.addMenuitem(menu, handler);
+				self.addMenuitem(menu, handler, handlerCount++);
 		
-		if(menu.children.length === 0)
-			self.addNoHandlersMenuitem(menu);
+		menu.setAttribute('noMediaSites', handlerCount === 0);
+		
+    	self.updateToggleButtonState();
+	};
+	
+	this.updateToggleButtonState = function() {
+		let toggleButton = document.getElementById('com_sppad_beQuiet_toggleEnabledButton');
+    	toggleButton.setAttribute('checked', prefs.enablePauseResume);
 	};
 	
 	this.addMenuitem = function(menu, handler) {
@@ -32,8 +38,9 @@ com.sppad.BeQuiet.Menu = new function() {
 		item.setAttribute('class', 'menuitem-iconic');
 		item.setAttribute('label', label);
 		item.setAttribute('playing', handler.playing);
+		item.setAttribute('dynamic', true);
 
-		self.faviconService.getFaviconURLForPage(browser.currentURI, function(icon) {
+		faviconService.getFaviconURLForPage(browser.currentURI, function(icon) {
 			let image = handler.playing ? 'chrome://BeQuiet/skin/images/note.svg'
 					: icon ? icon.asciiSpec
 				    : 'chrome://mozapps/skin/places/defaultFavicon.png';
@@ -46,21 +53,8 @@ com.sppad.BeQuiet.Menu = new function() {
 		menu.appendChild(item);
 	};
 	
-	this.addNoHandlersMenuitem = function(menu) {
-		let item = document.createElement('menuitem');
-		
-		item.setAttribute('label', self.strings.getString('noMediaSites'));
-		item.setAttribute('disabled', true);
-		
-		menu.appendChild(item);
-	};
-	
 	this.menuitemCommand = function(aEvent) {
 		let item = aEvent.target;
 		item.handler.play();
 	};
-	
-	window.addEventListener('load', function() {
-		self.strings = document.getElementById('com_sppad_BeQuiet_strings');
-	});
 };

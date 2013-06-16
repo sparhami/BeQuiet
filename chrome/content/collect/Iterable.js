@@ -62,7 +62,7 @@ com.sppad.collect.Iterable = function(iterator) {
 			return previous;
 		} catch(e) {
 			if (e instanceof StopIteration) {
-				return undefined;			// There was nothing to reduce
+				return null;			// There was nothing to reduce
 			} else {
 				throw e;
 			}
@@ -102,7 +102,7 @@ com.sppad.collect.Iterable = function(iterator) {
 		try {
 			return self.iterator.next();
 		} catch(e) {
-			return undefined;
+			return null;
 		}
 	};
 	
