@@ -25,3 +25,7 @@
 #com_sppad_beQuiet_playPauseContext menuitem[playing="true"] {
 	font-weight: bold;
 }
+
+#com_sppad_beQuiet_playPauseContext menuitem[disabled] {
+	font-style: italic;
+}

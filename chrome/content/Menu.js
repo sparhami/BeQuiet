@@ -17,6 +17,9 @@ com.sppad.BeQuiet.Menu = new function() {
 		for(let handler of com.sppad.BeQuiet.Main.handlers.values())
 			if(handler.isActive())
 				self.addMenuitem(menu, handler);
+		
+		if(menu.children.length === 0)
+			self.addNoHandlersMenuitem(menu);
 	};
 	
 	this.addMenuitem = function(menu, handler) {
@@ -43,9 +46,21 @@ com.sppad.BeQuiet.Menu = new function() {
 		menu.appendChild(item);
 	};
 	
+	this.addNoHandlersMenuitem = function(menu) {
+		let item = document.createElement('menuitem');
+		
+		item.setAttribute('label', self.strings.getString('noMediaSites'));
+		item.setAttribute('disabled', true);
+		
+		menu.appendChild(item);
+	};
+	
 	this.menuitemCommand = function(aEvent) {
 		let item = aEvent.target;
 		item.handler.play();
 	};
 	
+	window.addEventListener('load', function() {
+		self.strings = document.getElementById('com_sppad_BeQuiet_strings');
+	});
 };
