@@ -57,7 +57,9 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		 * YouTube Flash videos
 		 */
 		window.clearTimeout(self.pauseCheckTimer);
-		self.pauseCheckTimer = window.setTimeout(self.handlePause, prefs.pauseCheckDelay);
+		self.pauseCheckTimer = window.setTimeout(function() { 
+			self.handlePause();
+		}, prefs.pauseCheckDelay);
 	};
 	
 	self.handlePause = function() {
