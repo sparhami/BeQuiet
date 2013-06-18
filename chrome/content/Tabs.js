@@ -12,10 +12,7 @@ com.sppad.BeQuiet.Tabs = new function() {
     	let tab = com.sppad.BeQuiet.Main.getTabForBrowser(browser);
     	tab.removeAttributeNS(com.sppad.BeQuiet.xmlns, 'mediaPlaying');
     	
-    	faviconService.getFaviconURLForPage(browser.currentURI, function(icon) {
-			let image = icon ? icon.asciiSpec : 'chrome://mozapps/skin/places/defaultFavicon.png';
-			tab.setAttribute('image', image);	
-		});
+    	self.restoreTabIcon(tab);
     	
    		tab.removeAttributeNS(com.sppad.BeQuiet.xmlns, 'usePlayingAnimation');
     };
@@ -33,6 +30,15 @@ com.sppad.BeQuiet.Tabs = new function() {
       	if(prefs.usePlayingAnimation) {
       		tab.setAttributeNS(com.sppad.BeQuiet.xmlns, 'usePlayingAnimation', 'true');
       	}
+    };
+    
+    self.restoreTabIcon = function(aTab) {
+    	let uri = gBrowser.getBrowserForTab(aTab).currentURI;
+    	
+    	faviconService.getFaviconURLForPage(uri, function(icon) {
+			let image = icon ? icon.asciiSpec : 'chrome://mozapps/skin/places/defaultFavicon.png';
+			aTab.setAttribute('image', image);	
+		});
     };
     
 	window.addEventListener("load", function() {

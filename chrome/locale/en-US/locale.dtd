@@ -1,5 +1,15 @@
+<!ENTITY units.milliseconds "ms">
+
 <!ENTITY next.label "Next">
 <!ENTITY previous.label "Previous">
+
+<!ENTITY mediaToggleState.label "Media play/pause">
+<!ENTITY mediaNext.label "Media next">
+<!ENTITY mediaPrevious.label "Media previous">
+
+<!ENTITY noMediaSites.label "No Media Sites To Play">
+<!ENTITY settings.label "Settings">
+<!ENTITY automaticallyPauseResume.label "Automatically pause/resume">
 
 <!ENTITY preference.window.title "BeQuiet Preferences">
 <!ENTITY preference.generalPrefPane.label "General">
@@ -10,18 +20,21 @@
 <!ENTITY preference.control.label "Control">
 <!ENTITY preference.meta.label "Command">
 
-<!ENTITY mediaToggleState.label "Media play/pause">
-<!ENTITY mediaNext.label "Media next">
-<!ENTITY mediaPrevious.label "Media previous">
+<!ENTITY preference.automaticPauseResume.label "Automatic Pause/Resume">
+<!ENTITY preference.enablePauseResume.label "Enabled">
+<!ENTITY preference.resumeDelay.label "Delay before resume">
 
 <!ENTITY preference.keybindings.label "Key Bindings">
-<!ENTITY preference.keybindingsNote.label "Note:changing a key binding requires a browser restart.">
+<!ENTITY preference.keybindingsNote.label "Note: changing a key binding requires a browser restart.">
 
 <!ENTITY preference.mediaNext.label "Media next">
 <!ENTITY preference.mediaPrevious.label "Media previous">
 <!ENTITY preference.mediaToggleState.label "Media play/pause">
 
+<!ENTITY preference.style.label "Style">
+<!ENTITY preference.usePlayingIcon.label "Replace icon for playing sites">
+<!ENTITY preference.usePlayingAnimation.label "Play an icon animation when a tab start playing">
 
-<!ENTITY noMediaSites.label "No Media Sites To Play">
-<!ENTITY settings.label "Settings">
-<!ENTITY automaticallyPauseResume.label "Automatically pause/resume">
+<!ENTITY preference.controls.label "Controls">
+<!ENTITY preference.prioritizeCurrentTabForPlay.label "Use current tab when selecting play via button / keybind, if available">
+<!ENTITY preference.prioritizeCurrentTabForPlay.note "Note: by default, the last tab to play is always started">

@@ -13,15 +13,20 @@ com.sppad.BeQuiet.PREFS = {
 	/* Delay after detecting a potential pause before firing a pause event */
 	pauseCheckDelay: 200,
 	
+	/* Automatically pause playing media when one starts playing */
+	enablePauseResume: true,
+	
 	/* Delay after pausing before resuming last playing media */
 	resumeDelay: 0,
 	
-	usePlayingIcon: true,
-	usePlayingAnimation: true,
+	usePlayingIcon: false,
+	usePlayingAnimation: false,
 		
+	/*
+	 * When playing using a button/keyboard shortcut, play current tab if it
+	 * has media
+	 */
 	prioritizeCurrentTabForPlay: true,
-	
-	enablePauseResume: true,
 	
 	shortcut: {
 		com_sppad_mediaToggleState: {

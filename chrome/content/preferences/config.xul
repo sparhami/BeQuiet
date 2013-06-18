@@ -16,6 +16,15 @@
 	<prefpane label="&preference.generalPrefPane.label;">
 		<preferences>
 			<preference
+				id="extensions.BeQuiet.enablePauseResume"
+				name="extensions.BeQuiet.enablePauseResume"
+				type="bool" />
+			<preference
+				id="extensions.BeQuiet.resumeDelay"
+				name="extensions.BeQuiet.resumeDelay"
+				type="int" />
+
+			<preference
 				id="extensions.BeQuiet.shortcut.com_sppad_mediaToggleState.key"
 				name="extensions.BeQuiet.shortcut.com_sppad_mediaToggleState.key"
 				type="string" />
@@ -79,7 +88,47 @@
 				id="extensions.BeQuiet.shortcut.com_sppad_mediaPrevious.modifiers.meta"
 				name="extensions.BeQuiet.shortcut.com_sppad_mediaPrevious.modifiers.meta"
 				type="bool" />
+
+
+			<preference
+				id="extensions.BeQuiet.usePlayingIcon"
+				name="extensions.BeQuiet.usePlayingIcon"
+				type="bool" />
+			<preference
+				id="extensions.BeQuiet.usePlayingAnimation"
+				name="extensions.BeQuiet.usePlayingAnimation"
+				type="bool" />
+
+			<preference
+				id="extensions.BeQuiet.prioritizeCurrentTabForPlay"
+				name="extensions.BeQuiet.prioritizeCurrentTabForPlay"
+				type="bool" />
 		</preferences>
+
+		<groupbox>
+			<caption label="&preference.automaticPauseResume.label;" />
+
+			<checkbox
+				label="&preference.enablePauseResume.label;"
+				preference="extensions.BeQuiet.enablePauseResume" />
+
+			<hbox align="center">
+				<label
+					class="automaticPauseResume"
+					value="&preference.resumeDelay.label;"
+					flex="1" />
+				<textbox
+					class="automaticPauseResume"
+					type="number"
+					min="0"
+					max="2000"
+					width="64"
+					preference="extensions.BeQuiet.resumeDelay" />
+				<label
+					class="automaticPauseResume"
+					value="&units.milliseconds;" />
+			</hbox>
+		</groupbox>
 
 		<groupbox>
 			<caption label="&preference.keybindings.label;" />
@@ -160,6 +209,29 @@
 				</hbox>
 			</vbox>
 		</groupbox>
+
+		<groupbox>
+			<caption label="&preference.style.label;" />
+
+			<checkbox
+				label="&preference.usePlayingIcon.label;"
+				preference="extensions.BeQuiet.usePlayingIcon" />
+			<checkbox
+				label="&preference.usePlayingAnimation.label;"
+				preference="extensions.BeQuiet.usePlayingAnimation" />
+		</groupbox>
+
+		<groupbox>
+			<caption label="&preference.controls.label;" />
+
+			<checkbox
+				label="&preference.prioritizeCurrentTabForPlay.label;"
+				preference="extensions.BeQuiet.prioritizeCurrentTabForPlay" />
+			<label
+				class="note"
+				value="&preference.prioritizeCurrentTabForPlay.note;" />
+		</groupbox>
+
 
 	</prefpane>
 </prefwindow>

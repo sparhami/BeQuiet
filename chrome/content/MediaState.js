@@ -81,7 +81,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 		self.resumeDelayTimer = window.setTimeout(function() {
 			if(self.pausedHandler != null)
 	    		self.pausedHandler.play();
-		}, prefs.resumeDelay - prefs.pauseCheckDleay);
+		}, prefs.resumeDelay - prefs.pauseCheckDelay);
 	};
 
 	self.firePlayEvent = function() {
