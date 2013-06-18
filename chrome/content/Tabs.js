@@ -11,10 +11,10 @@ com.sppad.BeQuiet.Tabs = new function() {
     	
     	let tab = com.sppad.BeQuiet.Main.getTabForBrowser(browser);
     	tab.removeAttributeNS(com.sppad.BeQuiet.xmlns, 'mediaPlaying');
+   		tab.removeAttributeNS(com.sppad.BeQuiet.xmlns, 'usePlayingAnimation');
     	
     	self.restoreTabIcon(tab);
-    	
-   		tab.removeAttributeNS(com.sppad.BeQuiet.xmlns, 'usePlayingAnimation');
+
     };
     
     self.onPlay = function(aEvent) {
@@ -24,7 +24,7 @@ com.sppad.BeQuiet.Tabs = new function() {
       	tab.setAttributeNS(com.sppad.BeQuiet.xmlns, 'mediaPlaying', 'true');
       	
       	if(prefs.usePlayingIcon) {
-        	tab.setAttribute('image', 'chrome://BeQuiet/skin/images/note.svg');		
+        	tab.removeAttribute('image');		
       	}
       	
       	if(prefs.usePlayingAnimation) {
@@ -36,8 +36,7 @@ com.sppad.BeQuiet.Tabs = new function() {
     	let uri = gBrowser.getBrowserForTab(aTab).currentURI;
     	
     	faviconService.getFaviconURLForPage(uri, function(icon) {
-			let image = icon ? icon.asciiSpec : 'chrome://mozapps/skin/places/defaultFavicon.png';
-			aTab.setAttribute('image', image);	
+    		icon && aTab.setAttribute('image', icon.asciiSpec);	
 		});
     };
     
