@@ -46,14 +46,19 @@ com.sppad.BeQuiet.Main = new function() {
     };
     
     self.unregisterHandlers = function(aDocument) {
-		for(let handler of self.handlers.get(aDocument))
+		for(let handler of self.handlers.removeAll(aDocument))
 			handler.cleanup();
-
-		self.handlers.removeAll(aDocument);
     };
     
     self.onPageUnload = function(aEvent) {
 	    self.unregisterHandlers(aEvent.originalTarget);
+	};
+	
+	self.onTabClose = function(aEvent) {
+		let tab = aEvent.target;
+		let browser = gBrowser.getBrowserForTab(tab);
+		
+	    self.unregisterHandlers(browser.contentDocument);
 	};
 	
 	self.getTabForBrowser = function(aBrowser) {
@@ -68,6 +73,16 @@ com.sppad.BeQuiet.Main = new function() {
 	
 	window.addEventListener("load", function() {
 		gBrowser.addTabsProgressListener(self);
+
+		let tabContainer = window.gBrowser.tabContainer;
+        tabContainer.addEventListener("TabClose", self.onTabClose, true);
+	});
+	
+	window.addEventListener("unload", function() {
+		gBrowser.removeTabsProgressListener(self);
+
+		let tabContainer = window.gBrowser.tabContainer;
+        tabContainer.removeEventListener("TabClose", self.onTabClose);
 	});
 };
 

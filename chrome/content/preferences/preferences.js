@@ -198,7 +198,6 @@ com.sppad.BeQuiet.Preferences = new function() {
         }
     };
 
-    // No need to unregister, taken care of by unloading the module.
     self._myListener.register(true);
 
     // Set the default preferences.

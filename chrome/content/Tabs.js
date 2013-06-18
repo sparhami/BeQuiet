@@ -44,6 +44,11 @@ com.sppad.BeQuiet.Tabs = new function() {
 		document.addEventListener("com_sppad_handler_play", self.onPlay, false);
 		document.addEventListener("com_sppad_handler_pause", self.onPause, false);
 	});
+	
+	window.addEventListener("unload", function() {
+		document.removeEventListener("com_sppad_handler_play", self.onPlay);
+		document.removeEventListener("com_sppad_handler_pause", self.onPause);
+	});
 };
 
 

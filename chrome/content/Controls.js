@@ -76,4 +76,9 @@ com.sppad.BeQuiet.Controls = new function() {
 		document.addEventListener("com_sppad_media_play", self.onPlay, false);
 		document.addEventListener("com_sppad_media_pause", self.onPause, false);
 	});
+	
+	window.addEventListener("unload", function() {
+		document.removeEventListener("com_sppad_media_play", self.onPlay);
+		document.removeEventListener("com_sppad_media_pause", self.onPause);
+	});
 };

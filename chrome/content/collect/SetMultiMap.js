@@ -46,7 +46,11 @@ com.sppad.collect.SetMultiMap = function() {
 	};
 	
 	self.removeAll = function(key) {
+		let values = self.get(key);
+		
 		self.backingMap.delete(key);
+		
+		return values;
 	};
 	
 	self.size = function() {

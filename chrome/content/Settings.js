@@ -69,5 +69,7 @@ com.sppad.BeQuiet.Settings = new function() {
             self.prefChanged(pref, prefs[pref]);	
     });
 	
-
+    window.addEventListener('unload', function() {
+    	com.sppad.BeQuiet.Preferences.removeListener(self);
+    });
 }
