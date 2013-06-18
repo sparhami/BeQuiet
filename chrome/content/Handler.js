@@ -35,6 +35,8 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	};
 	
 	self.onPlay = function() {
+		window.clearTimeout(self.pauseCheckTimer);
+		
 		if(self.playing === true)
 			return;
 		
@@ -49,23 +51,26 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	};
 	
 	self.onPause = function() {
-		// Guard against brief pauses (e.g. changing video location)
+		/*
+		 * Guard against brief pauses (e.g. changing video location). Can't rely
+		 * on seeking state since it is not available for all sites (e.g.
+		 * YouTube Flash videos
+		 */
 		window.clearTimeout(self.pauseCheckTimer);
-		self.pauseCheckTimer = window.setTimeout(function() {
-			if(self.playing === false)
-				return;
-			
-			if(self.implementation.isPlaying())
-				return;
+		self.pauseCheckTimer = window.setTimeout(self.handlePause, prefs.pauseCheckDelay);
+	};
+	
+	self.handlePause = function() {
+		if(self.playing === false)
+			return;
 		
-			self.playing = false;
-			
-			let evt = document.createEvent('Event');
-			evt.initEvent('com_sppad_handler_pause', false, false);
-			evt.handler = self;
-			
-			document.dispatchEvent(evt);
-		}, prefs.pauseCheckDelay);
+		self.playing = false;
+		
+		let evt = document.createEvent('Event');
+		evt.initEvent('com_sppad_handler_pause', false, false);
+		evt.handler = self;
+		
+		document.dispatchEvent(evt);
 	};
 	
 	self.updatePlayingState = function() {
@@ -95,8 +100,8 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		
 		self.implementation.unregisterListeners();
 		
-		if(self.implementation.isPlaying())
-			self.onPause();
+		window.clearTimeout(self.pauseCheckTimer);
+		self.handlePause();
 	};
 	
 	self.browser.addEventListener("DOMContentLoaded", self.setup, false);
