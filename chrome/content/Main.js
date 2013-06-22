@@ -1,3 +1,6 @@
+Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", com.sppad.BeQuiet);
+Components.utils.import("chrome://BeQuiet/content/collect/SetMultiMap.jsm", com.sppad.BeQuiet);
+
 com.sppad.BeQuiet.Main = new function() {
 	
 	/**
@@ -14,7 +17,7 @@ com.sppad.BeQuiet.Main = new function() {
 	let self = this;
 
 	/** Maps documents to the handlers for that document */
-	self.handlers = new com.sppad.collect.SetMultiMap();
+	self.handlers = new com.sppad.BeQuiet.SetMultiMap();
 	
 	self.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
     	let doc = aBrowser.contentDocument;
@@ -26,13 +29,13 @@ com.sppad.BeQuiet.Main = new function() {
 	    
 		if(self.handlers.containsKey(doc))
 			return;
-	    
+		
 	    win.addEventListener('unload', self.onPageUnload, false);
 	    
-		self.registerHandlers(host, aBrowser);
+		self.registerHandlers(host, aBrowser, aLocation);
     };
     
-    self.registerHandlers = function(aHost, aBrowser) {
+    self.registerHandlers = function(aHost, aBrowser, aLocation) {
     	for(let entry of HANDLER_MAPPING) {
     		if(!entry.key.test(aHost))
     			continue;
@@ -62,7 +65,7 @@ com.sppad.BeQuiet.Main = new function() {
 	};
 	
 	self.getTabForBrowser = function(aBrowser) {
-		return com.sppad.collect.Iterable.from(gBrowser.tabs)
+		return com.sppad.BeQuiet.Iterable.from(gBrowser.tabs)
 			.filter(function(tab) { return gBrowser.getBrowserForTab(tab) === aBrowser })
 			.first();
 	};

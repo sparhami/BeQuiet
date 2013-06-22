@@ -19,10 +19,7 @@
 		src="preferences/preferences.js" />
 	<script
 		type="application/x-javascript"
-		src="collect/SetMultiMap.js" />
-	<script
-		type="application/x-javascript"
-		src="collect/Iterable.js" />
+		src="SiteFilter.js" />
 	<script
 		type="application/x-javascript"
 		src="Handler.js" />

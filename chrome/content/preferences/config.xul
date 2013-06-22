@@ -13,7 +13,9 @@
 	title="&preference.window.title;"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-	<prefpane label="&preference.generalPrefPane.label;">
+	<prefpane
+		id="generalPrefPane"
+		label="&preference.generalPrefPane.label;">
 		<preferences>
 			<preference
 				id="extensions.BeQuiet.enablePauseResume"
@@ -231,7 +233,39 @@
 				class="note"
 				value="&preference.prioritizeCurrentTabForPlay.note;" />
 		</groupbox>
-
-
 	</prefpane>
+
+	<prefpane
+		id="siteFilterPrefPane"
+		label="&preference.siteFilterPrefPane.label;">
+
+		<hbox flex="1">
+			<vbox flex="1">
+				<label value="&preference.allowedSites.label;" />
+				<listbox
+					id="allowedSites"
+					seltype="multiple"
+					flex="1">
+				</listbox>
+			</vbox>
+
+
+			<vbox flex="1">
+				<label value="&preference.blockedSites.label;" />
+				<listbox
+					id="blockedSites"
+					seltype="multiple"
+					flex="1">
+				</listbox>
+			</vbox>
+		</hbox>
+
+		<button
+			id="filterDeleteButton"
+			label="&preference.filterDeleteButton.label;" />
+	</prefpane>
+
+	<script
+		src="ConfigSitePreferences.js"
+		type="application/javascript" />
 </prefwindow>

@@ -1,3 +1,5 @@
+Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", com.sppad.BeQuiet);
+
 com.sppad.BeQuiet.MediaState = new function() {
 	
 	const prefs = com.sppad.BeQuiet.CurrentPrefs;
@@ -37,7 +39,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	self.getLastHandler = function() {
-		let handler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
+		let handler = com.sppad.BeQuiet.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isActive(); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 		
@@ -45,7 +47,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	self.getCurrentPageHandler = function() {
-		let handler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
+		let handler = com.sppad.BeQuiet.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isActive() && com.sppad.BeQuiet.Main.handlesSelectedTab(a); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 	
@@ -57,7 +59,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 	 * playing handler.
 	 */
 	self.forceOnePlayingHandler = function() {
-		let lastStartedHandler = com.sppad.collect.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
+		let lastStartedHandler = com.sppad.BeQuiet.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isPlaying(); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 	

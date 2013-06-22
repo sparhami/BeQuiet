@@ -13,6 +13,7 @@
 
 <!ENTITY preference.window.title "BeQuiet Preferences">
 <!ENTITY preference.generalPrefPane.label "General">
+<!ENTITY preference.siteFilterPrefPane.label "Sites">
 
 <!ENTITY preference.key.label "Key">
 <!ENTITY preference.shift.label "Shift">
@@ -38,3 +39,8 @@
 <!ENTITY preference.controls.label "Controls">
 <!ENTITY preference.prioritizeCurrentTabForPlay.label "Use current tab when selecting play via button / keybind, if available">
 <!ENTITY preference.prioritizeCurrentTabForPlay.note "Note: by default, the last tab to play is always started">
+
+
+<!ENTITY preference.allowedSites.label "Media Events Used">
+<!ENTITY preference.blockedSites.label "Media Events Not Used">
+<!ENTITY preference.filterDeleteButton.label "Delete rule(s)">

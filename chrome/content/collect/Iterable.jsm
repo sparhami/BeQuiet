@@ -1,4 +1,6 @@
-com.sppad.collect.Iterable = function(iterator) {
+var EXPORTED_SYMBOLS = ["Iterable"];
+
+Iterable = function(iterator) {
 
 	let self = this;
 	
@@ -13,7 +15,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 *            A function that returns true if the item should be included
 	 */
 	self.filter = function(predicate) {
-		return new com.sppad.collect.Iterable(new function() {
+		return new Iterable(new function() {
 			for(let item of self.iterator)
 				if(predicate(item))
 					yield item;
@@ -28,7 +30,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 *            A function that maps an input parameter to an output parameter
 	 */
 	self.map = function(func) {
-		return new com.sppad.collect.Iterable(new function() {
+		return new Iterable(new function() {
 			for(let item of self.iterator)
 				yield func(item);
 		});
@@ -41,7 +43,7 @@ com.sppad.collect.Iterable = function(iterator) {
 	 *            A function to apply on each element
 	 */
 	self.forEach = function(func) {
-		return new com.sppad.collect.Iterable(new function() {
+		return new Iterable(new function() {
 			for(let item of self.iterator)
 				func(item);
 		});
@@ -129,15 +131,15 @@ com.sppad.collect.Iterable = function(iterator) {
 /**
  * Creates an Iterable from one or more iterators.
  */
-com.sppad.collect.Iterable.from = function() {
+Iterable.from = function() {
 	let args = arguments;
 	
 	if(args.length == 0)
 		throw new ReferenceError("Need an iterator to operate on");
 	else if(args.length == 1)
-		return new com.sppad.collect.Iterable(args[0]);
+		return new Iterable(args[0]);
 	else
-		return new com.sppad.collect.Iterable(new function() {
+		return new Iterable(new function() {
 			for(let i=0; i<args.length; i++)
 				for(let item of args[i])
 					yield item;

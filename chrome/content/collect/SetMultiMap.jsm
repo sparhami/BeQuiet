@@ -1,4 +1,6 @@
-com.sppad.collect.SetMultiMap = function() {
+var EXPORTED_SYMBOLS = ["SetMultiMap"];
+
+SetMultiMap = function() {
 
 	let self = this;
 	self.backingMap = new Map();

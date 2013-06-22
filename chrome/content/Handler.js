@@ -35,6 +35,24 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	};
 	
 	self.onPlay = function() {
+		com.sppad.BeQuiet.SiteFilter.checkPermission(self.doc.documentURIObject, function() {
+			self.handlePlay();
+    	}, true);
+	}
+	
+	self.onPause = function() {
+		/*
+		 * Guard against brief pauses (e.g. changing video location). Can't rely
+		 * on seeking state since it is not available for all sites (e.g.
+		 * YouTube Flash videos)
+		 */
+		window.clearTimeout(self.pauseCheckTimer);
+		self.pauseCheckTimer = window.setTimeout(function() { 
+			self.handlePause();
+		}, prefs.pauseCheckDelay);
+	};
+	
+	self.handlePlay = function() {
 		window.clearTimeout(self.pauseCheckTimer);
 		
 		if(self.playing === true)
@@ -48,18 +66,6 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		evt.handler = self;
 		
 		document.dispatchEvent(evt);
-	};
-	
-	self.onPause = function() {
-		/*
-		 * Guard against brief pauses (e.g. changing video location). Can't rely
-		 * on seeking state since it is not available for all sites (e.g.
-		 * YouTube Flash videos
-		 */
-		window.clearTimeout(self.pauseCheckTimer);
-		self.pauseCheckTimer = window.setTimeout(function() { 
-			self.handlePause();
-		}, prefs.pauseCheckDelay);
 	};
 	
 	self.handlePause = function() {

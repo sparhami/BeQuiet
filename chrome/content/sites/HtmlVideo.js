@@ -1,3 +1,5 @@
+Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", com.sppad.BeQuiet);
+
 com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 	let self = this;
 	
@@ -41,7 +43,7 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 		
 		self.media = media;
 		
-		com.sppad.collect.Iterable.from(self.videos, self.audios)
+		com.sppad.BeQuiet.Iterable.from(self.videos, self.audios)
 			.filter(function(item) { return item !== self.media })
 			.forEach(function(item) { item.pause(); });
 		
