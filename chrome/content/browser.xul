@@ -43,22 +43,22 @@
 		src="sites/YouTube.js" />
 	<script
 		type="application/x-javascript"
-		src="Controls.js" />
+		src="ui/Controls.js" />
 	<script
 		type="application/x-javascript"
-		src="Menu.js" />
+		src="ui/Menu.js" />
 	<script
 		type="application/x-javascript"
 		src="MediaState.js" />
 	<script
 		type="application/x-javascript"
-		src="Tabs.js" />
+		src="ui/Tabs.js" />
 	<script
 		type="application/x-javascript"
 		src="Main.js" />
 	<script
 		type="application/x-javascript"
-		src="Settings.js" />
+		src="preferences/Settings.js" />
 
 	<commandset id="mainCommandSet">
 		<command

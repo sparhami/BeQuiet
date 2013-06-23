@@ -9,7 +9,7 @@
 <!DOCTYPE prefwindow SYSTEM "chrome://BeQuiet/locale/locale.dtd">
 
 <prefwindow
-	id="BeQuietPreferences"
+	id="BeQuiet-preferences-window"
 	title="&preference.window.title;"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 

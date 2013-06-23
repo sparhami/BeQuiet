@@ -5,7 +5,7 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
-com.sppad.BeQuiet.PREF_WINDOW_FILE = "chrome://BeQuiet/content/preferences/config.xul";
+com.sppad.BeQuiet.PREF_WINDOW_FILE = "chrome://BeQuiet/content/preferences/config/config.xul";
 com.sppad.BeQuiet.PREF_WINDOW_ID = "BeQuiet-preferences-window";
 com.sppad.BeQuiet.PREF_BRANCH = "extensions.BeQuiet.";
 com.sppad.BeQuiet.PREFS = {
@@ -20,6 +20,7 @@ com.sppad.BeQuiet.PREFS = {
 	resumeDelay: 0,
 	
 	usePlayingIcon: false,
+	
 	usePlayingAnimation: false,
 		
 	/*

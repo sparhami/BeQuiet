@@ -5,12 +5,15 @@ if (typeof com == "undefined") {
 com.sppad = com.sppad || {};
 com.sppad.BeQuiet = com.sppad.BeQuiet || {};
 
-Components.utils.import("chrome://BeQuiet/content/SiteFilterEngine.jsm", com.sppad.BeQuiet);
+Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm", com.sppad.BeQuiet);
 Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", com.sppad.BeQuiet);
 
 
 com.sppad.BeQuiet.ConfigSitePreferences = new function() {
 
+	const faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
+		.getService(Components.interfaces.mozIAsyncFavicons);
+	
 	let self = this;
 	
 	self.deleteSelectedRules = function() {
@@ -24,7 +27,7 @@ com.sppad.BeQuiet.ConfigSitePreferences = new function() {
 	};
 	
 	self.deleteRule = function(aUri) {
-		com.sppad.BeQuiet.SiteFilterEngine.removeRule(aUri);
+		com.sppad.BeQuiet.SiteFilterRules.removeRule(aUri);
 	};
 	
 	self.clearOtherFocus = function(aEvent) {
@@ -38,6 +41,11 @@ com.sppad.BeQuiet.ConfigSitePreferences = new function() {
 		
 		let item = list.appendItem(aUri.asciiSpec);
 		item.uri = aUri;
+		item.setAttribute('class', 'listitem-iconic');
+		
+		faviconService.getFaviconURLForPage(aUri, function(icon) {
+    		icon && item.setAttribute('image', icon.asciiSpec);	
+		});
 	};
 	
 	self.onRuleRemoved = function(aUri) {
@@ -66,14 +74,14 @@ com.sppad.BeQuiet.ConfigSitePreferences = new function() {
 		self.allowList.addEventListener('focus', self.clearOtherFocus);
 		self.blockList.addEventListener('focus', self.clearOtherFocus);
 		
-		for(let rule of com.sppad.BeQuiet.SiteFilterEngine.getFilterRules()) {
+		for(let rule of com.sppad.BeQuiet.SiteFilterRules.getFilterRules()) {
 			self.onRuleAdded(rule.uri, rule.allowed);
 		}
 		
-		com.sppad.BeQuiet.SiteFilterEngine.addObserver(self);
+		com.sppad.BeQuiet.SiteFilterRules.addObserver(self);
 	});
 
 	window.addEventListener('unload', function() {
-		com.sppad.BeQuiet.SiteFilterEngine.removeObserver(self);
+		com.sppad.BeQuiet.SiteFilterRules.removeObserver(self);
 	});
 }

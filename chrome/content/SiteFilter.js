@@ -1,4 +1,4 @@
-Components.utils.import("chrome://BeQuiet/content/SiteFilterEngine.jsm", com.sppad.BeQuiet);
+Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm", com.sppad.BeQuiet);
 
 com.sppad.BeQuiet.SiteFilter = new function() {
 	
@@ -20,7 +20,7 @@ com.sppad.BeQuiet.SiteFilter = new function() {
 		let siteUri = self.getSiteURI(aUri);
 		
 		try {
-			if(com.sppad.BeQuiet.SiteFilterEngine.checkPermission(siteUri))
+			if(com.sppad.BeQuiet.SiteFilterRules.checkPermission(siteUri))
 				aCallback();
 		} catch(err) {
 			if(checkIfNotSet)
@@ -49,7 +49,7 @@ com.sppad.BeQuiet.SiteFilter = new function() {
 	};
 	
 	self.addRule = function(aUri, allowed, aCallback) {
-		com.sppad.BeQuiet.SiteFilterEngine.addRule(aUri, allowed);
+		com.sppad.BeQuiet.SiteFilterRules.addRule(aUri, allowed);
 		
 		if(allowed)
 			aCallback();

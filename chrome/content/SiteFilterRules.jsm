@@ -1,6 +1,6 @@
-var EXPORTED_SYMBOLS = ["SiteFilterEngine"];
+var EXPORTED_SYMBOLS = ["SiteFilterRules"];
 
-SiteFilterEngine = new function() {
+SiteFilterRules = new function() {
 	
 	const annotationService = Components.classes["@mozilla.org/browser/annotation-service;1"]
     	.getService(Components.interfaces.nsIAnnotationService);
