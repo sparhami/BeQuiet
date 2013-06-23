@@ -17,17 +17,19 @@ com.sppad.BeQuiet.SiteFilter = new function() {
 	};
 	
 	self.checkPermission = function(aUri, aCallback, checkIfNotSet) {
+		let siteUri = self.getSiteURI(aUri);
+		
 		try {
-			if(com.sppad.BeQuiet.SiteFilterEngine.checkPermission(aUri))
+			if(com.sppad.BeQuiet.SiteFilterEngine.checkPermission(siteUri))
 				aCallback();
 		} catch(err) {
 			if(checkIfNotSet)
-				self.requestPermission(aUri, aCallback);
+				self.requestPermission(siteUri, aCallback);
 		}
 	};
 	
 	self.requestPermission = function(aUri, aCallback) {
-		let title = "Media Request";
+		let title = "com_sppad_BeQuiet_askMediaEvents";
 		let text = "Do you want to use media events for " + aUri.asciiSpec + "?";
 		
 		PopupNotifications.show(gBrowser.selectedBrowser, title, text, null,

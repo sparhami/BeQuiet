@@ -2,6 +2,12 @@
 
 @namespace BeQuiet url("http://sppad.com/ns/BeQuiet");
 
+
+.popup-notification-icon[popupid="com_sppad_BeQuiet_askMediaEvents"] {
+  list-style-image: url("chrome://BeQuiet/skin/images/BeQuiet.svg");
+}
+
+
 tab[BeQuiet|mediaPlaying] {
 	font-style: italic;	
 }

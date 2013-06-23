@@ -14,17 +14,11 @@ SiteFilterEngine = new function() {
 	
 	self.observers = new Set();
 	
-	self.getSiteURI = function(aUri) {
-		return ioService.newURI(aUri.prePath, null, null);
-	};
-	
 	self.checkPermission = function(aUri) {
-		let siteURI = self.getSiteURI(aUri);
-		return annotationService.getPageAnnotation(siteURI, filterAnnotationName);
+		return annotationService.getPageAnnotation(aUri, filterAnnotationName);
 	};
 
 	self.addRule = function(aUri, allowed) {
-		let siteURI = self.getSiteURI(aUri);
 		annotationService.setPageAnnotation(aUri, filterAnnotationName, allowed, 0, annotationService.EXPIRE_NEVER);
 	
 		for(let observer of self.observers)
