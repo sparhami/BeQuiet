@@ -25,6 +25,9 @@
 		src="Handler.js" />
 	<script
 		type="application/x-javascript"
+		src="sites/EightTracks.js" />
+	<script
+		type="application/x-javascript"
 		src="sites/Grooveshark.js" />
 	<script
 		type="application/x-javascript"
