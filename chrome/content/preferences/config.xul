@@ -241,17 +241,15 @@
 
 		<hbox flex="1">
 			<vbox flex="1">
-				<label value="&preference.allowedSites.label;" />
+				<caption label="&preference.allowedSites.label;" />
 				<listbox
 					id="allowedSites"
 					seltype="multiple"
 					flex="1">
 				</listbox>
 			</vbox>
-
-
 			<vbox flex="1">
-				<label value="&preference.blockedSites.label;" />
+				<caption label="&preference.blockedSites.label;" />
 				<listbox
 					id="blockedSites"
 					seltype="multiple"
