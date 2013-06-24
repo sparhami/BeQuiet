@@ -31,9 +31,13 @@ com.sppad.BeQuiet.Main = new function() {
 		if(self.handlers.containsKey(doc))
 			return;
 		
+	    if(aBrowser.com_sppad_BeQuiet_lastDocument != doc)
+	    	self.unregisterHandlers(aBrowser.com_sppad_BeQuiet_lastDocument);
+		
 	    win.addEventListener('unload', self.onPageUnload, false);
 	    
 		self.registerHandlers(host, aBrowser, aLocation);
+		aBrowser.com_sppad_BeQuiet_lastDocument = doc;
     };
     
     self.registerHandlers = function(aHost, aBrowser, aLocation) {
@@ -55,7 +59,7 @@ com.sppad.BeQuiet.Main = new function() {
     };
     
     self.onPageUnload = function(aEvent) {
-	    self.unregisterHandlers(aEvent.originalTarget);
+	    self.unregisterHandlers(aEvent.target);
 	};
 	
 	self.onTabClose = function(aEvent) {

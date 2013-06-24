@@ -8,8 +8,6 @@ com.sppad.BeQuiet.SiteFilter = new function() {
 	const ioService = Components.classes["@mozilla.org/network/io-service;1"]
 		.getService(Components.interfaces.nsIIOService);
 	
-	const filterAnnotationName = "com_sppad_BeQuiet/filterRule";
-	
 	let self = this;
 	
 	self.getSiteURI = function(aUri) {

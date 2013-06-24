@@ -31,7 +31,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	self.pauseCheckTimer = null;
 	
 	self.isActive = function() {
-		if(!self.browser) {
+		if(!self.doc) {
 			Components.utils.reportError("Failed to properly clean up site handler");
 			return false;
 		}
