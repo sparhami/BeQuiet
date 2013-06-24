@@ -7,7 +7,7 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 	self.videos = null;
 	self.audios = null;
 	
-	self.isActive = function() {
+	self.hasMedia = function() {
 		return self.media != null || self.getFirstMedia() != null;
 	};
 	

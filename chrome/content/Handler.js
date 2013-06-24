@@ -4,7 +4,7 @@
  * @param aBrowser The browser object the handler handles
  * @param aImplementation An object with the following functions:
  * <ul>
- * <li>isActive
+ * <li>hasMedia
  * <li>isPlaying
  * <li>play
  * <li>pause
@@ -29,6 +29,15 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	self.lastPlayTime = 0;
 	
 	self.pauseCheckTimer = null;
+	
+	self.isActive = function() {
+		if(!self.browser) {
+			Components.utils.reportError("Failed to properly clean up site handler");
+			return false;
+		}
+		
+		return self.implementation.hasMedia();
+	};
 	
 	self.getLastPlayTime = function() {
 		return self.lastPlayTime;

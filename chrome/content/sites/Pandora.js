@@ -4,7 +4,7 @@ com.sppad.BeQuiet.Pandora = function(aBrowser) {
 	
 	let self = this;
 	
-	self.isActive = function() {
+	self.hasMedia = function() {
 		return self.initialized;
 	};
 	
