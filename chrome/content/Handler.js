@@ -31,12 +31,18 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	self.pauseCheckTimer = null;
 	
 	self.isActive = function() {
-		if(!self.doc) {
-			Components.utils.reportError("Failed to properly clean up site handler");
+		try {
+			return self.implementation.hasMedia();
+		} catch(err) {
+			/*
+			 * TODO - catching window unload event apparently doesn't always
+			 * catch document unload. Need to figure out how to always correctly
+			 * cleanup after document is no longer in use.
+			 */
+			Components.utils.reportError("Did not properly cleanup after document was unloaded");
+			com.sppad.BeQuiet.Main.unregisterHandlers(self.doc);
 			return false;
 		}
-		
-		return self.implementation.hasMedia();
 	};
 	
 	self.getLastPlayTime = function() {
