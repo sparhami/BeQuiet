@@ -44,7 +44,7 @@ SetMultiMap = function() {
 		set.delete(value);
 		
 		if(set.size == 0)
-			self.backingMap.delete(set);
+			self.backingMap.delete(key);
 	};
 	
 	self.removeAll = function(key) {
