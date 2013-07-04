@@ -8,15 +8,6 @@ BeQuiet.Iterable = function(iterator) {
 	
 	self.iterator = iterator;
 	
-	self.explode = function() {
-		return new BeQuiet.Iterable(new function() {
-			for(let iterable of self.iterator)
-				for(let item of iterable)
-					yield item;
-		});
-	};
-	
-	
 	/**
 	 * Performs a filter, returning an Iterable that will skip over any elements
 	 * not selected by the predicate.

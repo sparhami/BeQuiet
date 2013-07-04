@@ -96,6 +96,7 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 		if(self.playing === false)
 			return;
 		
+		self.playing = false;
 		
 		let document = aBrowser.ownerDocument;
 		

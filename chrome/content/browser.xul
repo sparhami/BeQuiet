@@ -30,12 +30,6 @@
 			oncommand="BeQuiet.Preferences.togglePreference('enablePauseResume');" />
 	</commandset>
 
-	<stringbundleset id="stringbundleset">
-		<stringbundle
-			id="com_sppad_BeQuiet_strings"
-			src="chrome://BeQuiet/locale/locale.properties" />
-	</stringbundleset>
-
 	<keyset>
 		<key
 			id="com_sppad_mediaToggleState"

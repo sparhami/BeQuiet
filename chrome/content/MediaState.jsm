@@ -130,7 +130,7 @@ BeQuiet.MediaState = new function() {
     	
     	if(self.pausedHandler != null)
     		self.pausedHandler.pause();
-		
+    	
 		for(let observer of self.observers)
 			observer.onPlay();
     };
