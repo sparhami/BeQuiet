@@ -1,4 +1,8 @@
-com.sppad.BeQuiet.Playlist = function(aBrowser) {
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+
+BeQuiet.Pandora = function(aBrowser) {
 	
 	const PLAY_ACTIVE = /display: none;/;
 	
@@ -38,10 +42,7 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
 	};
 	
 	self.previous = function() {
-		if(!self.initialized)
-			return;
 		
-		self.prevButton.click();
 	};
 	
 	self.playObserver = new MutationObserver(function(mutations) {
@@ -49,17 +50,16 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
             if(mutation.attributeName != 'style')
             	return;
             
-            window.setTimeout(function() {
+            setTimeout(function() {
         		self.updatePlayingState();
             }, 1);
         });   
     });
 	
 	self.initialize = function() {
-		self.playButton = self.doc.getElementsByClassName('jp-play')[0];
-		self.pauseButton = self.doc.getElementsByClassName('jp-pause')[0];
-		self.nextButton = self.doc.getElementsByClassName('jp-next')[0];
-		self.prevButton = self.doc.getElementsByClassName('jp-prev')[0];
+		self.playButton = self.doc.getElementsByClassName('playButton')[0];
+		self.pauseButton = self.doc.getElementsByClassName('pauseButton')[0];
+		self.nextButton = self.doc.getElementsByClassName('skipButton')[0];
 		
 		return self.playButton != null &&  self.pauseButton != null;
 	};
@@ -72,9 +72,9 @@ com.sppad.BeQuiet.Playlist = function(aBrowser) {
 		self.playObserver.disconnect();
 	};
 	
-	self.base = com.sppad.BeQuiet.Handler;
+	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
 }
 
-com.sppad.BeQuiet.Playlist.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
-com.sppad.BeQuiet.Playlist.prototype.constructor = com.sppad.BeQuiet.Playlist;
+BeQuiet.Pandora.prototype = Object.create(BeQuiet.Handler.prototype);
+BeQuiet.Pandora.prototype.constructor = BeQuiet.Pandora;

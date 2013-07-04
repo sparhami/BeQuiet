@@ -1,14 +1,11 @@
-if (typeof com == "undefined") {
-    var com = {};
-}
+var EXPORTED_SYMBOLS = [];
 
-com.sppad = com.sppad || {};
-com.sppad.BeQuiet = com.sppad.BeQuiet || {};
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 
-com.sppad.BeQuiet.PREF_WINDOW_FILE = "chrome://BeQuiet/content/preferences/config/config.xul";
-com.sppad.BeQuiet.PREF_WINDOW_ID = "BeQuiet-preferences-window";
-com.sppad.BeQuiet.PREF_BRANCH = "extensions.BeQuiet.";
-com.sppad.BeQuiet.PREFS = {
+BeQuiet.PREF_WINDOW_FILE = "chrome://BeQuiet/content/preferences/config/config.xul";
+BeQuiet.PREF_WINDOW_ID = "BeQuiet-preferences-window";
+BeQuiet.PREF_BRANCH = "extensions.BeQuiet.";
+BeQuiet.PREFS = {
 		
 	/* Delay after detecting a potential pause before firing a pause event */
 	pauseCheckDelay: 200,
@@ -24,8 +21,8 @@ com.sppad.BeQuiet.PREFS = {
 	usePlayingAnimation: false,
 		
 	/*
-	 * When playing using a button/keyboard shortcut, play current tab if it
-	 * has media
+	 * When playing using a button/keyboard shortcut, play current tab if it has
+	 * media
 	 */
 	prioritizeCurrentTabForPlay: true,
 	
@@ -72,7 +69,7 @@ com.sppad.BeQuiet.PREFS = {
  * @param {Function}
  *            callback must have the following arguments: branch, pref_leaf_name
  */
-com.sppad.BeQuiet.PrefListener = function(branch_name, callback) {
+BeQuiet.PrefListener = function(branch_name, callback) {
     // Keeping a reference to the observed preference branch or it will get
     // garbage collected.
     let prefService = Components.classes["@mozilla.org/preferences-service;1"]
@@ -82,7 +79,7 @@ com.sppad.BeQuiet.PrefListener = function(branch_name, callback) {
     this._callback = callback;
 }
 
-com.sppad.BeQuiet.PrefListener.prototype.observe = function(subject, topic, data) {
+BeQuiet.PrefListener.prototype.observe = function(subject, topic, data) {
     if (topic == 'nsPref:changed')
         this._callback(this._branch, data);
 };
@@ -92,7 +89,7 @@ com.sppad.BeQuiet.PrefListener.prototype.observe = function(subject, topic, data
  *            trigger if true triggers the registered function on registration,
  *            that is, when this method is called.
  */
-com.sppad.BeQuiet.PrefListener.prototype.register = function(trigger) {
+BeQuiet.PrefListener.prototype.register = function(trigger) {
     this._branch.addObserver('', this, false);
     if (trigger) {
         let that = this;
@@ -102,44 +99,45 @@ com.sppad.BeQuiet.PrefListener.prototype.register = function(trigger) {
     }
 };
 
-com.sppad.BeQuiet.PrefListener.prototype.unregister = function() {
+BeQuiet.PrefListener.prototype.unregister = function() {
     if (this._branch)
         this._branch.removeObserver('', this);
 };
 
-com.sppad.BeQuiet.CurrentPrefs = {};
+BeQuiet.CurrentPrefs = {};
 
-com.sppad.BeQuiet.Preferences = new function() {
+BeQuiet.Preferences = new function() {
 
+	const prefService = Components.classes["@mozilla.org/preferences-service;1"]
+		.getService(Components.interfaces.nsIPrefService);
+	
     let self = this;
 
-    self._eventSupport = new com.sppad.BeQuiet.EventSupport();
+    self._observers = new Set();
     self._EVENT_PREFERENCE_CHANGED = 'EVENT_PREFERENCE_CHANGED';
 
     /** Listens for prefs changes in order to record them, fire event */
-    self._myListener = new com.sppad.BeQuiet.PrefListener(
-            com.sppad.BeQuiet.PREF_BRANCH, function(branch, name) {
-                com.sppad.BeQuiet.CurrentPrefs[name] = _getPreference(branch,
+    self._myListener = new BeQuiet.PrefListener(
+            BeQuiet.PREF_BRANCH, function(branch, name) {
+                BeQuiet.CurrentPrefs[name] = _getPreference(branch,
                         name);
                 
-                self._eventSupport.fire({
-                    'name' : name,
-                    'value' : com.sppad.BeQuiet.CurrentPrefs[name]
-                }, self._EVENT_PREFERENCE_CHANGED);
+                for(let observer of self._observers)
+                	observer.prefChanged(name, BeQuiet.CurrentPrefs[name]);
             });
 
     /**
-     * Sets the current preferences for a given branch.
-     * 
-     * @param prefBranch
-     *            The branch to set preferences for, e.g. extension.mine.
-     * @param prefs
-     *            A javascript object containing key-value pairs mapping to
-     *            preferences and their values. Objects and their keys/values
-     *            map to sub-branches.
-     */
+	 * Sets the current preferences for a given branch.
+	 * 
+	 * @param prefBranch
+	 *            The branch to set preferences for, e.g. extension.mine.
+	 * @param prefs
+	 *            A javascript object containing key-value pairs mapping to
+	 *            preferences and their values. Objects and their keys/values
+	 *            map to sub-branches.
+	 */
     let _setPrefBranch = function(prefBranch, prefs) {
-        let branch = Services.prefs.getBranch(prefBranch);
+        let branch = prefService.getBranch(prefBranch);
         for (let[key, val] in Iterator(prefs)) {
             switch (typeof val) {
                 case "boolean":
@@ -159,17 +157,17 @@ com.sppad.BeQuiet.Preferences = new function() {
     };
 
     /**
-     * Sets the default preferences for a given branch.
-     * 
-     * @param prefBranch
-     *            The branch to set preferences for, e.g. extension.mine.
-     * @param prefs
-     *            A javascript object containing key-value pairs mapping to
-     *            preferences and their values. Objects and their keys/values
-     *            map to sub-branches.
-     */
+	 * Sets the default preferences for a given branch.
+	 * 
+	 * @param prefBranch
+	 *            The branch to set preferences for, e.g. extension.mine.
+	 * @param prefs
+	 *            A javascript object containing key-value pairs mapping to
+	 *            preferences and their values. Objects and their keys/values
+	 *            map to sub-branches.
+	 */
     let _setDefaultPrefBranch = function(prefBranch, prefs) {
-        let branch = Services.prefs.getDefaultBranch(prefBranch);
+        let branch = prefService.getDefaultBranch(prefBranch);
         for (let[key, val] in Iterator(prefs)) {
             switch (typeof val) {
                 case "boolean":
@@ -190,11 +188,11 @@ com.sppad.BeQuiet.Preferences = new function() {
 
     let _getPreference = function(branch, preference) {
         switch (branch.getPrefType(preference)) {
-            case Services.prefs.PREF_BOOL:
+            case branch.PREF_BOOL:
                 return branch.getBoolPref(preference);
-            case Services.prefs.PREF_INT:
+            case branch.PREF_INT:
                 return branch.getIntPref(preference);
-            case Services.prefs.PREF_STRING:
+            case branch.PREF_STRING:
                 return branch.getCharPref(preference);
         }
     };
@@ -202,68 +200,70 @@ com.sppad.BeQuiet.Preferences = new function() {
     self._myListener.register(true);
 
     // Set the default preferences.
-    _setDefaultPrefBranch(com.sppad.BeQuiet.PREF_BRANCH, com.sppad.BeQuiet.PREFS);
+    _setDefaultPrefBranch(BeQuiet.PREF_BRANCH, BeQuiet.PREFS);
 
     return {
 
         EVENT_PREFERENCE_CHANGED : self._EVENT_PREFERENCE_CHANGED,
 
         /**
-         * Sets a preference to the given value
-         * 
-         * @param preference
-         *            The preference key set
-         * @param value
-         *            The value to set for the preference
-         */
+		 * Sets a preference to the given value
+		 * 
+		 * @param preference
+		 *            The preference key set
+		 * @param value
+		 *            The value to set for the preference
+		 */
         setPreference : function(preference, value) {
+        	dump('setting ' + preference + ' to ' + value + '\n');
+        	
             let obj = {};
             obj[preference] = value;
 
-            _setPrefBranch(com.sppad.BeQuiet.PREF_BRANCH, obj);
+            _setPrefBranch(BeQuiet.PREF_BRANCH, obj);
         },
 
         /**
-         * Gets the value of a preference
-         * 
-         * @param preference
-         *            The preference to get
-         */
+		 * Gets the value of a preference
+		 * 
+		 * @param preference
+		 *            The preference to get
+		 */
         getPreference : function(preference) {
-            let branch = Services.prefs.getBranch(com.sppad.BeQuiet.PREF_BRANCH);
+            let branch = prefService.getBranch(BeQuiet.PREF_BRANCH);
             return _getPreference(branch, preference);
         },
 
         /**
-         * Toggles a boolean preference to have the opposite of the current
-         * value.
-         * 
-         * @param preference
-         *            The preference key to toggle
-         */
+		 * Toggles a boolean preference to have the opposite of the current
+		 * value.
+		 * 
+		 * @param preference
+		 *            The preference key to toggle
+		 */
         togglePreference : function(preference) {
             this.setPreference(preference, !this.getPreference(preference));
         },
 
         /**
-         * Opens a preferences window. Note that on non-Windows platforms, it is
-         * possible to have a window created here open as well as one from the
-         * addons manager.
-         * 
-         * @param aWindow
-         *            A window object to use for opening up the preferences
-         *            dialog.
-         */
+		 * Opens a preferences window. Note that on non-Windows platforms, it is
+		 * possible to have a window created here open as well as one from the
+		 * addons manager.
+		 * 
+		 * @param aWindow
+		 *            A window object to use for opening up the preferences
+		 *            dialog.
+		 */
         openPreferences : function(aWindow) {
             if (this._preferencesWindow == null
                     || this._preferencesWindow.closed) {
-                let instantApply = _getPreference(Services.prefs
+                let instantApply = _getPreference(prefService
                         .getBranch('browser.preferences.'), 'instantApply');
                 let features = "chrome,titlebar,toolbar,centerscreen"
                         + (instantApply ? ",dialog=no" : ",modal");
                 this._preferencesWindow = aWindow.openDialog(
-                        com.sppad.BeQuiet.PREF_WINDOW_FILE,
-                        com.sppad.BeQuiet.PREF_WINDOW_ID, features);
+                        BeQuiet.PREF_WINDOW_FILE,
+                        BeQuiet.PREF_WINDOW_ID, features);
             }
 
             this._preferencesWindow.focus();
@@ -273,12 +273,12 @@ com.sppad.BeQuiet.Preferences = new function() {
             self._myListener.unregister();
         },
 
-        addListener : function(listener, type) {
-            self._eventSupport.addListener(listener, type);
-        },
-        
-        removeListener : function(listener, type) {
-            self._eventSupport.removeListener(listener, type);
-        },
+    	addObserver : function(observer) {
+    		self._observers.add(observer);
+    	},
+    	
+    	removeObserver : function(observer) {
+    		self._observers.delete(observer);
+    	},
     }
 };

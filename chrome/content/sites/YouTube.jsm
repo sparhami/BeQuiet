@@ -1,3 +1,7 @@
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+
 /**
  * Handles Flash videos on YouTube. While it mostly works for HMTL5 videos, it
  * can be unreliable. As such, it does not attempt to handle any HMTL5 videos,
@@ -8,7 +12,7 @@
  * function name and not a function, as well as using the functions to control
  * playback, injected code must be used.
  */
-com.sppad.BeQuiet.YouTube = function(aBrowser) {
+BeQuiet.YouTube = function(aBrowser) {
 	
 	const PLAYER_STATE_PLAYING = 1;
 	
@@ -99,7 +103,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	};
 	
 	self.registerListeners = function() {
-        document.addEventListener("com_sppad_ytStateChange", self.stateChange, false, true);
+        self.doc.addEventListener("com_sppad_ytStateChange", self.stateChange, false, true);
 		
 		self.injectJavaScript();
         
@@ -107,7 +111,7 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 		 * self doesn't work without the timeout. Seems like something
 		 * is not initialized properly yet.
 		 */
-        window.setTimeout(function() {
+        setTimeout(function() {
     		self.doc.defaultView.wrappedJSObject.com_sppad_register();
     		self.ready = true;
             self.updatePlayingState();
@@ -115,12 +119,12 @@ com.sppad.BeQuiet.YouTube = function(aBrowser) {
 	};
 	
 	self.unregisterListeners = function() {
-	    document.removeEventListener("com_sppad_ytStateChange", self.stateChange);
+	    self.doc.removeEventListener("com_sppad_ytStateChange", self.stateChange);
 	};
 	
-	self.base = com.sppad.BeQuiet.Handler;
+	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
 }
 
-com.sppad.BeQuiet.YouTube.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
-com.sppad.BeQuiet.YouTube.prototype.constructor = com.sppad.BeQuiet.YouTube;
+BeQuiet.YouTube.prototype = Object.create(BeQuiet.Handler.prototype);
+BeQuiet.YouTube.prototype.constructor = BeQuiet.YouTube;

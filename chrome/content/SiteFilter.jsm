@@ -1,6 +1,11 @@
-Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm", com.sppad.BeQuiet);
+var EXPORTED_SYMBOLS = [];
 
-com.sppad.BeQuiet.SiteFilter = new function() {
+Components.utils.import("resource://gre/modules/PopupNotifications.jsm");
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm");
+
+BeQuiet.SiteFilter = new function() {
 	
 	const annotationService = Components.classes["@mozilla.org/browser/annotation-service;1"]
     	.getService(Components.interfaces.nsIAnnotationService);
@@ -14,23 +19,24 @@ com.sppad.BeQuiet.SiteFilter = new function() {
 		return ioService.newURI(aUri.prePath, null, null);
 	};
 	
-	self.checkPermission = function(aUri, aCallback, checkIfNotSet) {
-		let siteUri = self.getSiteURI(aUri);
+	self.checkPermission = function(aBrowser, aCallback, checkIfNotSet) {
+		let siteUri = self.getSiteURI(aBrowser.contentDocument.documentURIObject);
 		
 		try {
-			if(com.sppad.BeQuiet.SiteFilterRules.checkPermission(siteUri))
+			if(BeQuiet.SiteFilterRules.checkPermission(siteUri))
 				aCallback();
 		} catch(err) {
 			if(checkIfNotSet)
-				self.requestPermission(siteUri, aCallback);
+				self.requestPermission(aBrowser, siteUri, aCallback);
 		}
 	};
 	
-	self.requestPermission = function(aUri, aCallback) {
+	self.requestPermission = function(aBrowser, aUri, aCallback) {
 		let title = "com_sppad_BeQuiet_askMediaEvents";
 		let text = "Do you want to use media events for " + aUri.asciiSpec + "?";
+		let browserWindow = BeQuiet.Main.getWindowForBrowser(aBrowser);
 		
-		PopupNotifications.show(gBrowser.selectedBrowser, title, text, null,
+		browserWindow.PopupNotifications.show(aBrowser, title, text, null,
 		        {
 		          label: "Allow",
 		          accessKey: "A",
@@ -47,7 +53,7 @@ com.sppad.BeQuiet.SiteFilter = new function() {
 	};
 	
 	self.addRule = function(aUri, allowed, aCallback) {
-		com.sppad.BeQuiet.SiteFilterRules.addRule(aUri, allowed);
+		BeQuiet.SiteFilterRules.addRule(aUri, allowed);
 		
 		if(allowed)
 			aCallback();

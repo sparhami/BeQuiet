@@ -1,6 +1,8 @@
-var EXPORTED_SYMBOLS = ["SetMultiMap"];
+var EXPORTED_SYMBOLS = [];
 
-SetMultiMap = function() {
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+
+BeQuiet.SetMultiMap = function() {
 
 	let self = this;
 	self.backingMap = new Map();

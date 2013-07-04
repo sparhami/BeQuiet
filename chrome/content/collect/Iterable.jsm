@@ -1,10 +1,20 @@
-var EXPORTED_SYMBOLS = ["Iterable"];
+var EXPORTED_SYMBOLS = [];
 
-Iterable = function(iterator) {
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+
+BeQuiet.Iterable = function(iterator) {
 
 	let self = this;
 	
 	self.iterator = iterator;
+	
+	self.explode = function() {
+		return new BeQuiet.Iterable(new function() {
+			for(let iterable of self.iterator)
+				for(let item of iterable)
+					yield item;
+		});
+	};
 	
 	
 	/**
@@ -15,7 +25,7 @@ Iterable = function(iterator) {
 	 *            A function that returns true if the item should be included
 	 */
 	self.filter = function(predicate) {
-		return new Iterable(new function() {
+		return new BeQuiet.Iterable(new function() {
 			for(let item of self.iterator)
 				if(predicate(item))
 					yield item;
@@ -30,7 +40,7 @@ Iterable = function(iterator) {
 	 *            A function that maps an input parameter to an output parameter
 	 */
 	self.map = function(func) {
-		return new Iterable(new function() {
+		return new BeQuiet.Iterable(new function() {
 			for(let item of self.iterator)
 				yield func(item);
 		});
@@ -43,7 +53,7 @@ Iterable = function(iterator) {
 	 *            A function to apply on each element
 	 */
 	self.forEach = function(func) {
-		return new Iterable(new function() {
+		return new BeQuiet.Iterable(new function() {
 			for(let item of self.iterator)
 				func(item);
 		});
@@ -131,15 +141,15 @@ Iterable = function(iterator) {
 /**
  * Creates an Iterable from one or more iterators.
  */
-Iterable.from = function() {
+BeQuiet.Iterable.from = function() {
 	let args = arguments;
 	
 	if(args.length == 0)
 		throw new ReferenceError("Need an iterator to operate on");
 	else if(args.length == 1)
-		return new Iterable(args[0]);
+		return new BeQuiet.Iterable(args[0]);
 	else
-		return new Iterable(new function() {
+		return new BeQuiet.Iterable(new function() {
 			for(let i=0; i<args.length; i++)
 				for(let item of args[i])
 					yield item;

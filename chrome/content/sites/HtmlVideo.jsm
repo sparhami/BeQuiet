@@ -1,6 +1,9 @@
-Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", com.sppad.BeQuiet);
+var EXPORTED_SYMBOLS = [];
 
-com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", BeQuiet);
+
+BeQuiet.HtmlVideo = function(aBrowser) {
 	let self = this;
 	
 	self.media = null;
@@ -43,7 +46,7 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 		
 		self.media = media;
 		
-		com.sppad.BeQuiet.Iterable.from(self.videos, self.audios)
+		BeQuiet.Iterable.from(self.videos, self.audios)
 			.filter(function(item) { return item !== self.media })
 			.forEach(function(item) { item.pause(); });
 		
@@ -77,9 +80,9 @@ com.sppad.BeQuiet.HtmlVideo = function(aBrowser) {
 		self.doc.removeEventListener('pause', self.mediaause);
 	};
 	
-	self.base = com.sppad.BeQuiet.Handler;
+	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
 }
 
-com.sppad.BeQuiet.HtmlVideo.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
-com.sppad.BeQuiet.HtmlVideo.prototype.constructor = com.sppad.BeQuiet.HtmlVideo;
+BeQuiet.HtmlVideo.prototype = Object.create(BeQuiet.Handler.prototype);
+BeQuiet.HtmlVideo.prototype.constructor = BeQuiet.HtmlVideo;

@@ -1,15 +1,9 @@
-if (typeof com == "undefined") {
-	var com = {};
-}
-
-com.sppad = com.sppad || {};
-com.sppad.BeQuiet = com.sppad.BeQuiet || {};
-
-Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm", com.sppad.BeQuiet);
-Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", com.sppad.BeQuiet);
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm", BeQuiet);
+Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", BeQuiet);
 
 
-com.sppad.BeQuiet.ConfigSitePreferences = new function() {
+BeQuiet.ConfigSitePreferences = new function() {
 
 	const faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
 		.getService(Components.interfaces.mozIAsyncFavicons);
@@ -19,7 +13,7 @@ com.sppad.BeQuiet.ConfigSitePreferences = new function() {
 	self.deleteSelectedRules = function() {
 		for(let list of self.lists) {
 			// Make a copy of items so they can be deleted since removal updates selectedItems
-			let items = com.sppad.BeQuiet.Iterable.from(list.selectedItems).toArray();
+			let items = BeQuiet.Iterable.from(list.selectedItems).toArray();
 			for(let item of items) {
 				self.deleteRule(item.uri);
 			}
@@ -27,7 +21,7 @@ com.sppad.BeQuiet.ConfigSitePreferences = new function() {
 	};
 	
 	self.deleteRule = function(aUri) {
-		com.sppad.BeQuiet.SiteFilterRules.removeRule(aUri);
+		BeQuiet.SiteFilterRules.removeRule(aUri);
 	};
 	
 	self.clearOtherFocus = function(aEvent) {
@@ -74,14 +68,14 @@ com.sppad.BeQuiet.ConfigSitePreferences = new function() {
 		self.allowList.addEventListener('focus', self.clearOtherFocus);
 		self.blockList.addEventListener('focus', self.clearOtherFocus);
 		
-		for(let rule of com.sppad.BeQuiet.SiteFilterRules.getFilterRules()) {
+		for(let rule of BeQuiet.SiteFilterRules.getFilterRules()) {
 			self.onRuleAdded(rule.uri, rule.allowed);
 		}
 		
-		com.sppad.BeQuiet.SiteFilterRules.addObserver(self);
+		BeQuiet.SiteFilterRules.addObserver(self);
 	});
 
 	window.addEventListener('unload', function() {
-		com.sppad.BeQuiet.SiteFilterRules.removeObserver(self);
+		BeQuiet.SiteFilterRules.removeObserver(self);
 	});
 }

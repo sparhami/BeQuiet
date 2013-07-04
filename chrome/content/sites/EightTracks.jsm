@@ -1,4 +1,8 @@
-com.sppad.BeQuiet.EightTracks = function(aBrowser) {
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+
+BeQuiet.EightTracks = function(aBrowser) {
 	
 	const PLAY_ACTIVE = /display: none;/;
 	
@@ -46,7 +50,7 @@ com.sppad.BeQuiet.EightTracks = function(aBrowser) {
             if(mutation.attributeName != 'style')
             	return;
             
-            window.setTimeout(function() {
+            setTimeout(function() {
         		self.updatePlayingState();
             }, 1);
         });   
@@ -68,9 +72,9 @@ com.sppad.BeQuiet.EightTracks = function(aBrowser) {
 		self.playObserver.disconnect();
 	};
 	
-	self.base = com.sppad.BeQuiet.Handler;
+	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
 }
 
-com.sppad.BeQuiet.EightTracks.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
-com.sppad.BeQuiet.EightTracks.prototype.constructor = com.sppad.BeQuiet.EightTracks;
+BeQuiet.EightTracks.prototype = Object.create(BeQuiet.Handler.prototype);
+BeQuiet.EightTracks.prototype.constructor = BeQuiet.EightTracks;

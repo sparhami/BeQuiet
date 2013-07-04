@@ -1,19 +1,14 @@
-com.sppad.BeQuiet.Settings = new function() {
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
+
+BeQuiet.Settings = new function() {
 	
-	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	const prefs = BeQuiet.CurrentPrefs;
 	
 	let self = this;
 	
-    self.handleEvent = function(aEvent) {
-        switch (aEvent.type) {
-            case com.sppad.BeQuiet.Preferences.EVENT_PREFERENCE_CHANGED:
-                self.prefChanged(aEvent.name, aEvent.value);
-                break;
-            default:
-                break;
-        }
-    };
-
     self.prefChanged = function(name, value) {
         switch(name) {
         	case 'enablePauseResume': 
@@ -28,9 +23,9 @@ com.sppad.BeQuiet.Settings = new function() {
     };
     
     self.enablePauseResume = function(enabled) {
-    	com.sppad.BeQuiet.Controls.setControlsEnabled(enabled);
-    	com.sppad.BeQuiet.Menu.updateToggleButtonState();
-		com.sppad.BeQuiet.MediaState.forceOnePlayingHandler();
+    	BeQuiet.Controls.setControlsEnabled(enabled);
+    	BeQuiet.Menu.updateToggleButtonState();
+		BeQuiet.MediaState.forceOnePlayingHandler();
     };
     
     /**
@@ -57,8 +52,8 @@ com.sppad.BeQuiet.Settings = new function() {
     	commandNode.setAttribute('modifiers', modifiers);
     };
 
-    window.addEventListener('load', function() {
-    	com.sppad.BeQuiet.Preferences.addListener(self);
+    self.setup = function() {
+    	BeQuiet.Preferences.addObserver(self);
     	
     	let initialPrefs = ['shortcut.com_sppad_mediaToggleState.',
     	                    'shortcut.com_sppad_mediaNext.',
@@ -67,9 +62,11 @@ com.sppad.BeQuiet.Settings = new function() {
     	
     	for(let pref of initialPrefs)
             self.prefChanged(pref, prefs[pref]);	
-    });
-	
-    window.addEventListener('unload', function() {
-    	com.sppad.BeQuiet.Preferences.removeListener(self);
-    });
+    };
+    
+    self.cleanup = function() {
+    	BeQuiet.Preferences.removeObserver(self);
+    };
+
+    self.setup();
 }

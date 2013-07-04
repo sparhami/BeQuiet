@@ -1,4 +1,8 @@
-com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+
+BeQuiet.LastFM = function(aBrowser) {
 	
 	const PLAYING_CLASS = 'playing';
 	
@@ -12,39 +16,32 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
 		if(!self.initialized)
 			return false;
 		
-		return self.button.classList.contains(PLAYING_CLASS);
+		return self.webRadio.classList.contains(PLAYING_CLASS);
 	};
-	
 	
 	self.play = function() {
 		if(!self.initialized)
 			return;
 		
-		if(!self.isPlaying())
-			self.button.click();
+		self.playButton.click();
 	};
 	
 	self.pause = function() {
 		if(!self.initialized)
 			return;
 		
-		if(self.isPlaying())
-			self.button.click();
+		self.pauseButton.click();
 	};
 	
 	self.next = function() {
 		if(!self.initialized)
 			return;
 		
-		if(self.isPlaying())
-			self.nextButton.click();
+		self.nextButton.click();
 	};
 	
 	self.previous = function() {
-		if(!self.initialized)
-			return;
-		
-		self.prevButton.click();
+
 	};
 	
 	self.playObserver = new MutationObserver(function(mutations) {
@@ -52,31 +49,32 @@ com.sppad.BeQuiet.Grooveshark = function(aBrowser) {
             if(mutation.attributeName != 'class')
             	return;
         	
-            window.setTimeout(function() {
+            setTimeout(function() {
         		self.updatePlayingState();
             }, 1);
         });   
     });
 	
 	self.initialize = function() {
-		self.button = self.doc.getElementById('play-pause');
-		self.nextButton = self.doc.getElementById('play-next');
-		self.prevButton = self.doc.getElementById('play-prev');
+		self.webRadio = self.doc.getElementById('webRadio');
+		self.playButton = self.doc.getElementById('radioControlPlay');
+		self.pauseButton = self.doc.getElementById('radioControlPause');
+		self.nextButton = self.doc.getElementById('radioControlSkip');
 		
-		return self.button != null;
+		return (self.webRadio != null) && (self.playButton != null) && (self.pauseButton != null);
 	};
 	
 	self.registerListeners = function() {
-	    self.playObserver.observe(self.button, { attributes: true });
+	    self.playObserver.observe(self.webRadio, { attributes: true });
 	};
 	
 	self.unregisterListeners = function() {
 		self.playObserver.disconnect();
 	};
 	
-	self.base = com.sppad.BeQuiet.Handler;
+	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
 }
 
-com.sppad.BeQuiet.Grooveshark.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
-com.sppad.BeQuiet.Grooveshark.prototype.constructor = com.sppad.BeQuiet.Grooveshark;
+BeQuiet.LastFM.prototype = Object.create(BeQuiet.Handler.prototype);
+BeQuiet.LastFM.prototype.constructor = BeQuiet.LastFM;

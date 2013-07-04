@@ -1,6 +1,8 @@
-var EXPORTED_SYMBOLS = ["SiteFilterRules"];
+var EXPORTED_SYMBOLS = [];
 
-SiteFilterRules = new function() {
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+
+BeQuiet.SiteFilterRules = new function() {
 	
 	const annotationService = Components.classes["@mozilla.org/browser/annotation-service;1"]
     	.getService(Components.interfaces.nsIAnnotationService);

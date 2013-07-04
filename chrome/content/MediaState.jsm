@@ -1,8 +1,13 @@
-Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", com.sppad.BeQuiet);
+var EXPORTED_SYMBOLS = [];
 
-com.sppad.BeQuiet.MediaState = new function() {
+Components.utils.import("resource://gre/modules/Timer.jsm");
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
+Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm");
+
+BeQuiet.MediaState = new function() {
 	
-	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	const prefs = BeQuiet.CurrentPrefs;
 	
 	let self = this;
 	
@@ -14,19 +19,24 @@ com.sppad.BeQuiet.MediaState = new function() {
 	
 	/** Timer that delays resuming video per preference */
 	self.resumeDelayTimer = null;
+	
+	self.observers = new Set();
+	
+	self.paused = false;
     
 	self.pause = function() {
+		self.paused = true;
+		
 		let currentHandler = self.playingHandler;
-		self.playingHandler = null;
   		self.pausedHandler = null;
 		
 		if(currentHandler != null)
 			currentHandler.pause();
-
-	  	self.firePauseEvent();
 	};
 	
 	self.play = function() {
+		self.paused = false;
+		
 		let handler = null;
 		
 		if(prefs.prioritizeCurrentTabForPlay)
@@ -39,7 +49,7 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	self.getLastHandler = function() {
-		let handler = com.sppad.BeQuiet.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
+		let handler = BeQuiet.Iterable.from(BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isActive(); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 		
@@ -47,8 +57,8 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	self.getCurrentPageHandler = function() {
-		let handler = com.sppad.BeQuiet.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
-			.filter(function(a) { return a.isActive() && com.sppad.BeQuiet.Main.handlesSelectedTab(a); })
+		let handler = BeQuiet.Iterable.from(BeQuiet.Main.handlers.values())
+			.filter(function(a) { return a.isActive() && BeQuiet.Main.handlesSelectedTab(a); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 	
 		return handler;
@@ -59,11 +69,11 @@ com.sppad.BeQuiet.MediaState = new function() {
 	 * playing handler.
 	 */
 	self.forceOnePlayingHandler = function() {
-		let lastStartedHandler = com.sppad.BeQuiet.Iterable.from(com.sppad.BeQuiet.Main.handlers.values())
+		let lastStartedHandler = BeQuiet.Iterable.from(BeQuiet.Main.handlers.values())
 			.filter(function(a) { return a.isPlaying(); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 	
-		for(let handler of com.sppad.BeQuiet.Main.handlers.values())
+		for(let handler of BeQuiet.Main.handlers.values())
 			if(handler !== lastStartedHandler)
 				handler.pause();
 	};
@@ -79,46 +89,39 @@ com.sppad.BeQuiet.MediaState = new function() {
 	};
 	
 	self.resume = function() {
-		window.clearTimeout(self.resumeDelayTimer);
-		self.resumeDelayTimer = window.setTimeout(function() {
+		clearTimeout(self.resumeDelayTimer);
+		self.resumeDelayTimer = setTimeout(function() {
 			if(self.pausedHandler != null)
 	    		self.pausedHandler.play();
-		}, prefs.resumeDelay - prefs.pauseCheckDelay);
+		}, Math.max(prefs.resumeDelay - prefs.pauseCheckDelay, 1));
 	};
 
-	self.firePlayEvent = function() {
-    	let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_media_play', false, false);
-		document.dispatchEvent(evt);
-	};
-	
-	self.firePauseEvent = function() {
-    	let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_media_pause', false, false);
-		document.dispatchEvent(evt);
-	};
-	
 	self.onPause = function(aEvent) {
     	if(!prefs.enablePauseResume)
     		return;
     	
     	let handler = aEvent.handler;
     	
-    	// Paused due to onPlay or pause, ignore it
+    	// Paused due to onPlay, ignore it
     	if(handler != self.playingHandler)
 			return;
     	
        	self.playingHandler = null;
-	  	self.firePauseEvent();       	
-       	
-       	self.resume();
+
+    	for(let observer of self.observers)
+			observer.onPause();
+    	
+	  	if(!self.paused)
+	  		self.resume();
     };
     
     self.onPlay = function(aEvent) {
     	if(!prefs.enablePauseResume)
     		return;
     	
-    	window.clearTimeout(self.resumeDelayTimer);
+		self.paused = false;
+    	
+    	clearTimeout(self.resumeDelayTimer);
     	
     	let handler = aEvent.handler;
     	
@@ -128,13 +131,29 @@ com.sppad.BeQuiet.MediaState = new function() {
     	if(self.pausedHandler != null)
     		self.pausedHandler.pause();
 		
-      	self.firePlayEvent();
+		for(let observer of self.observers)
+			observer.onPlay();
     };
     
-	window.addEventListener("load", function() {
-		document.addEventListener("com_sppad_handler_play", self.onPlay, false);
-		document.addEventListener("com_sppad_handler_pause", self.onPause, false);
-	});
+	self.setupWindow = function(aWindow) {
+		aWindow.addEventListener("load", function() {
+			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
+			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
+		});
+		
+		aWindow.addEventListener("unload", function() {
+			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
+			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
+		});
+	};
+	
+	self.addObserver = function(observer) {
+		self.observers.add(observer);
+	};
+	
+	self.removeObserver = function(observer) {
+		self.observers.delete(observer);
+	};
 };
 
 

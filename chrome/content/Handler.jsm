@@ -1,3 +1,10 @@
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("resource://gre/modules/Timer.jsm");
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/SiteFilter.jsm");
+Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
+
 /**
  * A generic web-page handler.
  * 
@@ -15,9 +22,9 @@
  * <li>unregisterListeners
  * </ul>
  */
-com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
+BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
-	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	const prefs = BeQuiet.CurrentPrefs;
 	
 	let self = this;
 	self.browser = aBrowser;
@@ -40,7 +47,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 			 * cleanup after document is no longer in use.
 			 */
 			Components.utils.reportError("Did not properly cleanup after document was unloaded");
-			com.sppad.BeQuiet.Main.unregisterHandlers(self.doc);
+			BeQuiet.Main.unregisterHandlers(self.doc);
 			return false;
 		}
 	};
@@ -50,10 +57,10 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 	};
 	
 	self.onPlay = function() {
-		com.sppad.BeQuiet.SiteFilter.checkPermission(self.doc.documentURIObject, function() {
+		BeQuiet.SiteFilter.checkPermission(self.browser, function() {
 			self.handlePlay();
     	}, true);
-	}
+	};
 	
 	self.onPause = function() {
 		/*
@@ -61,14 +68,14 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		 * on seeking state since it is not available for all sites (e.g.
 		 * YouTube Flash videos)
 		 */
-		window.clearTimeout(self.pauseCheckTimer);
-		self.pauseCheckTimer = window.setTimeout(function() { 
+		clearTimeout(self.pauseCheckTimer);
+		self.pauseCheckTimer = setTimeout(function() { 
 			self.handlePause();
-		}, prefs.pauseCheckDelay);
+		}, Math.max(prefs.pauseCheckDelay, 1));
 	};
 	
 	self.handlePlay = function() {
-		window.clearTimeout(self.pauseCheckTimer);
+		clearTimeout(self.pauseCheckTimer);
 		
 		if(self.playing === true)
 			return;
@@ -76,6 +83,8 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		self.playing = true;
 		self.lastPlayTime = Date.now();
 			
+		let document = aBrowser.ownerDocument;
+		
 		let evt = document.createEvent('Event');
 		evt.initEvent('com_sppad_handler_play', false, false);
 		evt.handler = self;
@@ -87,7 +96,8 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		if(self.playing === false)
 			return;
 		
-		self.playing = false;
+		
+		let document = aBrowser.ownerDocument;
 		
 		let evt = document.createEvent('Event');
 		evt.initEvent('com_sppad_handler_pause', false, false);
@@ -123,7 +133,7 @@ com.sppad.BeQuiet.Handler = function(aBrowser, aImplementation) {
 		
 		self.implementation.unregisterListeners();
 		
-		window.clearTimeout(self.pauseCheckTimer);
+		clearTimeout(self.pauseCheckTimer);
 		self.handlePause();
 	};
 	

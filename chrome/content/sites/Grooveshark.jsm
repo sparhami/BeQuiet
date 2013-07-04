@@ -1,4 +1,8 @@
-com.sppad.BeQuiet.LastFM = function(aBrowser) {
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+
+BeQuiet.Grooveshark = function(aBrowser) {
 	
 	const PLAYING_CLASS = 'playing';
 	
@@ -12,32 +16,39 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 		if(!self.initialized)
 			return false;
 		
-		return self.webRadio.classList.contains(PLAYING_CLASS);
+		return self.button.classList.contains(PLAYING_CLASS);
 	};
+	
 	
 	self.play = function() {
 		if(!self.initialized)
 			return;
 		
-		self.playButton.click();
+		if(!self.isPlaying())
+			self.button.click();
 	};
 	
 	self.pause = function() {
 		if(!self.initialized)
 			return;
 		
-		self.pauseButton.click();
+		if(self.isPlaying())
+			self.button.click();
 	};
 	
 	self.next = function() {
 		if(!self.initialized)
 			return;
 		
-		self.nextButton.click();
+		if(self.isPlaying())
+			self.nextButton.click();
 	};
 	
 	self.previous = function() {
-
+		if(!self.initialized)
+			return;
+		
+		self.prevButton.click();
 	};
 	
 	self.playObserver = new MutationObserver(function(mutations) {
@@ -45,23 +56,22 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
             if(mutation.attributeName != 'class')
             	return;
         	
-            window.setTimeout(function() {
+            setTimeout(function() {
         		self.updatePlayingState();
             }, 1);
         });   
     });
 	
 	self.initialize = function() {
-		self.webRadio = self.doc.getElementById('webRadio');
-		self.playButton = self.doc.getElementById('radioControlPlay');
-		self.pauseButton = self.doc.getElementById('radioControlPause');
-		self.nextButton = self.doc.getElementById('radioControlSkip');
+		self.button = self.doc.getElementById('play-pause');
+		self.nextButton = self.doc.getElementById('play-next');
+		self.prevButton = self.doc.getElementById('play-prev');
 		
-		return (self.webRadio != null) && (self.playButton != null) && (self.pauseButton != null);
+		return self.button != null;
 	};
 	
 	self.registerListeners = function() {
-	    self.playObserver.observe(self.webRadio, { attributes: true });
+	    self.playObserver.observe(self.button, { attributes: true });
 	};
 	
 	self.unregisterListeners = function() {
@@ -72,5 +82,5 @@ com.sppad.BeQuiet.LastFM = function(aBrowser) {
 	self.base(aBrowser, self);
 }
 
-com.sppad.BeQuiet.LastFM.prototype = Object.create(com.sppad.BeQuiet.Handler.prototype);
-com.sppad.BeQuiet.LastFM.prototype.constructor = com.sppad.BeQuiet.LastFM;
+BeQuiet.Grooveshark.prototype = Object.create(BeQuiet.Handler.prototype);
+BeQuiet.Grooveshark.prototype.constructor = BeQuiet.Grooveshark;

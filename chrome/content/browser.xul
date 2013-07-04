@@ -10,75 +10,24 @@
 
 	<script
 		type="application/x-javascript"
-		src="ns.js" />
-	<script
-		type="application/x-javascript"
-		src="utils.js" />
-	<script
-		type="application/x-javascript"
-		src="preferences/preferences.js" />
-	<script
-		type="application/x-javascript"
-		src="SiteFilter.js" />
-	<script
-		type="application/x-javascript"
-		src="Handler.js" />
-	<script
-		type="application/x-javascript"
-		src="sites/EightTracks.js" />
-	<script
-		type="application/x-javascript"
-		src="sites/Grooveshark.js" />
-	<script
-		type="application/x-javascript"
-		src="sites/HtmlVideo.js" />
-	<script
-		type="application/x-javascript"
-		src="sites/LastFM.js" />
-	<script
-		type="application/x-javascript"
-		src="sites/Pandora.js" />
-	<script
-		type="application/x-javascript"
-		src="sites/Playlist.js" />
-	<script
-		type="application/x-javascript"
-		src="sites/YouTube.js" />
-	<script
-		type="application/x-javascript"
-		src="ui/Controls.js" />
-	<script
-		type="application/x-javascript"
-		src="ui/Menu.js" />
-	<script
-		type="application/x-javascript"
-		src="MediaState.js" />
-	<script
-		type="application/x-javascript"
-		src="ui/Tabs.js" />
-	<script
-		type="application/x-javascript"
-		src="Main.js" />
-	<script
-		type="application/x-javascript"
-		src="preferences/Settings.js" />
+		src="bootstrap.js" />
 
 	<commandset id="mainCommandSet">
 		<command
 			id="cmd_mediaToggleState"
-			oncommand="com.sppad.BeQuiet.Controls.toggle();" />
+			oncommand="BeQuiet.Controls.toggle();" />
 		<command
 			id="cmd_mediaNext"
-			oncommand="com.sppad.BeQuiet.Controls.next();" />
+			oncommand="BeQuiet.Controls.next();" />
 		<command
 			id="cmd_mediaPrevious"
-			oncommand="com.sppad.BeQuiet.Controls.previous();" />
+			oncommand="BeQuiet.Controls.previous();" />
 		<command
 			id="cmd_com_sppad_BeQuiet_preferences"
-			oncommand="com.sppad.BeQuiet.Preferences.openPreferences(window);" />
+			oncommand="BeQuiet.Preferences.openPreferences(window);" />
 		<command
 			id="cmd_com_sppad_BeQuiet_toggleEnable"
-			oncommand="com.sppad.BeQuiet.Preferences.togglePreference('enablePauseResume');" />
+			oncommand="BeQuiet.Preferences.togglePreference('enablePauseResume');" />
 	</commandset>
 
 	<stringbundleset id="stringbundleset">
@@ -109,10 +58,10 @@
 		<popupset>
 			<tooltip
 				id="com_sppad_beQuiet_media_playPause.tooltip"
-				onpopupshowing="com.sppad.BeQuiet.Controls.updateToggleTooltip(event);" />
+				onpopupshowing="BeQuiet.Controls.updateToggleTooltip(event);" />
 			<menupopup
 				id="com_sppad_beQuiet_playPauseContext"
-				onpopupshowing="com.sppad.BeQuiet.Menu.preparePlayContext(event);">
+				onpopupshowing="BeQuiet.Menu.preparePlayContext(event);">
 				<menuitem
 					label="&settings.label;"
 					command="cmd_com_sppad_BeQuiet_preferences" />

@@ -1,6 +1,11 @@
-com.sppad.BeQuiet.Menu = new function() {
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
+
+BeQuiet.Menu = new function() {
 	
-	const prefs = com.sppad.BeQuiet.CurrentPrefs;
+	const prefs = BeQuiet.CurrentPrefs;
 	
 	const faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
 		.getService(Components.interfaces.mozIAsyncFavicons);
@@ -9,26 +14,24 @@ com.sppad.BeQuiet.Menu = new function() {
 	
 	self.preparePlayContext = function(event) {
 		let menu = event.target;
+		let document = menu.ownerDocument;
 		
 		for(let item of menu.querySelectorAll('[dynamic]'))
 			menu.removeChild(item);
 		
 		let handlerCount = 0;
-		for(let handler of com.sppad.BeQuiet.Main.handlers.values())
+		for(let handler of BeQuiet.Main.handlers.values())
 			if(handler.isActive())
 				self.addMenuitem(menu, handler, handlerCount++);
 		
 		menu.setAttribute('noMediaSites', handlerCount === 0);
 		
-    	self.updateToggleButtonState();
-	};
-	
-	self.updateToggleButtonState = function() {
 		let toggleButton = document.getElementById('com_sppad_beQuiet_toggleEnabledButton');
-    	toggleButton.setAttribute('checked', prefs.enablePauseResume);
+		toggleButton.setAttribute('checked', prefs.enablePauseResume);
 	};
 	
 	self.addMenuitem = function(menu, handler) {
+		let document = menu.ownerDocument;
 		let browser = handler.browser;
 		let label = browser.contentTitle || browser.currentURI.asciiSpec;
 		
