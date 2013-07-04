@@ -10,7 +10,7 @@
 
 	<script
 		type="application/x-javascript"
-		src="bootstrap.js" />
+		src="loader.js" />
 
 	<commandset id="mainCommandSet">
 		<command
