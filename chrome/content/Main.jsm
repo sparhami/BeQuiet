@@ -80,17 +80,23 @@ BeQuiet.Main = new function() {
     };
     
     self.onPageUnload = function(aEvent) {
+		dump("cleanup on page unload\n");
+    	
 	    self.unregisterHandlers(aEvent.target);
 	};
 	
 	self.onTabClose = function(aEvent) {
+		dump("cleanup on tab close\n");
+		
 		let tab = aEvent.target;
 		let browser = gBrowser.getBrowserForTab(tab);
 		
 	    self.unregisterHandlers(browser.contentDocument);
 	};
 	
-	self.onWindowClose = function(aWindow) {
+	self.onWindowClose = function(aEvent) {
+		let window = aEvent.target;
+		
 		for(let browser of aWindow.gBrowser.browsers)
 		    self.unregisterHandlers(browser.contentDocument);
 	};
@@ -140,14 +146,15 @@ BeQuiet.Main = new function() {
 		
 		aWindow.addEventListener("load", function() {
 			aWindow.gBrowser.addTabsProgressListener(self);
-			aWindow.addEventListener('unload', self.onWindowClose.bind(this, aWindow), true);
+			aWindow.addEventListener('unload', self.onWindowClose, false);
 
 			let tabContainer = aWindow.gBrowser.tabContainer;
-	        tabContainer.addEventListener("TabClose", self.onTabClose, true);
+	        tabContainer.addEventListener("TabClose", self.onTabClose, false);
 		});
 		
 		aWindow.addEventListener("unload", function() {
 			aWindow.gBrowser.removeTabsProgressListener(self);
+			aWindow.removeEventListener('unload', self.onWindowClose);
 
 			let tabContainer = aWindow.gBrowser.tabContainer;
 	        tabContainer.removeEventListener("TabClose", self.onTabClose);
