@@ -215,8 +215,6 @@ BeQuiet.Preferences = new function() {
 		 *            The value to set for the preference
 		 */
         setPreference : function(preference, value) {
-        	dump('setting ' + preference + ' to ' + value + '\n');
-        	
             let obj = {};
             obj[preference] = value;
 

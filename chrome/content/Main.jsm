@@ -80,14 +80,10 @@ BeQuiet.Main = new function() {
     };
     
     self.onPageUnload = function(aEvent) {
-		dump("cleanup on page unload\n");
-    	
 	    self.unregisterHandlers(aEvent.target);
 	};
 	
 	self.onTabClose = function(aEvent) {
-		dump("cleanup on tab close\n");
-		
 		let tab = aEvent.target;
 		let browser = gBrowser.getBrowserForTab(tab);
 		
