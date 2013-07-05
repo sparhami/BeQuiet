@@ -1,6 +1,6 @@
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
-Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm", BeQuiet);
-Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm", BeQuiet);
+Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm");
+Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm");
 
 
 BeQuiet.ConfigSitePreferences = new function() {
@@ -11,7 +11,7 @@ BeQuiet.ConfigSitePreferences = new function() {
 	let self = this;
 	
 	self.deleteSelectedRules = function() {
-		for(let list of self.lists) {
+		for(let list of [ self.allowList, self.blockList ]) {
 			// Make a copy of items so they can be deleted since removal updates selectedItems
 			let items = BeQuiet.Iterable.from(list.selectedItems).toArray();
 			for(let item of items) {
@@ -25,7 +25,7 @@ BeQuiet.ConfigSitePreferences = new function() {
 	};
 	
 	self.clearOtherFocus = function(aEvent) {
-		for(list of self.lists)
+		for(list of [ self.allowList, self.blockList ])
 			if(list !== aEvent.target)
 				list.clearSelection();
 	};
@@ -43,7 +43,7 @@ BeQuiet.ConfigSitePreferences = new function() {
 	};
 	
 	self.onRuleRemoved = function(aUri) {
-		for(let list of self.lists) {
+		for(let list of [ self.allowList, self.blockList ]) {
 			let count = list.getRowCount();
 			
 			for(let i=0; i<count; i++) {
@@ -60,8 +60,6 @@ BeQuiet.ConfigSitePreferences = new function() {
 	window.addEventListener('load', function() {
 		self.allowList = document.getElementById('allowedSites');
 		self.blockList = document.getElementById('blockedSites');
-		
-		self.lists = [ self.allowList, self.blockList ];
 		
 		document.getElementById('filterDeleteButton').addEventListener('command', self.deleteSelectedRules, true);
 		
