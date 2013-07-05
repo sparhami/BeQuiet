@@ -45,17 +45,6 @@ BeQuiet.LastFM = function(aBrowser) {
 
 	};
 	
-	self.playObserver = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if(mutation.attributeName != 'class')
-            	return;
-        	
-            setTimeout(function() {
-        		self.updatePlayingState();
-            }, 1);
-        });   
-    });
-	
 	self.initialize = function() {
 		self.webRadio = self.doc.getElementById('webRadio');
 		self.playButton = self.doc.getElementById('radioControlPlay');
@@ -66,6 +55,16 @@ BeQuiet.LastFM = function(aBrowser) {
 	};
 	
 	self.registerListeners = function() {
+		self.playObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+	        mutations.forEach(function(mutation) {
+	            if(mutation.attributeName != 'class')
+	            	return;
+	        	
+	            setTimeout(function() {
+	        		self.updatePlayingState();
+	            }, 1);
+	        });   
+	    });
 	    self.playObserver.observe(self.webRadio, { attributes: true });
 	};
 	

@@ -8,6 +8,7 @@ BeQuiet.Grooveshark = function(aBrowser) {
 	const PLAYING_CLASS = 'playing';
 	
 	let self = this;
+	self.browserWindow = aBrowser.ownerDocument.defaultView;
 	
 	self.hasMedia = function() {
 		return self.initialized;
@@ -52,17 +53,6 @@ BeQuiet.Grooveshark = function(aBrowser) {
 		self.prevButton.click();
 	};
 	
-	self.playObserver = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if(mutation.attributeName != 'class')
-            	return;
-        	
-            setTimeout(function() {
-        		self.updatePlayingState();
-            }, 1);
-        });   
-    });
-	
 	self.initialize = function() {
 		self.button = self.doc.getElementById('play-pause');
 		self.nextButton = self.doc.getElementById('play-next');
@@ -72,6 +62,17 @@ BeQuiet.Grooveshark = function(aBrowser) {
 	};
 	
 	self.registerListeners = function() {
+		self.playObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+	        mutations.forEach(function(mutation) {
+	            if(mutation.attributeName != 'class')
+	            	return;
+	        	
+	            setTimeout(function() {
+	        		self.updatePlayingState();
+	            }, 1);
+	        });   
+	    });
+		
 	    self.playObserver.observe(self.button, { attributes: true });
 	};
 	
@@ -79,7 +80,7 @@ BeQuiet.Grooveshark = function(aBrowser) {
 		self.playObserver.disconnect();
 	};
 	
-	self.base = com.sppad.BeQuiet.Handler;
+	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
 }
 

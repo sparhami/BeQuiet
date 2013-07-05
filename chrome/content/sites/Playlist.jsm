@@ -49,17 +49,6 @@ BeQuiet.Playlist = function(aBrowser) {
 		self.prevButton.click();
 	};
 	
-	self.playObserver = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if(mutation.attributeName != 'style')
-            	return;
-            
-            setTimeout(function() {
-        		self.updatePlayingState();
-            }, 1);
-        });   
-    });
-	
 	self.initialize = function() {
 		self.playButton = self.doc.getElementsByClassName('jp-play')[0];
 		self.pauseButton = self.doc.getElementsByClassName('jp-pause')[0];
@@ -70,6 +59,17 @@ BeQuiet.Playlist = function(aBrowser) {
 	};
 	
 	self.registerListeners = function() {
+		self.playObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+	        mutations.forEach(function(mutation) {
+	            if(mutation.attributeName != 'style')
+	            	return;
+	            
+	            setTimeout(function() {
+	        		self.updatePlayingState();
+	            }, 1);
+	        });   
+	    });
+		
 	    self.playObserver.observe(self.playButton, { attributes: true });
 	};
 	

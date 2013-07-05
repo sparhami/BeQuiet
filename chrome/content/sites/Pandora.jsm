@@ -46,17 +46,6 @@ BeQuiet.Pandora = function(aBrowser) {
 		
 	};
 	
-	self.playObserver = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if(mutation.attributeName != 'style')
-            	return;
-            
-            setTimeout(function() {
-        		self.updatePlayingState();
-            }, 1);
-        });   
-    });
-	
 	self.initialize = function() {
 		self.playButton = self.doc.getElementsByClassName('playButton')[0];
 		self.pauseButton = self.doc.getElementsByClassName('pauseButton')[0];
@@ -66,6 +55,17 @@ BeQuiet.Pandora = function(aBrowser) {
 	};
 	
 	self.registerListeners = function() {
+		self.playObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+	        mutations.forEach(function(mutation) {
+	            if(mutation.attributeName != 'style')
+	            	return;
+	            
+	            setTimeout(function() {
+	        		self.updatePlayingState();
+	            }, 1);
+	        });   
+	    });
+		
 	    self.playObserver.observe(self.playButton, { attributes: true });
 	};
 	

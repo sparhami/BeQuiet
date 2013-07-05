@@ -8,6 +8,7 @@ BeQuiet.EightTracks = function(aBrowser) {
 	const PLAY_ACTIVE = /display: none;/;
 	
 	let self = this;
+	self.browserWindow = aBrowser.ownerDocument.defaultView;
 	
 	self.hasMedia = function() {
 		return self.initialized;
@@ -46,17 +47,6 @@ BeQuiet.EightTracks = function(aBrowser) {
 		
 	};
 	
-	self.playObserver = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if(mutation.attributeName != 'style')
-            	return;
-            
-            setTimeout(function() {
-        		self.updatePlayingState();
-            }, 1);
-        });   
-    });
-	
 	self.initialize = function() {
 		self.playButton = self.doc.getElementById('player_play_button');
 		self.pauseButton = self.doc.getElementById('player_pause_button');
@@ -66,6 +56,17 @@ BeQuiet.EightTracks = function(aBrowser) {
 	};
 	
 	self.registerListeners = function() {
+		self.playObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+	        mutations.forEach(function(mutation) {
+	            if(mutation.attributeName != 'style')
+	            	return;
+	            
+	            setTimeout(function() {
+	        		self.updatePlayingState();
+	            }, 1);
+	        });   
+	    });
+		
 	    self.playObserver.observe(self.playButton, { attributes: true });
 	};
 	
