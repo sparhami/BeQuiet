@@ -1,5 +1,6 @@
 var EXPORTED_SYMBOLS = [];
 
+Components.utils.import("resource://gre/modules/Timer.jsm");
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 
 BeQuiet.Grooveshark = function(aBrowser) {
