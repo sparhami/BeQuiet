@@ -6,13 +6,6 @@ Components.utils.import("chrome://BeQuiet/content/ui/Tabs.jsm");
 Components.utils.import("chrome://BeQuiet/content/ui/Controls.jsm");
 Components.utils.import("chrome://BeQuiet/content/ui/Menu.jsm");
 Components.utils.import("chrome://BeQuiet/content/Handler.jsm");
-Components.utils.import("chrome://BeQuiet/content/sites/EightTracks.jsm");
-Components.utils.import("chrome://BeQuiet/content/sites/Grooveshark.jsm");
-Components.utils.import("chrome://BeQuiet/content/sites/HtmlVideo.jsm");
-Components.utils.import("chrome://BeQuiet/content/sites/LastFM.jsm");
-Components.utils.import("chrome://BeQuiet/content/sites/Pandora.jsm");
-Components.utils.import("chrome://BeQuiet/content/sites/Playlist.jsm");
-Components.utils.import("chrome://BeQuiet/content/sites/YouTube.jsm");
 Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm");
 Components.utils.import("chrome://BeQuiet/content/collect/SetMultiMap.jsm");
 
@@ -28,13 +21,13 @@ BeQuiet.Main = new function() {
 	 * Maps regular expressions to the handlers for that site. A site can have
 	 * more than one handler (e.g. YouTube, one for Flash and one for Hmtl5).
 	 */
-	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: BeQuiet.YouTube },
-	                          { key: /pandora.com$/, value: BeQuiet.Pandora },
-	                          { key: /last.fm$/, value: BeQuiet.LastFM },
-	                          { key: /grooveshark.com$/, value: BeQuiet.Grooveshark },
-	                          { key: /playlist.com$/, value: BeQuiet.Playlist },
-	                          { key: /8tracks.com$/, value: BeQuiet.EightTracks },
-	                          { key: new RegExp("."), value: BeQuiet.HtmlVideo } ];
+	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: 'YouTube' },
+	                          { key: /pandora.com$/, value: 'Pandora' },
+	                          { key: /last.fm$/, value: 'LastFM' },
+	                          { key: /grooveshark.com$/, value: 'Grooveshark' },
+	                          { key: /playlist.com$/, value: 'Playlist' },
+	                          { key: /8tracks.com$/, value: 'EightTracks' },
+	                          { key: new RegExp("."), value: 'HtmlVideo' } ];
 	
 	let self = this;
 
@@ -66,7 +59,9 @@ BeQuiet.Main = new function() {
     		if(!entry.key.test(aHost))
     			continue;
     		
-			let constructor = entry.value;
+    		Components.utils.import("chrome://BeQuiet/content/sites/" + entry.value + ".jsm");
+    		
+			let constructor = BeQuiet[entry.value];
 			let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
    				
 			let handler = new factoryFunction(aBrowser);
