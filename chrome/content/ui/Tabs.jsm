@@ -17,8 +17,7 @@ BeQuiet.Tabs = new function() {
     	tab.removeAttributeNS(BeQuiet.xmlns, 'mediaPlaying');
    		tab.removeAttributeNS(BeQuiet.xmlns, 'usePlayingAnimation');
     	
-    	self.restoreTabIcon(tab);
-
+    	self.restoreTabIcon(tab, browser.currentURI);
     };
     
     self.onPlay = function(aEvent) {
@@ -36,23 +35,23 @@ BeQuiet.Tabs = new function() {
       	}
     };
     
-    self.restoreTabIcon = function(aTab) {
-    	let uri = gBrowser.getBrowserForTab(aTab).currentURI;
-    	
-    	faviconService.getFaviconURLForPage(uri, function(icon) {
+    self.restoreTabIcon = function(aTab, aUri) {
+    	faviconService.getFaviconURLForPage(aUri, function(icon) {
     		icon && aTab.setAttribute('image', icon.asciiSpec);	
 		});
     };
     
-//	window.addEventListener("load", function() {
-//		document.addEventListener("com_sppad_handler_play", self.onPlay, false);
-//		document.addEventListener("com_sppad_handler_pause", self.onPause, false);
-//	});
-//	
-//	window.addEventListener("unload", function() {
-//		document.removeEventListener("com_sppad_handler_play", self.onPlay);
-//		document.removeEventListener("com_sppad_handler_pause", self.onPause);
-//	});
+	self.setupWindow = function(aWindow) {
+		aWindow.addEventListener("load", function() {
+			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
+			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
+		});
+		
+		aWindow.addEventListener("unload", function() {
+			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
+			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
+		});
+	};
 };
 
 

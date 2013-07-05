@@ -2,6 +2,7 @@ var EXPORTED_SYMBOLS = [];
 
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 Components.utils.import("chrome://BeQuiet/content/MediaState.jsm");
+Components.utils.import("chrome://BeQuiet/content/ui/Tabs.jsm");
 Components.utils.import("chrome://BeQuiet/content/ui/Controls.jsm");
 Components.utils.import("chrome://BeQuiet/content/ui/Menu.jsm");
 Components.utils.import("chrome://BeQuiet/content/Handler.jsm");
@@ -89,6 +90,11 @@ BeQuiet.Main = new function() {
 	    self.unregisterHandlers(browser.contentDocument);
 	};
 	
+	self.onWindowClose = function(aWindow) {
+		for(let browser of aWindow.gBrowser.browsers)
+		    self.unregisterHandlers(browser.contentDocument);
+	};
+	
 	self.getTabForBrowser = function(aBrowser) {
 		let gBrowser = self.getWindowForBrowser(aBrowser).gBrowser;
 		
@@ -134,6 +140,7 @@ BeQuiet.Main = new function() {
 		
 		aWindow.addEventListener("load", function() {
 			aWindow.gBrowser.addTabsProgressListener(self);
+			aWindow.addEventListener('unload', self.onWindowClose.bind(this, aWindow), true);
 
 			let tabContainer = aWindow.gBrowser.tabContainer;
 	        tabContainer.addEventListener("TabClose", self.onTabClose, true);

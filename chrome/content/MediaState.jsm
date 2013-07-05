@@ -142,8 +142,8 @@ BeQuiet.MediaState = new function() {
 		});
 		
 		aWindow.addEventListener("unload", function() {
-			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
-			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
+			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
+			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
 		});
 	};
 	
