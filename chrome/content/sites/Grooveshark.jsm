@@ -82,7 +82,7 @@ BeQuiet.Grooveshark = function(aBrowser) {
 	
 	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
-}
+};
 
 BeQuiet.Grooveshark.prototype = Object.create(BeQuiet.Handler.prototype);
 BeQuiet.Grooveshark.prototype.constructor = BeQuiet.Grooveshark;

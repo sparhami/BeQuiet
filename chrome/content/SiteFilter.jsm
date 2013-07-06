@@ -58,4 +58,4 @@ BeQuiet.SiteFilter = new function() {
 		if(allowed)
 			aCallback();
 	};
-}
+};

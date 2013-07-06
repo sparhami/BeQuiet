@@ -139,6 +139,7 @@ BeQuiet.Main = new function() {
 	};
 	
 	self.setupWindow = function(aWindow) {
+		// Checks for load and sets up initial toolbar button location
 		aWindow.addEventListener("load", function() {
 			aWindow.Application.getExtensions(function (extensions) {
 			    if (extensions.get("BeQuiet@com.sppad").firstRun) {

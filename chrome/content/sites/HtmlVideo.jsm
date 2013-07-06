@@ -82,7 +82,7 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 	
 	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
-}
+};
 
 BeQuiet.HtmlVideo.prototype = Object.create(BeQuiet.Handler.prototype);
 BeQuiet.HtmlVideo.prototype.constructor = BeQuiet.HtmlVideo;

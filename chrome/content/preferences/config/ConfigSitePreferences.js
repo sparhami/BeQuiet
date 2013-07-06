@@ -76,4 +76,4 @@ BeQuiet.ConfigSitePreferences = new function() {
 	window.addEventListener('unload', function() {
 		BeQuiet.SiteFilterRules.removeObserver(self);
 	});
-}
+};

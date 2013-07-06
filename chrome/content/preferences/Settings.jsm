@@ -52,21 +52,18 @@ BeQuiet.Settings = new function() {
     	commandNode.setAttribute('modifiers', modifiers);
     };
 
-    self.setup = function() {
-    	BeQuiet.Preferences.addObserver(self);
-    	
-    	let initialPrefs = ['shortcut.com_sppad_mediaToggleState.',
-    	                    'shortcut.com_sppad_mediaNext.',
-    	                    'shortcut.com_sppad_mediaPrevious.',
-    	                    'enablePauseResume'];
-    	
-    	for(let pref of initialPrefs)
-            self.prefChanged(pref, prefs[pref]);	
-    };
-    
     self.cleanup = function() {
     	BeQuiet.Preferences.removeObserver(self);
     };
 
-    self.setup();
-}
+    
+ 	BeQuiet.Preferences.addObserver(self);
+	
+	let initialPrefs = ['shortcut.com_sppad_mediaToggleState.',
+	                    'shortcut.com_sppad_mediaNext.',
+	                    'shortcut.com_sppad_mediaPrevious.',
+	                    'enablePauseResume'];
+	
+	for(let pref of initialPrefs)
+        self.prefChanged(pref, prefs[pref]);	
+};

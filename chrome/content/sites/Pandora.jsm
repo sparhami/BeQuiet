@@ -75,7 +75,7 @@ BeQuiet.Pandora = function(aBrowser) {
 	
 	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
-}
+};
 
 BeQuiet.Pandora.prototype = Object.create(BeQuiet.Handler.prototype);
 BeQuiet.Pandora.prototype.constructor = BeQuiet.Pandora;

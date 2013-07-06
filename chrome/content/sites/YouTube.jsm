@@ -125,7 +125,7 @@ BeQuiet.YouTube = function(aBrowser) {
 	
 	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
-}
+};
 
 BeQuiet.YouTube.prototype = Object.create(BeQuiet.Handler.prototype);
 BeQuiet.YouTube.prototype.constructor = BeQuiet.YouTube;

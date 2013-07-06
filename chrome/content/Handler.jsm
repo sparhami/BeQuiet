@@ -140,4 +140,4 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
 	self.browser.addEventListener("DOMContentLoaded", self.setup, false);
 	self.setup();
-}
+};

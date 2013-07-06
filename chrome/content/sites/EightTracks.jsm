@@ -76,7 +76,7 @@ BeQuiet.EightTracks = function(aBrowser) {
 	
 	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
-}
+};
 
 BeQuiet.EightTracks.prototype = Object.create(BeQuiet.Handler.prototype);
 BeQuiet.EightTracks.prototype.constructor = BeQuiet.EightTracks;

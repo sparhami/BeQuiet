@@ -74,7 +74,7 @@ BeQuiet.LastFM = function(aBrowser) {
 	
 	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
-}
+};
 
 BeQuiet.LastFM.prototype = Object.create(BeQuiet.Handler.prototype);
 BeQuiet.LastFM.prototype.constructor = BeQuiet.LastFM;

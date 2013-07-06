@@ -79,7 +79,7 @@ BeQuiet.Playlist = function(aBrowser) {
 	
 	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
-}
+};
 
 BeQuiet.Playlist.prototype = Object.create(BeQuiet.Handler.prototype);
 BeQuiet.Playlist.prototype.constructor = BeQuiet.Playlist;

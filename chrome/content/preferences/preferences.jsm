@@ -278,5 +278,5 @@ BeQuiet.Preferences = new function() {
     	removeObserver : function(observer) {
     		self._observers.delete(observer);
     	},
-    }
+    };
 };

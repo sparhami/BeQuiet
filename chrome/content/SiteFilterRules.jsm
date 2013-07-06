@@ -50,4 +50,4 @@ BeQuiet.SiteFilterRules = new function() {
 	self.removeObserver = function(observer) {
 		self.observers.delete(observer);
 	};
-}
+};
