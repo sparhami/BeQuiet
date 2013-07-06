@@ -1,3 +1,5 @@
+"use strict";
+
 var EXPORTED_SYMBOLS = [];
 
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");

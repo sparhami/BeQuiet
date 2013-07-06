@@ -1,3 +1,5 @@
+"use strict";
+
 var EXPORTED_SYMBOLS = [];
 
 Components.utils.import("resource://gre/modules/Timer.jsm");

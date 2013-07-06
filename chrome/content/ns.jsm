@@ -1,5 +1,7 @@
+"use strict";
+
 var EXPORTED_SYMBOLS = ["BeQuiet"];
 
-BeQuiet = {
+var BeQuiet = {
 	xmlns: "http://sppad.com/ns/BeQuiet",
 };

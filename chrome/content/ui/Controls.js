@@ -1,4 +1,4 @@
-var EXPORTED_SYMBOLS = [];
+"use strict";
 
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 
@@ -8,17 +8,15 @@ BeQuiet.Controls = new function() {
 	self.playing = false;
 	
 	self.setButtonState	 = function(playing) {
-		for(window of BeQuiet.Main.getWindows()) {
-			let control = window.document.getElementById('com_sppad_beQuiet_media_playPause');
-			
-			if(!control)
-				return;
-			
-			if(playing)
-				control.setAttribute('playing', true);
-			else
-				control.removeAttribute('playing');
-		}
+		let control = window.document.getElementById('com_sppad_beQuiet_media_playPause');
+		
+		if(!control)
+			return;
+		
+		if(playing)
+			control.setAttribute('playing', true);
+		else
+			control.removeAttribute('playing');
 	};
 	
 	self.updateToggleTooltip = function(aEvent) {
@@ -26,15 +24,13 @@ BeQuiet.Controls = new function() {
 	};
 	
 	self.setControlsEnabled = function(enabled) {
-		for(window of BeQuiet.Main.getWindows()) {
-		 	let controls = window.document.getElementsByClassName('com_sppad_beQuiet_mediaControl');
-	    	for(let control of controls) {
-	    		if(enabled)
-	    			control.removeAttribute('disabled');
-	    		else
-	    			control.setAttribute('disabled', true);
-	    	}
-		}
+	 	let controls = window.document.getElementsByClassName('com_sppad_beQuiet_mediaControl');
+    	for(let control of controls) {
+    		if(enabled)
+    			control.removeAttribute('disabled');
+    		else
+    			control.setAttribute('disabled', true);
+    	}
 	};
 	
 	self.isPlaying = function() {

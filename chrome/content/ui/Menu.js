@@ -1,4 +1,4 @@
-var EXPORTED_SYMBOLS = [];
+"use strict";
 
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
@@ -13,7 +13,6 @@ BeQuiet.Menu = new function() {
 	
 	self.preparePlayContext = function(event) {
 		let menu = event.target;
-		let document = menu.ownerDocument;
 		
 		for(let item of menu.querySelectorAll(':not([static])'))
 			menu.removeChild(item);
@@ -37,7 +36,6 @@ BeQuiet.Menu = new function() {
 	};
 	
 	self.addMenuitem = function(menu, handler) {
-		let document = menu.ownerDocument;
 		let browser = handler.browser;
 		let label = browser.contentTitle || browser.currentURI.asciiSpec;
 		
