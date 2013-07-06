@@ -16,7 +16,7 @@ BeQuiet.Menu = new function() {
 		let menu = event.target;
 		let document = menu.ownerDocument;
 		
-		for(let item of menu.querySelectorAll('[dynamic]'))
+		for(let item of menu.querySelectorAll(':not([static])'))
 			menu.removeChild(item);
 		
 		let handlerCount = 0;
@@ -30,6 +30,13 @@ BeQuiet.Menu = new function() {
 		toggleButton.setAttribute('checked', prefs.enablePauseResume);
 	};
 	
+	self.cleanupPlayContext = function(event) {
+		let menu = event.target;
+		
+		for(let item of menu.querySelectorAll(':not([static])'))
+			menu.removeChild(item);
+	};
+	
 	self.addMenuitem = function(menu, handler) {
 		let document = menu.ownerDocument;
 		let browser = handler.browser;
@@ -41,7 +48,6 @@ BeQuiet.Menu = new function() {
 		item.setAttribute('class', 'menuitem-iconic');
 		item.setAttribute('label', label);
 		item.setAttribute('playing', handler.playing);
-		item.setAttribute('dynamic', true);
 
 		faviconService.getFaviconURLForPage(browser.currentURI, function(icon) {
 			let image = handler.playing ? 'chrome://BeQuiet/skin/images/note.svg'

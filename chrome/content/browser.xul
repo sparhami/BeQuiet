@@ -55,16 +55,20 @@
 				onpopupshowing="BeQuiet.Controls.updateToggleTooltip(event);" />
 			<menupopup
 				id="com_sppad_beQuiet_playPauseContext"
-				onpopupshowing="BeQuiet.Menu.preparePlayContext(event);">
+				onpopupshowing="BeQuiet.Menu.preparePlayContext(event);"
+				onpopuphidden="BeQuiet.Menu.cleanupPlayContext(event);">
 				<menuitem
+					static="true"
 					label="&settings.label;"
 					command="cmd_com_sppad_BeQuiet_preferences" />
 				<menuitem
 					id="com_sppad_beQuiet_toggleEnabledButton"
+					static="true"
 					label="&automaticallyPauseResume.label;"
 					command="cmd_com_sppad_BeQuiet_toggleEnable" />
-				<menuseparator />
+				<menuseparator static="true" />
 				<menuitem
+					static="true"
 					id="com_sppad_beQuiet_noMediaSites"
 					disabled="true"
 					label="&noMediaSites.label;" />
