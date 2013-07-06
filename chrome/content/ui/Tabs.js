@@ -41,5 +41,12 @@ BeQuiet.Tabs = new function() {
 		});
     };
     
-	BeQuiet.Main.addObserver(self);
+	window.addEventListener('load', function() {
+		BeQuiet.Main.addObserver(self);	
+	});
+
+	window.addEventListener('unload', function() {
+		BeQuiet.Main.removeObserver(self);
+	});
+
 };

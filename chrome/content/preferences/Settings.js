@@ -24,13 +24,11 @@ BeQuiet.Settings = new function() {
     
     self.enablePauseResume = function(enabled) {
     	BeQuiet.Controls.setControlsEnabled(enabled);
-    	BeQuiet.Menu.updateToggleButtonState();
-		BeQuiet.MediaState.forceOnePlayingHandler();
     };
     
     /**
-     * Note: currently requires browser restart in order to change keybinding.
-     */
+	 * Note: currently requires browser restart in order to change keybinding.
+	 */
     self.updateKeybind = function(name) {
     	let branch = "shortcut." + name + ".";
     	let modBranch = branch + "modifiers.";
@@ -41,7 +39,7 @@ BeQuiet.Settings = new function() {
     		.filter(function(mod) { return prefs[modBranch + mod]; })
     		.join(',');
     	
-    	let commandNode = document.getElementById(name);
+    	let commandNode = window.document.getElementById(name);
     	
     	if(enabled)
     		commandNode.removeAttribute('disabled');
@@ -52,18 +50,19 @@ BeQuiet.Settings = new function() {
     	commandNode.setAttribute('modifiers', modifiers);
     };
 
-    self.cleanup = function() {
-    	BeQuiet.Preferences.removeObserver(self);
-    };
-
+    window.addEventListener('load', function() {
+     	BeQuiet.Preferences.addObserver(self);
+    	
+    	let initialPrefs = ['shortcut.com_sppad_mediaToggleState.',
+    	                    'shortcut.com_sppad_mediaNext.',
+    	                    'shortcut.com_sppad_mediaPrevious.',
+    	                    'enablePauseResume'];
+    	
+    	for(let pref of initialPrefs)
+            self.prefChanged(pref, prefs[pref]);
+    });
     
- 	BeQuiet.Preferences.addObserver(self);
-	
-	let initialPrefs = ['shortcut.com_sppad_mediaToggleState.',
-	                    'shortcut.com_sppad_mediaNext.',
-	                    'shortcut.com_sppad_mediaPrevious.',
-	                    'enablePauseResume'];
-	
-	for(let pref of initialPrefs)
-        self.prefChanged(pref, prefs[pref]);	
+    window.addEventListener('unload', function() {
+    	BeQuiet.Preferences.removeObserver(self);
+    });
 };

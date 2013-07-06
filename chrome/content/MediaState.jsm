@@ -23,6 +23,15 @@ BeQuiet.MediaState = new function() {
 	self.observers = new Set();
 	
 	self.paused = false;
+	
+    self.prefChanged = function(name, value) {
+        switch(name) {
+        	case 'enablePauseResume': 
+        		value && self.forceOnePlayingHandler();
+        		break;
+        }
+    };
+    
     
 	self.pause = function() {
 		self.paused = true;
@@ -140,4 +149,5 @@ BeQuiet.MediaState = new function() {
 	};
 	
 	BeQuiet.Main.addObserver(self);
+ 	BeQuiet.Preferences.addObserver(self);
 };

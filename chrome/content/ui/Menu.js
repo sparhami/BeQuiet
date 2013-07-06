@@ -6,7 +6,6 @@ Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
 BeQuiet.Menu = new function() {
 	
 	const prefs = BeQuiet.CurrentPrefs;
-	
 	const faviconService = Components.classes["@mozilla.org/browser/favicon-service;1"]
 		.getService(Components.interfaces.mozIAsyncFavicons);
 	

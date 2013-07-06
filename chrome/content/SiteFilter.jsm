@@ -1,7 +1,5 @@
 var EXPORTED_SYMBOLS = [];
 
-Components.utils.import("resource://gre/modules/PopupNotifications.jsm");
-
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 Components.utils.import("chrome://BeQuiet/content/SiteFilterRules.jsm");
 

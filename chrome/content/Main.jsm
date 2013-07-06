@@ -173,5 +173,7 @@ BeQuiet.Main = new function() {
 			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
 			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
 		});
+
+//		aWindow.addEventListener("unload", self.onWindowClose);
 	};
 };

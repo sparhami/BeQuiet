@@ -74,5 +74,11 @@ BeQuiet.Controls = new function() {
 		BeQuiet.MediaState.previous();
 	};
 	
-	BeQuiet.MediaState.addObserver(this);
+	window.addEventListener('load', function() {
+		BeQuiet.MediaState.addObserver(self);
+	});
+
+	window.addEventListener('unload', function() {
+		BeQuiet.MediaState.removeObserver(self);
+	});
 };
