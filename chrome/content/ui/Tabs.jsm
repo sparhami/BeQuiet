@@ -10,8 +10,8 @@ BeQuiet.Tabs = new function() {
 	
 	let self = this;
 	
-    self.onPause = function(aEvent) {
-    	let browser = aEvent.handler.browser;
+    self.onPause = function(aHandler) {
+    	let browser = aHandler.browser;
     	
     	let tab = BeQuiet.Main.getTabForBrowser(browser);
     	tab.removeAttributeNS(BeQuiet.xmlns, 'mediaPlaying');
@@ -20,8 +20,8 @@ BeQuiet.Tabs = new function() {
     	self.restoreTabIcon(tab, browser.currentURI);
     };
     
-    self.onPlay = function(aEvent) {
-    	let browser = aEvent.handler.browser;
+    self.onPlay = function(aHandler) {
+    	let browser = aHandler.browser;
     	
     	let tab = BeQuiet.Main.getTabForBrowser(browser);
       	tab.setAttributeNS(BeQuiet.xmlns, 'mediaPlaying', 'true');
@@ -41,17 +41,5 @@ BeQuiet.Tabs = new function() {
 		});
     };
     
-	self.setupWindow = function(aWindow) {
-		aWindow.addEventListener("load", function() {
-			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
-			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
-		});
-		
-		aWindow.addEventListener("unload", function() {
-			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
-			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
-		});
-	};
+	BeQuiet.Main.addObserver(self);
 };
-
-

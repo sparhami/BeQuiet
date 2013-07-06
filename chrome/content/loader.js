@@ -1,6 +1,8 @@
-Cu.import('chrome://BeQuiet/content/ns.jsm');
-Cu.import('chrome://BeQuiet/content/Main.jsm');
+Components.utils.import('chrome://BeQuiet/content/ns.jsm');
+Components.utils.import('chrome://BeQuiet/content/Main.jsm');
+Components.utils.import("chrome://BeQuiet/content/MediaState.jsm");
+Components.utils.import("chrome://BeQuiet/content/ui/Tabs.jsm");
+Components.utils.import("chrome://BeQuiet/content/ui/Controls.jsm");
+Components.utils.import("chrome://BeQuiet/content/ui/Menu.jsm");
 
 BeQuiet.Main.setupWindow(window);
-BeQuiet.MediaState.setupWindow(window);
-BeQuiet.Tabs.setupWindow(window);

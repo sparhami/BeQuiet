@@ -1,10 +1,6 @@
 var EXPORTED_SYMBOLS = [];
 
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
-Components.utils.import("chrome://BeQuiet/content/MediaState.jsm");
-Components.utils.import("chrome://BeQuiet/content/ui/Tabs.jsm");
-Components.utils.import("chrome://BeQuiet/content/ui/Controls.jsm");
-Components.utils.import("chrome://BeQuiet/content/ui/Menu.jsm");
 Components.utils.import("chrome://BeQuiet/content/Handler.jsm");
 Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm");
 Components.utils.import("chrome://BeQuiet/content/collect/SetMultiMap.jsm");
@@ -33,6 +29,8 @@ BeQuiet.Main = new function() {
 
 	/** Maps documents to the handlers for that document */
 	self.handlers = new BeQuiet.SetMultiMap();
+	
+	self.observers = new Set();
 	
 	self.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
     	let doc = aBrowser.contentDocument;
@@ -122,6 +120,24 @@ BeQuiet.Main = new function() {
 		return gBrowser.getBrowserForTab(gBrowser.selectedTab) === aHandler.browser;
 	};
 	
+	self.onPlay = function(aEvent) {
+		for(let observer of self.observers)
+			observer.onPlay(aEvent.handler);
+	};
+	
+	self.onPause = function(aEvent) {
+		for(let observer of self.observers)
+			observer.onPause(aEvent.handler);
+	};
+	
+	self.addObserver = function(observer) {
+		self.observers.add(observer);
+	};
+	
+	self.removeObserver = function(observer) {
+		self.observers.delete(observer);
+	};
+	
 	self.setupWindow = function(aWindow) {
 		aWindow.addEventListener("load", function() {
 			aWindow.Application.getExtensions(function (extensions) {
@@ -141,6 +157,9 @@ BeQuiet.Main = new function() {
 
 			let tabContainer = aWindow.gBrowser.tabContainer;
 	        tabContainer.addEventListener("TabClose", self.onTabClose, false);
+	        
+			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
+			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
 		});
 		
 		aWindow.addEventListener("unload", function() {
@@ -149,6 +168,9 @@ BeQuiet.Main = new function() {
 
 			let tabContainer = aWindow.gBrowser.tabContainer;
 	        tabContainer.removeEventListener("TabClose", self.onTabClose);
+	        
+			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
+			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
 		});
 	};
 };

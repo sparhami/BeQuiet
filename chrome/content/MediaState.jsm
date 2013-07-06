@@ -96,14 +96,12 @@ BeQuiet.MediaState = new function() {
 		}, Math.max(prefs.resumeDelay - prefs.pauseCheckDelay, 1));
 	};
 
-	self.onPause = function(aEvent) {
+	self.onPause = function(aHandler) {
     	if(!prefs.enablePauseResume)
     		return;
     	
-    	let handler = aEvent.handler;
-    	
     	// Paused due to onPlay, ignore it
-    	if(handler != self.playingHandler)
+    	if(aHandler != self.playingHandler)
 			return;
     	
        	self.playingHandler = null;
@@ -115,7 +113,7 @@ BeQuiet.MediaState = new function() {
 	  		self.resume();
     };
     
-    self.onPlay = function(aEvent) {
+    self.onPlay = function(aHandler) {
     	if(!prefs.enablePauseResume)
     		return;
     	
@@ -123,10 +121,8 @@ BeQuiet.MediaState = new function() {
     	
     	clearTimeout(self.resumeDelayTimer);
     	
-    	let handler = aEvent.handler;
-    	
 		self.pausedHandler = self.playingHandler;
-		self.playingHandler = handler;
+		self.playingHandler = aHandler;
     	
     	if(self.pausedHandler != null)
     		self.pausedHandler.pause();
@@ -135,18 +131,6 @@ BeQuiet.MediaState = new function() {
 			observer.onPlay();
     };
     
-	self.setupWindow = function(aWindow) {
-		aWindow.addEventListener("load", function() {
-			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
-			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
-		});
-		
-		aWindow.addEventListener("unload", function() {
-			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
-			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
-		});
-	};
-	
 	self.addObserver = function(observer) {
 		self.observers.add(observer);
 	};
@@ -154,6 +138,6 @@ BeQuiet.MediaState = new function() {
 	self.removeObserver = function(observer) {
 		self.observers.delete(observer);
 	};
+	
+	BeQuiet.Main.addObserver(self);
 };
-
-
