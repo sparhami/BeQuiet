@@ -12,6 +12,9 @@ BeQuiet.SiteFilterRules = new function() {
 	const ioService = Components.classes["@mozilla.org/network/io-service;1"]
 		.getService(Components.interfaces.nsIIOService);
 	
+	const asyncHistory = Components.classes["@mozilla.org/browser/history;1"]
+		.getService(Components.interfaces.mozIAsyncHistory);
+	
 	const filterAnnotationName = "com_sppad_BeQuiet/filterRule";
 	
 	let self = this;
@@ -23,10 +26,24 @@ BeQuiet.SiteFilterRules = new function() {
 	};
 
 	self.addRule = function(aUri, allowed) {
-		annotationService.setPageAnnotation(aUri, filterAnnotationName, allowed, 0, annotationService.EXPIRE_NEVER);
-	
-		for(let observer of self.observers)
-			observer.onRuleAdded(aUri, allowed);
+		let info = {
+				uri: aUri,
+				visits: [ { visitDate: Date.now(), transitionType: 1, }],
+		};
+		
+		let callback = {
+				handleError: function() {},
+				handleResult: function() {},
+				handleCompletion: function() {
+					annotationService.setPageAnnotation(aUri, filterAnnotationName, allowed, 0, annotationService.EXPIRE_NEVER);
+				
+					for(let observer of self.observers)
+						observer.onRuleAdded(aUri, allowed);
+				},
+		};
+		
+		// Adds a visit, since annotation service can only add annotations for sites 
+		asyncHistory.updatePlaces(info, callback);
 	};
 	
 	self.removeRule = function(aUri) {
