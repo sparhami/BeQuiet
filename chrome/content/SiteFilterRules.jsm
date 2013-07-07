@@ -3,63 +3,56 @@
 var EXPORTED_SYMBOLS = [];
 
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm");
 
 BeQuiet.SiteFilterRules = new function() {
 	
-	const annotationService = Components.classes["@mozilla.org/browser/annotation-service;1"]
-    	.getService(Components.interfaces.nsIAnnotationService);
+	const tagsService = Components.classes["@mozilla.org/browser/tagging-service;1"]
+    	.getService(Components.interfaces.nsITaggingService);
 	
-	const ioService = Components.classes["@mozilla.org/network/io-service;1"]
-		.getService(Components.interfaces.nsIIOService);
+	const filterAllowed = "media_events_allowed";
 	
-	const asyncHistory = Components.classes["@mozilla.org/browser/history;1"]
-		.getService(Components.interfaces.mozIAsyncHistory);
-	
-	const filterAnnotationName = "com_sppad_BeQuiet/filterRule";
+	const filterDenied = "media_events_denied";
 	
 	let self = this;
 	
 	self.observers = new Set();
 	
 	self.checkPermission = function(aUri) {
-		return annotationService.getPageAnnotation(aUri, filterAnnotationName);
+		let tags = tagsService.getTagsForURI(aUri);
+		
+		for(let tag of tags) {
+			if(tag === filterAllowed)
+				return true;
+			
+			if(tag === filterDenied)
+				return false;
+		}
+		
+		throw Error("No filter rule");
 	};
 
 	self.addRule = function(aUri, allowed) {
-		let info = {
-				uri: aUri,
-				visits: [ { visitDate: Date.now(), transitionType: 1, }],
-		};
+		tagsService.untagURI(aUri, [filterAllowed, filterDenied]);
+		tagsService.tagURI(aUri, [ allowed ? filterAllowed : filterDenied ]);
 		
-		let callback = {
-				handleError: function() {},
-				handleResult: function() {},
-				handleCompletion: function() {
-					annotationService.setPageAnnotation(aUri, filterAnnotationName, allowed, 0, annotationService.EXPIRE_NEVER);
-				
-					for(let observer of self.observers)
-						observer.onRuleAdded(aUri, allowed);
-				},
-		};
-		
-		// Adds a visit, since annotation service can only add annotations for sites 
-		asyncHistory.updatePlaces(info, callback);
+		for(let observer of self.observers)
+			observer.onRuleAdded(aUri, allowed);
 	};
 	
 	self.removeRule = function(aUri) {
-		annotationService.removePageAnnotation(aUri, filterAnnotationName);
+		tagsService.untagURI(aUri, [filterAllowed, filterDenied]);
 		
 		for(let observer of self.observers)
 			observer.onRuleRemoved(aUri);
 	};
 	
 	self.getFilterRules = function() {
-		let results = annotationService.getPagesWithAnnotation(filterAnnotationName);
-		
-		for(let uri of results) {
-			let allowed = annotationService.getPageAnnotation(uri, filterAnnotationName);
-			yield { 'uri': uri, 'allowed': allowed };
-		}
+		for(let uri of tagsService.getURIsForTag(filterAllowed))
+			yield { 'uri': uri, 'allowed': true };
+				
+		for(let uri of tagsService.getURIsForTag(filterDenied))
+			yield { 'uri': uri, 'allowed': false };
 	};
 	
 	self.addObserver = function(observer) {
