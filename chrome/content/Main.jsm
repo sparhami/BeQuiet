@@ -86,9 +86,9 @@ BeQuiet.Main = new function() {
 	};
 	
 	self.onWindowClose = function(aEvent) {
-		let window = aEvent.target;
+		let browserWindow = aEvent.target;
 		
-		for(let browser of aWindow.gBrowser.browsers)
+		for(let browser of browserWindow.gBrowser.browsers)
 		    self.unregisterHandlers(browser.contentDocument);
 	};
 	
