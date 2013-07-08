@@ -1,5 +1,7 @@
 "use strict";
 
+var EXPORTED_SYMBOLS = [];
+
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 
 BeQuiet.Tabs = new function() {
@@ -41,12 +43,5 @@ BeQuiet.Tabs = new function() {
 		});
     };
     
-	window.addEventListener('load', function() {
-		BeQuiet.Main.addObserver(self);	
-	});
-
-	window.addEventListener('unload', function() {
-		BeQuiet.Main.removeObserver(self);
-	});
-
+	BeQuiet.Main.addObserver(self);	
 };

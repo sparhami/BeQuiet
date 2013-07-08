@@ -1,5 +1,7 @@
 "use strict";
 
+var EXPORTED_SYMBOLS = [];
+
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
 
@@ -13,6 +15,7 @@ BeQuiet.Menu = new function() {
 	
 	self.preparePlayContext = function(event) {
 		let menu = event.target;
+		let browserDocument = menu.ownerDocument;
 		
 		for(let item of menu.querySelectorAll(':not([static])'))
 			menu.removeChild(item);
@@ -24,7 +27,7 @@ BeQuiet.Menu = new function() {
 		
 		menu.setAttribute('noMediaSites', handlerCount === 0);
 		
-		let toggleButton = document.getElementById('com_sppad_beQuiet_toggleEnabledButton');
+		let toggleButton = browserDocument.getElementById('com_sppad_beQuiet_toggleEnabledButton');
 		toggleButton.setAttribute('checked', prefs.enablePauseResume);
 	};
 	
@@ -38,8 +41,9 @@ BeQuiet.Menu = new function() {
 	self.addMenuitem = function(menu, handler) {
 		let browser = handler.browser;
 		let label = browser.contentTitle || browser.currentURI.asciiSpec;
+		let browserDocument = browser.ownerDocument;
 		
-		let item = document.createElement('menuitem');
+		let item = browserDocument.createElement('menuitem');
 		item.handler = handler;
 		
 		item.setAttribute('class', 'menuitem-iconic');
