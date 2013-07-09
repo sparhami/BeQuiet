@@ -32,6 +32,7 @@ BeQuiet.Main = new function() {
 	
 	self.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
     	let doc = aBrowser.contentDocument;
+    	let lastDoc = aBrowser.com_sppad_BeQuiet_lastDocument;
 		let win = doc.defaultView;
 	    let host = doc.location.host;
 		
@@ -41,7 +42,7 @@ BeQuiet.Main = new function() {
 		if(doc.com_sppad_BeQuiet_handlers)
 			return;
 		
-	    if(aBrowser.com_sppad_BeQuiet_lastDocument != doc)
+	    if(lastDoc && lastDoc != doc)
 	    	self.unregisterHandlers(aBrowser.com_sppad_BeQuiet_lastDocument);
 		
 	    win.addEventListener('unload', self.onPageUnload, false);
