@@ -60,7 +60,7 @@ BeQuiet.MediaState = new function() {
 	};
 	
 	self.getLastHandler = function() {
-		let handler = BeQuiet.Iterable.from(BeQuiet.Main.handlers.values())
+		let handler = BeQuiet.Iterable.from(BeQuiet.Main.getHandlers())
 			.filter(function(a) { return a.isActive(); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 		
@@ -68,7 +68,7 @@ BeQuiet.MediaState = new function() {
 	};
 	
 	self.getCurrentPageHandler = function() {
-		let handler = BeQuiet.Iterable.from(BeQuiet.Main.handlers.values())
+		let handler = BeQuiet.Iterable.from(BeQuiet.Main.getHandlers())
 			.filter(function(a) { return a.isActive() && BeQuiet.Main.handlesSelectedTab(a); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 	
@@ -80,11 +80,11 @@ BeQuiet.MediaState = new function() {
 	 * playing handler.
 	 */
 	self.forceOnePlayingHandler = function() {
-		let lastStartedHandler = BeQuiet.Iterable.from(BeQuiet.Main.handlers.values())
+		let lastStartedHandler = BeQuiet.Iterable.from(BeQuiet.Main.getHandlers())
 			.filter(function(a) { return a.isPlaying(); })
 			.max(function(a, b) { return a.getLastPlayTime() - b.getLastPlayTime(); });
 	
-		for(let handler of BeQuiet.Main.handlers.values())
+		for(let handler of BeQuiet.Main.getHandlers())
 			if(handler !== lastStartedHandler)
 				handler.pause();
 	};

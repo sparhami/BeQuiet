@@ -5,7 +5,6 @@ var EXPORTED_SYMBOLS = [];
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 Components.utils.import("chrome://BeQuiet/content/Handler.jsm");
 Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm");
-Components.utils.import("chrome://BeQuiet/content/collect/SetMultiMap.jsm");
 
 BeQuiet.Main = new function() {
 	
@@ -29,9 +28,6 @@ BeQuiet.Main = new function() {
 	
 	let self = this;
 
-	/** Maps documents to the handlers for that document */
-	self.handlers = new BeQuiet.SetMultiMap();
-	
 	self.observers = new Set();
 	
 	self.onLocationChange = function(aBrowser, aWebProgress, aRequest, aLocation) {
@@ -42,7 +38,7 @@ BeQuiet.Main = new function() {
 	    if(!host)
 	    	return;
 	    
-		if(self.handlers.containsKey(doc))
+		if(doc.com_sppad_BeQuiet_handlers)
 			return;
 		
 	    if(aBrowser.com_sppad_BeQuiet_lastDocument != doc)
@@ -55,6 +51,9 @@ BeQuiet.Main = new function() {
     };
     
     self.registerHandlers = function(aHost, aBrowser, aLocation) {
+    	let contentDocument = aBrowser.contentDocument;
+        contentDocument.com_sppad_BeQuiet_handlers = new Set();
+    	
     	for(let entry of HANDLER_MAPPING) {
     		if(!entry.key.test(aHost))
     			continue;
@@ -65,13 +64,14 @@ BeQuiet.Main = new function() {
 			let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
    				
 			let handler = new factoryFunction(aBrowser);
-		    self.handlers.put(aBrowser.contentDocument, handler);
+			contentDocument.com_sppad_BeQuiet_handlers.add(handler);
     	}
     };
     
     self.unregisterHandlers = function(aDocument) {
-		for(let handler of self.handlers.removeAll(aDocument))
-			handler.cleanup();
+    	if(aDocument.com_sppad_BeQuiet_handlers)
+			for(let handler of aDocument.com_sppad_BeQuiet_handlers)
+				handler.cleanup();
     };
     
     self.onPageUnload = function(aEvent) {
@@ -90,6 +90,14 @@ BeQuiet.Main = new function() {
 		
 		for(let browser of browserWindow.gBrowser.browsers)
 		    self.unregisterHandlers(browser.contentDocument);
+	};
+	
+	self.getHandlers = function() {
+	    for(let window of self.getWindows())
+	    	for(let browser of window.gBrowser.browsers)
+	    		if(browser.contentDocument.com_sppad_BeQuiet_handlers)
+	    			for(let handler of browser.contentDocument.com_sppad_BeQuiet_handlers)
+	    				yield handler;
 	};
 	
 	self.getTabForBrowser = function(aBrowser) {
@@ -141,7 +149,7 @@ BeQuiet.Main = new function() {
 	};
 	
 	self.setupWindow = function(aWindow) {
-		// Checks for load and sets up initial toolbar button location
+		// Checks for initial add-on install and sets up toolbar button
 		aWindow.addEventListener("load", function() {
 			aWindow.Application.getExtensions(function (extensions) {
 			    if (extensions.get("BeQuiet@com.sppad").firstRun) {
@@ -175,7 +183,5 @@ BeQuiet.Main = new function() {
 			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
 			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
 		});
-
-//		aWindow.addEventListener("unload", self.onWindowClose);
 	};
 };

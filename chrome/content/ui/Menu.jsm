@@ -21,7 +21,7 @@ BeQuiet.Menu = new function() {
 			menu.removeChild(item);
 		
 		let handlerCount = 0;
-		for(let handler of BeQuiet.Main.handlers.values())
+		for(let handler of BeQuiet.Main.getHandlers())
 			if(handler.isActive())
 				self.addMenuitem(menu, handler, handlerCount++);
 		
