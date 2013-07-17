@@ -13,15 +13,6 @@
 		src="loader.js" />
 	<script
 		type="application/x-javascript"
-		src="ui/Tabs.js" />
-	<script
-		type="application/x-javascript"
-		src="ui/Controls.js" />
-	<script
-		type="application/x-javascript"
-		src="ui/Menu.js" />
-	<script
-		type="application/x-javascript"
 		src="preferences/Settings.js" />
 
 
