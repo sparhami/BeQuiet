@@ -13,6 +13,7 @@ Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
  * @param aBrowser The browser object the handler handles
  * @param aImplementation An object with the following functions:
  * <ul>
+ * <li>isLiked
  * <li>hasMedia
  * <li>isPlaying
  * <li>play
@@ -39,19 +40,10 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 	
 	self.pauseCheckTimer = null;
 	
+	self.observers = new Set();
+	
 	self.isActive = function() {
-		try {
-			return self.implementation.hasMedia();
-		} catch(err) {
-			/*
-			 * TODO - catching window unload event apparently doesn't always
-			 * catch document unload. Need to figure out how to always correctly
-			 * cleanup after document is no longer in use.
-			 */
-			Components.utils.reportError("Did not properly cleanup after document was unloaded");
-			BeQuiet.Main.unregisterHandlers(self.doc);
-			return false;
-		}
+		return self.implementation.hasMedia();
 	};
 	
 	self.getLastPlayTime = function() {
@@ -76,22 +68,21 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 		}, Math.max(prefs.pauseCheckDelay, 1));
 	};
 	
+	self.mediaInfoChanged = function() {
+		for(let observer of self.observers)
+			observer.onMediaInfoChanged();
+	};
+	
 	self.handlePlay = function() {
 		clearTimeout(self.pauseCheckTimer);
 		
 		if(self.playing === true)
 			return;
 		
-		self.playing = true;
 		self.lastPlayTime = Date.now();
-			
-		let document = aBrowser.ownerDocument;
 		
-		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_handler_play', false, false);
-		evt.handler = self;
-		
-		document.dispatchEvent(evt);
+		self.playing = true;
+		self.createEvent('com_sppad_handler_play');
 	};
 	
 	self.handlePause = function() {
@@ -99,11 +90,14 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 			return;
 		
 		self.playing = false;
-		
+		self.createEvent('com_sppad_handler_pause');
+	};
+	
+	self.createEvent = function(eventName) {
 		let document = aBrowser.ownerDocument;
 		
 		let evt = document.createEvent('Event');
-		evt.initEvent('com_sppad_handler_pause', false, false);
+		evt.initEvent(eventName, false, false);
 		evt.handler = self;
 		
 		document.dispatchEvent(evt);
@@ -114,6 +108,14 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 			self.onPlay();
 		else
 			self.onPause();
+	};
+	
+	self.addObserver = function(observer) {
+		self.observers.add(observer);
+	};
+	
+	self.removeObserver = function(observer) {
+		self.observers.delete(observer);
 	};
 	
 	self.setup = function() {
@@ -131,7 +133,7 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 	self.cleanup = function() {
 		self.browser.removeEventListener("DOMContentLoaded", self.setup);
 		
-		if(!self.implementation.initialized)
+		if(!self.initialized)
 			return;
 		
 		self.implementation.unregisterListeners();

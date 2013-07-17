@@ -9,17 +9,12 @@ BeQuiet.Controls = new function() {
 	
 	self.playing = false;
 	
-	self.setButtonState	 = function(playing) {
+	self.setPlayhingState = function(playing) {
 		for(let browserWindow of BeQuiet.Main.getWindows()) {
-			let control = browserWindow.document.getElementById('com_sppad_beQuiet_media_playPause');
+		 	let controls = browserWindow.document.getElementsByClassName('com_sppad_beQuiet_mediaControl');
 			
-			if(!control)
-				return;
-			
-			if(playing)
-				control.setAttribute('playing', true);
-			else
-				control.removeAttribute('playing');
+	    	for(let control of controls)
+				control.setAttribute('playing', playing);
 		}
 	};
 	
@@ -43,14 +38,20 @@ BeQuiet.Controls = new function() {
 		return self.playing;
 	};
 	
-	self.onPlay = function(aEvent) {
+	self.onPlay = function(aHandler) {
 		self.playing = true;
-		self.setButtonState(true);
+		self.setPlayhingState(true);
+		
+		self.onMediaInfoChanged(aHandler);
 	};
 	
-	self.onPause = function(aEvent) {
+	self.onPause = function(aHandler) {
 		self.playing = false;
-		self.setButtonState(false);
+		self.setPlayhingState(false);
+	};
+	
+	self.onMediaInfoChanged = function(aHandler) {
+		dump("isLiked " + aHandler.isLiked() + "\n");
 	};
 	
 	self.play = function() {

@@ -12,6 +12,10 @@ BeQuiet.EightTracks = function(aBrowser) {
 	let self = this;
 	self.browserWindow = aBrowser.ownerDocument.defaultView;
 	
+	self.isLiked = function() {
+		return false;
+	};
+	
 	self.hasMedia = function() {
 		return self.initialized;
 	};

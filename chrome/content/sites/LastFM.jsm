@@ -11,6 +11,10 @@ BeQuiet.LastFM = function(aBrowser) {
 	
 	let self = this;
 	
+	self.isLiked = function() {
+		return false;
+	};
+	
 	self.hasMedia = function() {
 		return self.initialized;
 	};

@@ -118,10 +118,12 @@ BeQuiet.MediaState = new function() {
        	self.playingHandler = null;
 
     	for(let observer of self.observers)
-			observer.onPause();
+			observer.onPause(aHandler);
     	
 	  	if(!self.paused)
 	  		self.resume();
+	  	
+	 	aHandler.removeObserver(self);
     };
     
     self.onPlay = function(aHandler) {
@@ -139,7 +141,14 @@ BeQuiet.MediaState = new function() {
     		self.pausedHandler.pause();
     	
 		for(let observer of self.observers)
-			observer.onPlay();
+			observer.onPlay(aHandler);
+		
+	 	aHandler.addObserver(self);
+    };
+    
+    self.onMediaInfoChanged = function(aHandler) {
+    	for(let observer of self.observers)
+			observer.onMediaInfoChanged(aHandler);
     };
     
 	self.addObserver = function(observer) {

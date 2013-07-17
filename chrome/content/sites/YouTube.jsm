@@ -24,6 +24,10 @@ BeQuiet.YouTube = function(aBrowser) {
 	let self = this;
 	self.ready = false;
 	
+	self.isLiked = function() {
+		return false;
+	};
+	
 	self.hasMedia = function() {
 		return self.initialized;
 	};

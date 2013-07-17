@@ -3,7 +3,7 @@
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
 
-BeQuiet.Settings = new function() {
+(function() {
 	
 	const prefs = BeQuiet.CurrentPrefs;
 	
@@ -65,4 +65,4 @@ BeQuiet.Settings = new function() {
     window.addEventListener('unload', function() {
     	BeQuiet.Preferences.removeObserver(self);
     });
-};
+})();
