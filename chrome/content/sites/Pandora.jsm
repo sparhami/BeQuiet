@@ -17,6 +17,9 @@ BeQuiet.Pandora = function(aBrowser) {
 	};
 	
 	self.like = function() {
+		if(self.isLiked())
+			return;
+		
 		self.likeButton.click();
 	};
 	

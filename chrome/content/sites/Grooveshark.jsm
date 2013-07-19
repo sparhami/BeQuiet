@@ -8,16 +8,20 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 BeQuiet.Grooveshark = function(aBrowser) {
 	
 	const PLAYING_CLASS = 'playing';
+	const LIKED_CLASS = 'active';
 	
 	let self = this;
 	self.browserWindow = aBrowser.ownerDocument.defaultView;
 	
 	self.isLiked = function() {
-		return false;
+		return self.likeButton.classList.contains(LIKED_CLASS);
 	};
 	
 	self.like = function() {
+		if(self.isLiked())
+			return;
 		
+		self.likeButton.click();
 	};
 	
 	self.hasMedia = function() {
@@ -67,6 +71,7 @@ BeQuiet.Grooveshark = function(aBrowser) {
 		self.button = self.doc.getElementById('play-pause');
 		self.nextButton = self.doc.getElementById('play-next');
 		self.prevButton = self.doc.getElementById('play-prev');
+		self.likeButton = self.doc.getElementById('np-fav');
 		
 		return self.button != null;
 	};
@@ -84,6 +89,14 @@ BeQuiet.Grooveshark = function(aBrowser) {
 	    });
 		
 	    self.playObserver.observe(self.button, { attributes: true });
+	    
+		self.mediaInfoObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+	        mutations.forEach(function(mutation) {
+	        	self.mediaInfoChanged();
+	        });   
+	    });
+		
+	    self.mediaInfoObserver.observe(self.likeButton, { attributes: true });
 	};
 	
 	self.unregisterListeners = function() {

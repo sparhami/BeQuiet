@@ -8,15 +8,19 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 BeQuiet.LastFM = function(aBrowser) {
 	
 	const PLAYING_CLASS = 'playing';
+	const LIKED_CLASS = 'loved';
 	
 	let self = this;
 	
 	self.isLiked = function() {
-		return false;
+		return self.radioPlayer.classList.contains(LIKED_CLASS);
 	};
 	
 	self.like = function() {
+		if(self.isLiked())
+			return;
 		
+		self.likeButton.click();
 	};
 	
 	self.hasMedia = function() {
@@ -57,9 +61,11 @@ BeQuiet.LastFM = function(aBrowser) {
 	
 	self.initialize = function() {
 		self.webRadio = self.doc.getElementById('webRadio');
+		self.radioPlayer = self.doc.getElementById('radioPlayer');
 		self.playButton = self.doc.getElementById('radioControlPlay');
 		self.pauseButton = self.doc.getElementById('radioControlPause');
 		self.nextButton = self.doc.getElementById('radioControlSkip');
+		self.likeButton = self.doc.getElementById('radioControlLove');
 		
 		return (self.webRadio != null) && (self.playButton != null) && (self.pauseButton != null);
 	};
@@ -75,7 +81,16 @@ BeQuiet.LastFM = function(aBrowser) {
 	            }, 1);
 	        });   
 	    });
+		
 	    self.playObserver.observe(self.webRadio, { attributes: true });
+	    
+		self.mediaInfoObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+	        mutations.forEach(function(mutation) {
+	        	self.mediaInfoChanged();
+	        });   
+	    });
+		
+	    self.mediaInfoObserver.observe(self.radioPlayer, { attributes: true });
 	};
 	
 	self.unregisterListeners = function() {

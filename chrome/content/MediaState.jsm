@@ -143,7 +143,6 @@ BeQuiet.MediaState = new function() {
     };
     
     self.onMediaInfoChanged = function(aHandler) {
-    	dump("MediaState onMediaInfoChanged\n");
     	if(aHandler !== self.playingHandler)
     		return;
     	

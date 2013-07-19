@@ -38,7 +38,7 @@ BeQuiet.Tabs = new function() {
     };
     
     self.onMediaInfoChanged = function(aHandler) {
-    	dump("Tabs onMediaInfoChanged\n");
+
     };
     
     self.restoreTabIcon = function(aTab, aUri) {

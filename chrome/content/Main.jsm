@@ -22,7 +22,6 @@ BeQuiet.Main = new function() {
 	                          { key: /pandora.com$/, value: 'Pandora' },
 	                          { key: /last.fm$/, value: 'LastFM' },
 	                          { key: /grooveshark.com$/, value: 'Grooveshark' },
-	                          { key: /playlist.com$/, value: 'Playlist' },
 	                          { key: /8tracks.com$/, value: 'EightTracks' },
 	                          { key: new RegExp("."), value: 'HtmlVideo' } ];
 	
@@ -142,7 +141,6 @@ BeQuiet.Main = new function() {
 	};
 	
     self.onMediaInfoChanged = function(aEvent) {
-    	dump("Main onMediaInfoChanged\n");
     	for(let observer of self.observers)
 			observer.onMediaInfoChanged(aEvent.handler);
     };
