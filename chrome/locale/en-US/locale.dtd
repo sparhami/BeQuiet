@@ -1,11 +1,13 @@
 <!ENTITY units.milliseconds "ms">
 
-<!ENTITY next.label "Next">
-<!ENTITY previous.label "Previous">
+<!ENTITY next.tooltiptext "Next">
+<!ENTITY previous.tooltiptext "Previous">
+<!ENTITY like.tooltiptext "Like">
 
 <!ENTITY mediaToggleState.label "Media play/pause">
 <!ENTITY mediaNext.label "Media next">
 <!ENTITY mediaPrevious.label "Media previous">
+<!ENTITY mediaLike.label "Media Like">
 
 <!ENTITY noMediaSites.label "No Media Sites To Play">
 <!ENTITY settings.label "Settings">

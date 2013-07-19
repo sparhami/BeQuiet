@@ -69,8 +69,7 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 	};
 	
 	self.mediaInfoChanged = function() {
-		for(let observer of self.observers)
-			observer.onMediaInfoChanged();
+		self.createEvent('com_sppad_handler_mediaInfo');
 	};
 	
 	self.handlePlay = function() {

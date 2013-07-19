@@ -18,6 +18,7 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 BeQuiet.YouTube = function(aBrowser) {
 	
 	const PLAYER_STATE_PLAYING = 1;
+	const LIKED_CLASS = "yt-uix-button-toggled";
 	
 	const JAVASCRIPT_INJECTION_DELAY = 600;
 	
@@ -25,7 +26,15 @@ BeQuiet.YouTube = function(aBrowser) {
 	self.ready = false;
 	
 	self.isLiked = function() {
-		return false;
+		return self.likeButton.classList.contains(LIKED_CLASS);
+	};
+	
+	self.like = function() {
+		// If liked, clicking will cause the video to be unliked
+		if(self.isLiked()) 
+			return;	
+		
+		self.likeButton.click();
 	};
 	
 	self.hasMedia = function() {
@@ -106,6 +115,8 @@ BeQuiet.YouTube = function(aBrowser) {
 	self.initialize = function() {
 		let moviePlayer = self.doc.getElementById('movie_player');
 		
+		self.likeButton = self.doc.getElementById('watch-like');
+		
 		return moviePlayer && !moviePlayer.classList.contains('html5-video-player');
 	};
 	
@@ -123,6 +134,14 @@ BeQuiet.YouTube = function(aBrowser) {
     		self.ready = true;
             self.updatePlayingState();
         }, JAVASCRIPT_INJECTION_DELAY);
+        
+		self.mediaInfoObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+	        mutations.forEach(function(mutation) {
+	        	self.mediaInfoChanged();
+	        });   
+	    });
+		
+	    self.mediaInfoObserver.observe(self.likeButton, { attributes: true });
 	};
 	
 	self.unregisterListeners = function() {

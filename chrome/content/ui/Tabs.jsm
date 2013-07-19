@@ -37,6 +37,10 @@ BeQuiet.Tabs = new function() {
       	}
     };
     
+    self.onMediaInfoChanged = function(aHandler) {
+    	dump("Tabs onMediaInfoChanged\n");
+    };
+    
     self.restoreTabIcon = function(aTab, aUri) {
     	faviconService.getFaviconURLForPage(aUri, function(icon) {
     		icon && aTab.setAttribute('image', icon.asciiSpec);	

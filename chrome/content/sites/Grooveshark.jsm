@@ -16,6 +16,10 @@ BeQuiet.Grooveshark = function(aBrowser) {
 		return false;
 	};
 	
+	self.like = function() {
+		
+	};
+	
 	self.hasMedia = function() {
 		return self.initialized;
 	};

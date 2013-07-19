@@ -16,6 +16,10 @@ BeQuiet.Pandora = function(aBrowser) {
 		return self.likeButton.classList.contains(LIKED_CLASS);
 	};
 	
+	self.like = function() {
+		self.likeButton.click();
+	};
+	
 	self.hasMedia = function() {
 		return self.initialized;
 	};

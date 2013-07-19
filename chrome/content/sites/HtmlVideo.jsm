@@ -16,6 +16,10 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 		return false;
 	};
 	
+	self.like = function() {
+		
+	};
+	
 	self.hasMedia = function() {
 		return self.media != null || self.getFirstMedia() != null;
 	};

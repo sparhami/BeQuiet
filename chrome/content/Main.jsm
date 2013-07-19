@@ -141,6 +141,12 @@ BeQuiet.Main = new function() {
 			observer.onPause(aEvent.handler);
 	};
 	
+    self.onMediaInfoChanged = function(aEvent) {
+    	dump("Main onMediaInfoChanged\n");
+    	for(let observer of self.observers)
+			observer.onMediaInfoChanged(aEvent.handler);
+    };
+	
 	self.addObserver = function(observer) {
 		self.observers.add(observer);
 	};
@@ -172,6 +178,7 @@ BeQuiet.Main = new function() {
 	        
 			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
 			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
+			aWindow.document.addEventListener("com_sppad_handler_mediaInfo", self.onMediaInfoChanged, false);
 		});
 		
 		aWindow.addEventListener("unload", function() {
@@ -183,6 +190,7 @@ BeQuiet.Main = new function() {
 	        
 			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
 			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
+			aWindow.document.removeEventListener("com_sppad_handler_mediaInfo", self.onMediaInfoChanged);
 		});
 	};
 };

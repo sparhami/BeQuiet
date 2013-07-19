@@ -122,8 +122,6 @@ BeQuiet.MediaState = new function() {
     	
 	  	if(!self.paused)
 	  		self.resume();
-	  	
-	 	aHandler.removeObserver(self);
     };
     
     self.onPlay = function(aHandler) {
@@ -142,11 +140,13 @@ BeQuiet.MediaState = new function() {
     	
 		for(let observer of self.observers)
 			observer.onPlay(aHandler);
-		
-	 	aHandler.addObserver(self);
     };
     
     self.onMediaInfoChanged = function(aHandler) {
+    	dump("MediaState onMediaInfoChanged\n");
+    	if(aHandler !== self.playingHandler)
+    		return;
+    	
     	for(let observer of self.observers)
 			observer.onMediaInfoChanged(aHandler);
     };

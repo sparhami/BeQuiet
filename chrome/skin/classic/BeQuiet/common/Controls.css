@@ -1,6 +1,4 @@
-#com_sppad_beQuiet_media_next image,
-#com_sppad_beQuiet_media_previous image,
-#com_sppad_beQuiet_media_playPause image {
+.com_sppad_beQuiet_mediaControl image {
 	width: 16px;
 	height: 16px;
 }
@@ -17,9 +15,17 @@
 	list-style-image: url("chrome://BeQuiet/skin/images/pause.svg");
 }
 
-#com_sppad_beQuiet_media_next,
-#com_sppad_beQuiet_media_previous {
+#com_sppad_beQuiet_media_next image,
+#com_sppad_beQuiet_media_previous image {
 	list-style-image: url("chrome://BeQuiet/skin/images/next.svg");
+}
+
+#com_sppad_beQuiet_media_like image {
+	list-style-image: url("chrome://BeQuiet/skin/images/thumb.svg");
+}
+
+#com_sppad_beQuiet_media_like[playing="true"][liked="true"] image {
+	filter: url("chrome://BeQuiet/skin/filters.svg#toOrange");
 }
 
 #com_sppad_beQuiet_playPauseContext menuitem[playing="true"] {

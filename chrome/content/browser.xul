@@ -27,6 +27,9 @@
 			id="cmd_mediaPrevious"
 			oncommand="BeQuiet.Controls.previous();" />
 		<command
+			id="cmd_mediaLike"
+			oncommand="BeQuiet.Controls.like();" />
+		<command
 			id="cmd_com_sppad_BeQuiet_preferences"
 			oncommand="BeQuiet.Preferences.openPreferences(window);" />
 		<command
@@ -94,14 +97,21 @@
 			label="&mediaPrevious.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaPrevious"
-			tooltiptext="&previous.label;">
+			tooltiptext="&previous.tooltiptext;">
 		</toolbarbutton>
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_next"
 			label="&mediaNext.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaNext"
-			tooltiptext="&next.label;">
+			tooltiptext="&next.tooltiptext;">
+		</toolbarbutton>
+		<toolbarbutton
+			id="com_sppad_beQuiet_media_like"
+			label="&mediaLike.label;"
+			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
+			command="cmd_mediaLike"
+			tooltiptext="&like.tooltiptext;">
 		</toolbarbutton>
 	</toolbarpalette>
 </overlay>
