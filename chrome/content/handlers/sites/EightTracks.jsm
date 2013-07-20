@@ -19,6 +19,10 @@ BeQuiet.EightTracks = function(aBrowser) {
 	      		attrName:  'style',
 	      		testValue: /display: none;/
 	     	},
+	     	
+	     	title: {
+	      		selector: ''
+	      	}
 	    }
 	};
 	

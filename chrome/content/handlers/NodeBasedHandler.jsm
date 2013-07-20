@@ -7,7 +7,8 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 
 /**
  * Takes in an object of the following format, describing how to perform actions
- * for the handler by specifying selectors to get nodes and values to check for.
+ * for the handler by specifying selectors to get nodes and values to check 
+ * for. Only control.play, control.pause and status.playing are required.
  * 
  * <pre>
  * {  
@@ -33,6 +34,14 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
  *    	},
  *    
  *    	title: {
+ *    		selector: <i>selector</i>,
+ *    	},
+ *    
+ *      artist: {
+ *    		selector: <i>selector</i>,
+ *    	},
+ *    
+ *      album: {
  *    		selector: <i>selector</i>,
  *    	}
  *    }
@@ -69,7 +78,27 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		
 		return testValue.test(attribute);
 	};
-
+	
+	self.getTrackInfo = function() {
+		return {
+			title: self.getTitle(),
+			artist: self.getArtist(),
+			album: self.getAlbum()
+		};
+	};
+	
+	self.getTitle = function() {
+		return self.statusNodes.title ? self.statusNodes.title.innerHTML : undefined;
+	};
+	
+	self.getArtist = function() {
+		return self.statusNodes.artist ? self.statusNodes.artist.innerHTML : undefined;
+	};
+	
+	self.getAlbum = function() {
+		return self.statusNodes.album ? self.statusNodes.album.innerHTML : undefined;
+	};
+	
 	self.hasMedia = function() {
 		return self.initialized;
 	};

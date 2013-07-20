@@ -14,12 +14,14 @@ Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
  * @param aImplementation An object with the following functions:
  * <ul>
  * <li>isLiked
- * <li>hasMedia
  * <li>isPlaying
- * <li>play
+ * <li>getTrackInfo
+ * <li>hasMedia
  * <li>pause
- * <li>next
+ * <li>play
  * <li>previous
+ * <li>next
+ * <li>like
  * <li>initialize
  * <li>registerListeners
  * <li>unregisterListeners

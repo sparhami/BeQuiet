@@ -22,6 +22,10 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 		
 		return !self.media.paused;
 	};
+	
+	self.getTrackInfo = function() {
+		return {};
+	};
 
 	self.hasMedia = function() {
 		return self.media != null || self.getFirstMedia() != null;

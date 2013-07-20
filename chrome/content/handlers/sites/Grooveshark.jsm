@@ -27,6 +27,10 @@ BeQuiet.Grooveshark = function(aBrowser) {
       			attrName:  'class',
 	      		testValue: /active/
 	     	},
+	     	
+	     	title: {
+	      		selector: ''
+	      	}
 	    }
 	};
 	

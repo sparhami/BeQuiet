@@ -58,8 +58,16 @@
 	<window>
 		<popupset>
 			<tooltip
-				id="com_sppad_beQuiet_media_playPause.tooltip"
+				id="com_sppad_beQuiet_media_playPause_tooltip"
 				onpopupshowing="BeQuiet.Controls.updateToggleTooltip(event);" />
+			<tooltip
+				id="com_sppad_beQuiet_media_title_tooltip"
+				onpopupshowing="BeQuiet.Controls.updateTrackTooltip(event);">
+				<label
+					class="notPlaying"
+					static="true"
+					value="Nothing Playing" />
+			</tooltip>
 			<menupopup
 				id="com_sppad_beQuiet_playPauseContext"
 				onpopupshowing="BeQuiet.Menu.preparePlayContext(event);"
@@ -90,7 +98,7 @@
 			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaToggleState"
 			context="com_sppad_beQuiet_playPauseContext"
-			tooltip="com_sppad_beQuiet_media_playPause.tooltip">
+			tooltip="com_sppad_beQuiet_media_playPause_tooltip">
 		</toolbarbutton>
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_previous"
@@ -112,6 +120,12 @@
 			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaLike"
 			tooltiptext="&like.tooltiptext;">
+		</toolbarbutton>
+		<toolbarbutton
+			id="com_sppad_beQuiet_media_title"
+			label="&mediaTitle.label;"
+			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
+			tooltip="com_sppad_beQuiet_media_title_tooltip">
 		</toolbarbutton>
 	</toolbarpalette>
 </overlay>

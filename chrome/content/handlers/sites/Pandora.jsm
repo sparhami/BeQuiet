@@ -26,6 +26,18 @@ BeQuiet.Pandora = function(aBrowser) {
       			attrName:  'class',
 	      		testValue: /loved/
 	     	},
+	     	
+	      	title: {
+	      		selector: '.songTitle'
+	      	},
+	      	
+	     	artist: {
+	      		selector: '.artistSummary'
+	      	},
+	      	
+	     	album: {
+	      		selector: '.albumTitle'
+	      	}
 	    }
 	};
 	

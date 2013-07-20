@@ -56,9 +56,40 @@ BeQuiet.Controls = new function() {
 	
 	self.onMediaInfoChanged = function(aHandler) {
 		for(let browserWindow of BeQuiet.Main.getWindows()) {
-		 	let likeButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_like');
-			
+			let likeButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_like');
+		 	let titleButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_title');
+
 		 	likeButton && likeButton.setAttribute('liked', aHandler.isLiked());
+		 	titleButton && titleButton.setAttribute('label', aHandler.getTrackInfo().title);
+		}
+	};
+	
+	self.updateTrackTooltip = function(aEvent) {
+		let node = aEvent.target;
+		let doc = node.ownerDocument;
+		let handler = self.playingHandler;
+		
+		for(let item of node.querySelectorAll(':not([static])'))
+			node.removeChild(item);
+		
+		let playing = handler && handler.isPlaying();
+		node.setAttribute('playing', playing);
+		
+		if(!playing)
+			return;
+			
+		let trackInfo = handler.getTrackInfo();
+		
+		for(let infoName in trackInfo) {
+			let value = trackInfo[infoName];
+			if(!value)
+				continue;
+			
+			let label = doc.createElement('label');
+			label.setAttribute('type', infoName);
+			label.setAttribute('value', value);
+			
+			node.appendChild(label);
 		}
 	};
 	

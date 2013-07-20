@@ -28,6 +28,30 @@
 	filter: url("chrome://BeQuiet/skin/filters.svg#toOrange");
 }
 
+#com_sppad_beQuiet_media_title {
+	width: 96px;	
+}
+
+#com_sppad_beQuiet_media_title image {
+	display: none;	
+}
+
+#com_sppad_beQuiet_media_title label {
+	display: -moz-box !important;	
+}
+
+#com_sppad_beQuiet_media_title_tooltip .notPlaying {
+	font-style: italic;
+}
+
+#com_sppad_beQuiet_media_title_tooltip[playing="true"] .notPlaying {
+	display: none;
+}
+
+#com_sppad_beQuiet_media_title_tooltip label[type="title"] {
+	font-weight: bold;
+}
+
 #com_sppad_beQuiet_playPauseContext menuitem[playing="true"] {
 	font-weight: bold;
 }
