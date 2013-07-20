@@ -24,7 +24,7 @@ BeQuiet.Pandora = function(aBrowser) {
 	     	liked: {
 	      		selector:  '.thumbUpButton',
       			attrName:  'class',
-	      		testValue: /loved/
+	      		testValue: /indicator/
 	     	},
 	     	
 	      	title: {
