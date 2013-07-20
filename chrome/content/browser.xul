@@ -30,6 +30,9 @@
 			id="cmd_mediaLike"
 			oncommand="BeQuiet.Controls.like();" />
 		<command
+			id="cmd_mediaSwitchToTab"
+			oncommand="BeQuiet.Controls.switchToTab();" />
+		<command
 			id="cmd_com_sppad_BeQuiet_preferences"
 			oncommand="BeQuiet.Preferences.openPreferences(window);" />
 		<command
@@ -125,6 +128,7 @@
 			id="com_sppad_beQuiet_media_title"
 			label="&mediaTitle.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
+			command="cmd_mediaSwitchToTab"
 			tooltip="com_sppad_beQuiet_media_title_tooltip">
 		</toolbarbutton>
 	</toolbarpalette>

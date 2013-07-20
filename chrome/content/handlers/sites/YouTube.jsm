@@ -38,7 +38,9 @@ BeQuiet.YouTube = function(aBrowser) {
 	};
 	
 	self.getTrackInfo = function() {
-		return {};
+		return {
+			title: self.doc.title
+		};
 	};
 	
 	self.hasMedia = function() {

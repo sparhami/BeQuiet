@@ -147,10 +147,10 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		let status = self.description.status;
 		
 		for(let controlName in control)
-			self.controlButtons[controlName] = self.doc.querySelectorAll(control[controlName])[0];
+			self.controlButtons[controlName] = self.doc.querySelector(control[controlName]);
 		
 		for(let statusName in status)
-			self.statusNodes[statusName] = self.doc.querySelectorAll(status[statusName].selector)[0];
+			self.statusNodes[statusName] = self.doc.querySelector(status[statusName].selector);
 
 		return self.controlButtons.play != null 
 			&& self.controlButtons.pause != null

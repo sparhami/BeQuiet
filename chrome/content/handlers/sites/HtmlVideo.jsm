@@ -24,7 +24,9 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 	};
 	
 	self.getTrackInfo = function() {
-		return {};
+		return {
+			title: self.doc.title
+		};
 	};
 
 	self.hasMedia = function() {
