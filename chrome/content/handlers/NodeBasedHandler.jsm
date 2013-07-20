@@ -11,45 +11,48 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
  * Only control.play, control.pause and status.playing are required.
  * 
  * <pre>
- * {  
- *    control: {
- *    	play:  selector,
- *    	pause: selector,
- *    	prev:  selector,
- *    	next:  selector,
- *    	like:  selector
- *    },
- *    
- *    status: {
- *    	playing: {
- *     		selector:  selector,
- *      	subSelector: selector, // optional
- *      	attrName:  attribute,
- *     		testValue: regex
- *    	},
- *    
- *      liked: {
- *     		selector:  selector,
- *      	subSelector: selector, // optional
- *      	attrName:  attribute,
- *     		testValue: regex
- *    	},
- *    
- *    	title: {
- *    		selector: selector,
- *    		subSelector: selector  // optional
- *    	},
- *    
- *      artist: {
- *    		selector: selector,
- *   		subSelector: selector  // optional
- *    	},
- *    
- *      album: {
- *    		selector: selector,
- *       	subSelector: selector  // optional
- *    	}
- *    }
+ * {
+ * 	control : {
+ * 		play : selector,
+ * 		pause : selector,
+ * 		prev : selector,
+ * 		next : selector,
+ * 		like : selector
+ * 	},
+ * 
+ * 	status : {
+ * 		playing : {
+ * 			selector : selector,
+ * 			subselector : selector, // optional
+ * 			attrName : attribute,
+ * 			testValue : regex
+ * 		},
+ * 
+ * 		liked : {
+ * 			selector : selector,
+ * 			subselector : selector, // optional
+ * 			attrName : attribute,
+ * 			testValue : regex
+ * 		},
+ * 
+ * 		title : {
+ * 			selector : selector,
+ * 			subselector : selector
+ * 		// optional
+ * 		},
+ * 
+ * 		artist : {
+ * 			selector : selector,
+ * 			subselector : selector
+ * 		// optional
+ * 		},
+ * 
+ * 		album : {
+ * 			selector : selector,
+ * 			subselector : selector
+ * 		// optional
+ * 		}
+ * 	}
  * }
  * </pre>
  */
@@ -89,26 +92,31 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		let desc = self.description.status[aStatusName];
 		let attrName = desc.attrName;
 		let testValue = desc.testValue;
-		let subSelector = desc.subSelector;
+		let subselector = desc.subselector;
 		
 		let node = self.statusNodes[aStatusName];
-		node = subSelector ? node.querySelector(subSelector) : node;
+		node = subselector ? node.querySelector(subselector) : node;
 		
 		return testValue.test(node.getAttribute(attrName));
 	};
 	
+	/**
+	 * @param aStatusName
+	 *            the name of the status to check
+	 * @return The innerHTML of the status item
+	 */
 	self.getTextInfo = function(aStatusName) {
 		if(!self.statusNodes[aStatusName])
-			return "";
+			return undefined;
 		
 		let desc = self.description.status[aStatusName];
 		let testValue = desc.testValue;
-		let subSelector = desc.subSelector;
+		let subselector = desc.subselector;
 		
 		let node = self.statusNodes[aStatusName];
-		node = subSelector ? node.querySelector(subSelector) : node;
+		node = subselector ? node.querySelector(subselector) : node;
 		
-		return node ? node.innerHTML : "";
+		return node.innerHTML;
 		
 	};
 	

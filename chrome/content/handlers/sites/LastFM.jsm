@@ -29,17 +29,17 @@ BeQuiet.LastFM = function(aBrowser) {
 	     	
 	     	title: {
 	      		selector: '.track',
-	      		subSelector: 'a'
+	      		subselector: 'a'
 	      	},
 	      	
 	     	artist: {
 	      		selector: '.artist',
-	      		subSelector: 'a'
+	      		subselector: 'a'
 	      	},
 	      	
 	     	album: {
 	      		selector: '.album',
-	      		subSelector: 'a'
+	      		subselector: 'a'
 	      	}
 	    }
 	};

@@ -31,6 +31,7 @@ Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
  */
 BeQuiet.Handler = function(aBrowser, aImplementation) {
 
+	const MEDIA_INFO_UPDATE_INTERVAL = 200;
 	const prefs = BeQuiet.CurrentPrefs;
 
 	let self = this;
@@ -62,9 +63,16 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 
 	/** The last time the handler started playing */
 	self.lastPlayTime = 0;
+	
+	/** Last time media info was updated */
+	self.lastUpdateTime = 0;
 
 	/** Delay after pause before firing a pause event */
 	self.pauseCheckTimer = null;
+	
+	/** Timer for only updating media info at a maximum frequency */
+	self.mediaUpdateTimer = null;
+	
 
 	/**
 	 * @return True if the handler is able to be used for playing/pausing, false
@@ -112,11 +120,16 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 		clearTimeout(self.pauseCheckTimer);
 		self.pauseCheckTimer = setTimeout(function() {
 			self.handlePause();
-		}, Math.max(prefs.pauseCheckDelay, 1));
+		}, Math.max(1, prefs.pauseCheckDelay));
 	};
 
 	self.mediaInfoChanged = function() {
-		self.createEvent('com_sppad_handler_mediaInfo');
+		let timeUntilUpdate = (self.lastUpdateTime + MEDIA_INFO_UPDATE_INTERVAL) - Date.now();
+		
+		clearTimeout(self.mediaUpdateTimer);
+		self.mediaUpdateTimer = setTimeout(function() {
+			self.createEvent('com_sppad_handler_mediaInfo');
+		}, Math.max(1, timeUntilUpdate));
 	};
 
 	self.handlePlay = function() {

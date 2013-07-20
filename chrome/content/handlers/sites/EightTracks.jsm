@@ -21,7 +21,18 @@ BeQuiet.EightTracks = function(aBrowser) {
 	     	},
 	     	
 	     	title: {
-	      		selector: ''
+	      		selector: '#now_playing',
+	      		subselector: '.title_artist .t'
+	      	},
+	      	
+	     	artist: {
+	      		selector: '#now_playing',
+	      		subselector: '.title_artist .a'
+	      	},
+	      	
+	    	album: {
+	      		selector: '#now_playing',
+	      		subselector: '.album .detail'
 	      	}
 	    }
 	};

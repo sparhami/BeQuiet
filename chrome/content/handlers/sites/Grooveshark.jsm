@@ -29,7 +29,13 @@ BeQuiet.Grooveshark = function(aBrowser) {
 	     	},
 	     	
 	     	title: {
-	      		selector: ''
+	      		selector: '#now-playing-metadata',
+	      		subselector: '.song'
+	      	},
+	      	
+	    	artist: {
+	      		selector: '#now-playing-metadata',
+	      		subselector: '.artist'
 	      	}
 	    }
 	};

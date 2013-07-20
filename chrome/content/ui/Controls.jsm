@@ -82,6 +82,7 @@ BeQuiet.Controls = new function() {
 		
 		for(let infoName in trackInfo) {
 			let value = trackInfo[infoName];
+			
 			if(!value)
 				continue;
 			
