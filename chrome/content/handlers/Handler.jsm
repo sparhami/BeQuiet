@@ -128,6 +128,7 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 		
 		clearTimeout(self.mediaUpdateTimer);
 		self.mediaUpdateTimer = setTimeout(function() {
+			self.lastUpdateTime = Date.now();
 			self.createEvent('com_sppad_handler_mediaInfo');
 		}, Math.max(1, timeUntilUpdate));
 	};
