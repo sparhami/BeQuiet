@@ -13,36 +13,41 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
  * <pre>
  * {  
  *    control: {
- *    	play:  selector
- *    	pause: selector
- *    	prev:  selector
- *    	next:  selector
+ *    	play:  selector,
+ *    	pause: selector,
+ *    	prev:  selector,
+ *    	next:  selector,
  *    	like:  selector
  *    },
  *    
  *    status: {
  *    	playing: {
- *     		selector:  selector
- *      	attrName:  attribute
+ *     		selector:  selector,
+ *      	subSelector: selector, // optional
+ *      	attrName:  attribute,
  *     		testValue: regex
  *    	},
  *    
  *      liked: {
- *     		selector:  selector
- *      	attrName:  attribute
+ *     		selector:  selector,
+ *      	subSelector: selector, // optional
+ *      	attrName:  attribute,
  *     		testValue: regex
  *    	},
  *    
  *    	title: {
- *    		selector: selector
+ *    		selector: selector,
+ *    		subSelector: selector  // optional
  *    	},
  *    
  *      artist: {
- *    		selector: selector
+ *    		selector: selector,
+ *   		subSelector: selector  // optional
  *    	},
  *    
  *      album: {
- *    		selector: selector
+ *    		selector: selector,
+ *       	subSelector: selector  // optional
  *    	}
  *    }
  * }
@@ -81,32 +86,38 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		if(!self.statusNodes[aStatusName])
 			return false;
 		
-		let attrName = self.description.status[aStatusName].attrName;
-		let testValue = self.description.status[aStatusName].testValue;
+		let desc = self.description.status[aStatusName];
+		let attrName = desc.attrName;
+		let testValue = desc.testValue;
+		let subSelector = desc.subSelector;
 		
-		let attribute = self.statusNodes[aStatusName].getAttribute(attrName);
+		let node = self.statusNodes[aStatusName];
+		node = subSelector ? node.querySelector(subSelector) : node;
 		
-		return testValue.test(attribute);
+		return testValue.test(node.getAttribute(attrName));
+	};
+	
+	self.getTextInfo = function(aStatusName) {
+		if(!self.statusNodes[aStatusName])
+			return "";
+		
+		let desc = self.description.status[aStatusName];
+		let testValue = desc.testValue;
+		let subSelector = desc.subSelector;
+		
+		let node = self.statusNodes[aStatusName];
+		node = subSelector ? node.querySelector(subSelector) : node;
+		
+		return node ? node.innerHTML : "";
+		
 	};
 	
 	self.getTrackInfo = function() {
 		return {
-			title: self.getTitle(),
-			artist: self.getArtist(),
-			album: self.getAlbum()
+			title: self.getTextInfo('title'),
+			artist: self.getTextInfo('artist'),
+			album: self.getTextInfo('album')
 		};
-	};
-	
-	self.getTitle = function() {
-		return self.statusNodes.title ? self.statusNodes.title.innerHTML : undefined;
-	};
-	
-	self.getArtist = function() {
-		return self.statusNodes.artist ? self.statusNodes.artist.innerHTML : undefined;
-	};
-	
-	self.getAlbum = function() {
-		return self.statusNodes.album ? self.statusNodes.album.innerHTML : undefined;
 	};
 	
 	self.hasMedia = function() {
@@ -168,22 +179,30 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	};
 
 	/**
-	 * Loads all nodes for control and status buttons. Must have at least
-	 * play/pause buttons and node for playing status.
+	 * Loads all nodes for control and status buttons.
 	 */
 	self.initialize = function() {
+		// Checks that all declared controls and status items are initialized
+		let initialized  = true;
+		
 		let control = self.description.control;
 		let status = self.description.status;
 		
-		for(let controlName in control)
-			self.controlButtons[controlName] = self.doc.querySelector(control[controlName]);
+		for(let name in control) {
+			let node = self.doc.querySelector(control[name]);
+			self.controlButtons[name] = node;
+			
+			initialized &= (node !== null)
+		}
 		
-		for(let statusName in status)
-			self.statusNodes[statusName] = self.doc.querySelector(status[statusName].selector);
+		for(let name in status) {
+			let node = self.doc.querySelector(status[name].selector);
+			self.statusNodes[name] = node;
+			
+			initialized &= (node !== null);
+		}
 
-		return self.controlButtons.play != null 
-			&& self.controlButtons.pause != null
-			&& self.statusNodes.playing != null;
+		return initialized;
 	};
 
 	self.registerListeners = function() {

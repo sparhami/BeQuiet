@@ -26,6 +26,21 @@ BeQuiet.LastFM = function(aBrowser) {
       			attrName:  'class',
 	      		testValue: /loved/
 	     	},
+	     	
+	     	title: {
+	      		selector: '.track',
+	      		subSelector: 'a'
+	      	},
+	      	
+	     	artist: {
+	      		selector: '.artist',
+	      		subSelector: 'a'
+	      	},
+	      	
+	     	album: {
+	      		selector: '.album',
+	      		subSelector: 'a'
+	      	}
 	    }
 	};
 	
