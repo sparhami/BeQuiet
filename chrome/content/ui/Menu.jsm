@@ -64,7 +64,11 @@ BeQuiet.Menu = new function() {
 	};
 	
 	self.menuitemCommand = function(aEvent) {
-		let item = aEvent.target;
-		item.handler.play();
+		let handler = aEvent.target.handler;
+		
+		if(handler.isPlaying())
+			handler.switchToTab();
+		else
+			handler.play();
 	};
 };

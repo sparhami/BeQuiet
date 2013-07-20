@@ -7,42 +7,42 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 
 /**
  * Takes in an object of the following format, describing how to perform actions
- * for the handler by specifying selectors to get nodes and values to check 
- * for. Only control.play, control.pause and status.playing are required.
+ * for the handler by specifying selectors to get nodes and values to check for.
+ * Only control.play, control.pause and status.playing are required.
  * 
  * <pre>
  * {  
  *    control: {
- *    	play:  <i>selector</i>,
- *    	pause: <i>selector</i>,
- *    	prev:  <i>selector</i>,
- *    	next:  <i>selector</i>,
- *    	like:  <i>selector</i>,
+ *    	play:  selector
+ *    	pause: selector
+ *    	prev:  selector
+ *    	next:  selector
+ *    	like:  selector
  *    },
  *    
  *    status: {
  *    	playing: {
- *     		selector:  <i>selector</i>,
- *      	attrName:  <i>attribute</i>
- *     		testValue: <i>regex</i>
+ *     		selector:  selector
+ *      	attrName:  attribute
+ *     		testValue: regex
  *    	},
  *    
  *      liked: {
- *     		selector:  <i>selector</i>,
- *      	attrName:  <i>attribute</i>
- *     		testValue: <i>regex</i>
+ *     		selector:  selector
+ *      	attrName:  attribute
+ *     		testValue: regex
  *    	},
  *    
  *    	title: {
- *    		selector: <i>selector</i>,
+ *    		selector: selector
  *    	},
  *    
  *      artist: {
- *    		selector: <i>selector</i>,
+ *    		selector: selector
  *    	},
  *    
  *      album: {
- *    		selector: <i>selector</i>,
+ *    		selector: selector
  *    	}
  *    }
  * }
@@ -51,12 +51,16 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	let self = this;
 	
+	/**
+	 * Description providing selectors, attribute names and values to test
+	 * against
+	 */
 	self.description = aHandlerDescription;
 	
-	// Tracks the nodes for the control buttons used
+	/** Tracks the nodes for the control buttons used */
 	self.controlButtons = {};
 	
-	// Tracks the nodes for the status items
+	/** Tracks the nodes for the status items */
 	self.statusNodes = {};
 	
 	self.isLiked = function() {
@@ -67,6 +71,12 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		return self.isStatus('playing');
 	};
 	
+	/**
+	 * @param aStatusName
+	 *            the name of the status to check
+	 * @return The result of testing the attribute of the status against the
+	 *         test value
+	 */
 	self.isStatus = function(aStatusName) {
 		if(!self.statusNodes[aStatusName])
 			return false;
@@ -103,20 +113,32 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		return self.initialized;
 	};
 	
+	/**
+	 * Causes the media to pause if the control exists.
+	 */
 	self.pause = function() {
+		// Need to check playing state since button could be play/pause toggle
 		if(!self.controlButtons.pause || !self.isPlaying())
 			return;
 
 		self.controlButtons.pause.click();
 	};
 	
+	/**
+	 * Causes the media to play if the control exists.
+	 */
 	self.play = function() {
+		// Need to check playing state since button could be play/pause toggle
 		if(!self.controlButtons.play || self.isPlaying())
 			return;
 
 		self.controlButtons.play.click();
 	};
 
+	
+	/**
+	 * Goes to the previous track if the control exists.
+	 */
 	self.previous = function() {
 		if(!self.controlButtons.prev)
 			return;
@@ -124,6 +146,10 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		self.controlButtons.prev.click();
 	};
 	
+	
+	/**
+	 * Goes to the next track if the control exists.
+	 */
 	self.next = function() {
 		if(!self.controlButtons.next)
 			return;
@@ -131,6 +157,9 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		self.controlButtons.next.click();
 	};
 	
+	/**
+	 * Performs a like if the control exists and the media is not already liked.
+	 */
 	self.like = function() {
 		if(!self.controlButtons.like || self.isLiked())
 			return;

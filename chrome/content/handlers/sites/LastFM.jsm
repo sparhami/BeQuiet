@@ -26,10 +26,6 @@ BeQuiet.LastFM = function(aBrowser) {
       			attrName:  'class',
 	      		testValue: /loved/
 	     	},
-	     	
-	     	title: {
-	      		selector: ''
-	      	}
 	    }
 	};
 	

@@ -107,10 +107,7 @@ BeQuiet.Controls = new function() {
 		if(!handler || !handler.isPlaying())
 			return;
 	
-		let tab = BeQuiet.Main.getTabForBrowser(handler.browser);
-		let win = BeQuiet.Main.getWindowForBrowser(handler.browser);
-		
-		win.gBrowser.selectedTab = tab;
+		handler.switchToTab();
 	};
 	
 	self.like = function() {
