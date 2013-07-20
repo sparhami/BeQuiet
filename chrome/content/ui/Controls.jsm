@@ -46,7 +46,10 @@ BeQuiet.Controls = new function() {
 		self.playingHandler = aHandler;
 		self.setPlayingState(true);
 		
-		self.onMediaInfoChanged(aHandler);
+		
+		setTimeout(function() {
+			self.onMediaInfoChanged(aHandler);
+		}, 1);
 	};
 	
 	self.onPause = function(aHandler) {
