@@ -29,18 +29,6 @@ BeQuiet.YouTube = function(aBrowser) {
 		return self.likeButton.classList.contains(LIKED_CLASS);
 	};
 	
-	self.like = function() {
-		// If liked, clicking will cause the video to be unliked
-		if(self.isLiked()) 
-			return;	
-		
-		self.likeButton.click();
-	};
-	
-	self.hasMedia = function() {
-		return self.initialized;
-	};
-	
 	self.isPlaying = function() {
 		if(!self.initialized || !self.ready)
 			return false;
@@ -49,11 +37,8 @@ BeQuiet.YouTube = function(aBrowser) {
 		return state == PLAYER_STATE_PLAYING;
 	};
 	
-	self.play = function() {
-		if(!self.initialized)
-			return;
-		
-		self.doc.defaultView.wrappedJSObject.com_sppad_play();
+	self.hasMedia = function() {
+		return self.initialized;
 	};
 	
 	self.pause = function() {
@@ -63,12 +48,27 @@ BeQuiet.YouTube = function(aBrowser) {
 		self.doc.defaultView.wrappedJSObject.com_sppad_pause();
 	};
 	
-	self.next = function() {
+	self.play = function() {
+		if(!self.initialized)
+			return;
 		
+		self.doc.defaultView.wrappedJSObject.com_sppad_play();
 	};
 	
 	self.previous = function() {
 
+	};
+	
+	self.next = function() {
+		
+	};
+	
+	self.like = function() {
+		// If liked, clicking will cause the video to be unliked
+		if(self.isLiked()) 
+			return;	
+		
+		self.likeButton.click();
 	};
 	
 	self.stateChange = function(aEvent) {
@@ -136,9 +136,7 @@ BeQuiet.YouTube = function(aBrowser) {
         }, JAVASCRIPT_INJECTION_DELAY);
         
 		self.mediaInfoObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
-	        mutations.forEach(function(mutation) {
-	        	self.mediaInfoChanged();
-	        });   
+			self.mediaInfoChanged();
 	    });
 		
 	    self.mediaInfoObserver.observe(self.likeButton, { attributes: true });

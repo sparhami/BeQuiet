@@ -3,7 +3,7 @@
 var EXPORTED_SYMBOLS = [];
 
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
-Components.utils.import("chrome://BeQuiet/content/Handler.jsm");
+Components.utils.import("chrome://BeQuiet/content/handlers/Handler.jsm");
 Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm");
 
 BeQuiet.Main = new function() {
@@ -58,13 +58,20 @@ BeQuiet.Main = new function() {
     		if(!entry.key.test(aHost))
     			continue;
     		
-    		Components.utils.import("chrome://BeQuiet/content/sites/" + entry.value + ".jsm");
+    		try {
+    		dump('registering for ' + "chrome://BeQuiet/content/handlers/sites/" + entry.value + ".jsm" + '\n');
+    		Components.utils.import("chrome://BeQuiet/content/handlers/sites/" + entry.value + ".jsm");
     		
 			let constructor = BeQuiet[entry.value];
 			let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
    				
 			let handler = new factoryFunction(aBrowser);
 			contentDocument.com_sppad_BeQuiet_handlers.add(handler);
+    		} catch(err) { 
+    			dump(err + "\n");
+    			dump(err.stack + "\n");
+    		}
+    		
     	}
     };
     
