@@ -16,19 +16,20 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 		return false;
 	};
 	
-	self.like = function() {
-		
-	};
-	
-	self.hasMedia = function() {
-		return self.media != null || self.getFirstMedia() != null;
-	};
-	
 	self.isPlaying = function() {
 		if(self.media == null)
 			return false;
 		
 		return !self.media.paused;
+	};
+
+	self.hasMedia = function() {
+		return self.media != null || self.getFirstMedia() != null;
+	};
+	
+	self.pause = function() {
+		if(self.media != null)
+			self.media.pause();
 	};
 	
 	self.play = function() {
@@ -38,10 +39,19 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 			media.play();
 	};
 	
-	self.pause = function() {
-		if(self.media != null)
-			self.media.pause();
+	self.previous = function() {
+
 	};
+	
+	self.next = function() {
+		
+	};
+	
+	
+	self.like = function() {
+		
+	};
+	
 	
 	self.getFirstMedia = function() {
 		return self.videos[0] || self.audios[0];
@@ -66,10 +76,6 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 	self.mediaPause = function(aEvent) {
 		if(self.media === aEvent.target)
 			self.onPause();
-	};
-	
-	self.next = function() {
-		
 	};
 	
 	self.initialize = function() {
