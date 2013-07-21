@@ -7,41 +7,48 @@ Components.utils.import("chrome://BeQuiet/content/handlers/NodeBasedHandler.jsm"
 
 BeQuiet.LastFM = function(aBrowser) {
 	const description = {
-	    control: {
-	     	play:  '#radioControlPlay',
-	     	pause: '#radioControlPause',
-	     	next:  '#radioControlSkip',
-	     	like:  '#radioControlLove'
-	    },
+     	play: {
+     		selector: '#radioControlPlay'
+     	},
+     	
+     	pause: {
+     		selector: '#radioControlPause'
+     	},
+     	
+     	next: {
+     		selector: '#radioControlSkip'
+     	},
+     	
+     	like: {
+     		selector: '#radioControlLove'
+     	},
 	    	     
-	    status: {
-	    	playing: {
-	    		selector:  '#webRadio',
-	      		attrName:  'class',
-	      		testValue: /playing/
-	     	},
-	     
-	     	liked: {	
-	      		selector:  '#radioPlayer',
-      			attrName:  'class',
-	      		testValue: /loved/
-	     	},
-	     	
-	     	title: {
-	      		selector: '.track',
-	      		subselector: 'a'
-	      	},
-	      	
-	     	artist: {
-	      		selector: '.artist',
-	      		subselector: 'a'
-	      	},
-	      	
-	     	album: {
-	      		selector: '.album',
-	      		subselector: 'a'
-	      	}
-	    }
+    	playing: {
+    		selector:  '#webRadio',
+      		attrName:  'class',
+      		testValue: /playing/
+     	},
+     
+     	liked: {	
+      		selector:  '#radioPlayer',
+  			attrName:  'class',
+      		testValue: /loved/
+     	},
+     	
+     	title: {
+      		selector: '.track',
+      		subselector: 'a'
+      	},
+      	
+     	artist: {
+      		selector: '.artist',
+      		subselector: 'a'
+      	},
+      	
+     	album: {
+      		selector: '.album',
+      		subselector: 'a'
+      	}
 	};
 	
 	let self = this;

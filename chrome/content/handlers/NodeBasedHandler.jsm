@@ -12,15 +12,28 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
  * 
  * <pre>
  * {
- * 	control : {
- * 		play : selector,
- * 		pause : selector,
- * 		prev : selector,
- * 		next : selector,
- * 		like : selector
- * 	},
+ * 		// Controls
+ *  	play : { 
+ * 			selector : selector,
+ * 		},
  * 
- * 	status : {
+ * 		pause : {
+ * 			selector : selector,
+ * 		},
+ * 
+ * 		prev : {
+ * 			selector : selector,
+ * 		},
+ * 
+ * 		next : { 
+ * 			selector : selector,
+ * 		},
+ * 
+ * 		like : {
+ * 			selector : selector,
+ * 		},
+ * 
+ * 		// Status nodes
  * 		playing : {
  * 			selector : selector,
  * 			subselector : selector, // optional
@@ -49,7 +62,6 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
  * 			selector : selector,
  * 			subselector : selector  // optional
  * 		}
- * 	}
  * }
  * </pre>
  */
@@ -62,11 +74,8 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	 */
 	self.description = aHandlerDescription;
 	
-	/** Tracks the nodes for the control buttons used */
-	self.controlButtons = {};
-	
-	/** Tracks the nodes for the status items */
-	self.statusNodes = {};
+	/** Tracks the nodes for controls and status */
+	self.nodes = {};
 	
 	self.isLiked = function() {
 		return self.isStatus('liked');
@@ -83,15 +92,15 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	 *         test value
 	 */
 	self.isStatus = function(aStatusName) {
-		if(!self.statusNodes[aStatusName])
+		if(!self.nodes[aStatusName])
 			return false;
 		
-		let desc = self.description.status[aStatusName];
+		let desc = self.description[aStatusName];
 		let attrName = desc.attrName;
 		let testValue = desc.testValue;
 		let subselector = desc.subselector;
 		
-		let node = self.statusNodes[aStatusName];
+		let node = self.nodes[aStatusName];
 		node = subselector ? node.querySelector(subselector) : node;
 		
 		return testValue.test(node.getAttribute(attrName));
@@ -103,14 +112,14 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	 * @return The innerHTML of the status item
 	 */
 	self.getTextInfo = function(aStatusName) {
-		if(!self.statusNodes[aStatusName])
+		if(!self.nodes[aStatusName])
 			return undefined;
 		
-		let desc = self.description.status[aStatusName];
+		let desc = self.description[aStatusName];
 		let testValue = desc.testValue;
 		let subselector = desc.subselector;
 		
-		let node = self.statusNodes[aStatusName];
+		let node = self.nodes[aStatusName];
 		node = subselector ? node.querySelector(subselector) : node;
 		
 		return node.innerHTML;
@@ -134,10 +143,10 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	 */
 	self.pause = function() {
 		// Need to check playing state since button could be play/pause toggle
-		if(!self.controlButtons.pause || !self.isPlaying())
+		if(!self.nodes.pause || !self.isPlaying())
 			return;
 
-		self.controlButtons.pause.click();
+		self.nodes.pause.click();
 	};
 	
 	/**
@@ -145,10 +154,10 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	 */
 	self.play = function() {
 		// Need to check playing state since button could be play/pause toggle
-		if(!self.controlButtons.play || self.isPlaying())
+		if(!self.nodes.play || self.isPlaying())
 			return;
 
-		self.controlButtons.play.click();
+		self.nodes.play.click();
 	};
 
 	
@@ -156,10 +165,10 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	 * Goes to the previous track if the control exists.
 	 */
 	self.previous = function() {
-		if(!self.controlButtons.prev)
+		if(!self.nodes.prev)
 			return;
 
-		self.controlButtons.prev.click();
+		self.nodes.prev.click();
 	};
 	
 	
@@ -167,20 +176,20 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	 * Goes to the next track if the control exists.
 	 */
 	self.next = function() {
-		if(!self.controlButtons.next)
+		if(!self.nodes.next)
 			return;
 
-		self.controlButtons.next.click();
+		self.nodes.next.click();
 	};
 	
 	/**
 	 * Performs a like if the control exists and the media is not already liked.
 	 */
 	self.like = function() {
-		if(!self.controlButtons.like || self.isLiked())
+		if(!self.nodes.like || self.isLiked())
 			return;
 
-		self.controlButtons.like.click();
+		self.nodes.like.click();
 	};
 
 	/**
@@ -190,29 +199,16 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		// Checks that all declared controls and status items are initialized
 		let initialized  = true;
 		
-		let control = self.description.control;
-		let status = self.description.status;
+		let items = self.description;
 		
-		for(let name in control) {
-			let node = self.doc.querySelector(control[name]);
-			self.controlButtons[name] = node;
+		for(let key in items) {
+			let selector = items[key].selector;
+			let node = self.doc.querySelector(selector);
 			
-			if(node === null)
-				dump("could not find node for " + name + " selector " + control[name] + "\n");
-			
+			self.nodes[key] = node;
 			initialized &= (node !== null)
 		}
 		
-		for(let name in status) {
-			let node = self.doc.querySelector(status[name].selector);
-			self.statusNodes[name] = node;
-			
-			if(node === null)
-				dump("could not find node for " + name + " selector " + status[name].selector + "\n");
-			
-			initialized &= (node !== null);
-		}
-
 		return initialized;
 	};
 
@@ -220,7 +216,7 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		// Observes mutation events on nodes in order to to detect media events
 		self.mediaObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
 	        mutations.forEach(function(mutation) {
-	        	if(mutation.target === self.statusNodes.playing)
+	        	if(mutation.target === self.nodes.playing)
 	    			setTimeout(function() { self.updatePlayingState(); }, 1);
 	        	else
 	    			setTimeout(function() { self.mediaInfoChanged(); }, 1);
@@ -228,8 +224,8 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		});
 
 		// Observe all status nodes for mutations
-		for(let statusName in self.statusNodes)
-			self.mediaObserver.observe(self.statusNodes[statusName], { attributes : true });
+		for(let key in self.nodes)
+			self.mediaObserver.observe(self.nodes[key], { attributes : true });
 	};
 
 	self.unregisterListeners = function() {

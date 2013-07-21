@@ -7,38 +7,45 @@ Components.utils.import("chrome://BeQuiet/content/handlers/NodeBasedHandler.jsm"
 
 BeQuiet.Pandora = function(aBrowser) {
 	const description = {
-	    control: {
-	     	play:  '.playButton',
-	     	pause: '.pauseButton',
-	     	next:  '.skipButton',
-	     	like:  '.thumbUpButton'
-	    },
-	    	     
-	    status: {
-	    	playing: {
-	    		selector:  '.playButton',
-	      		attrName:  'style',
-	      		testValue: /display: none;/
-	     	},
-	     
-	     	liked: {
-	      		selector:  '.thumbUpButton',
-      			attrName:  'class',
-	      		testValue: /indicator/
-	     	},
-	     	
-	      	title: {
-	      		selector: '.songTitle'
-	      	},
-	      	
-	     	artist: {
-	      		selector: '.artistSummary'
-	      	},
-	      	
-	     	album: {
-	      		selector: '.albumTitle'
-	      	}
-	    }
+     	play: {
+     		selector: '.playButton'
+     	},
+     	
+     	pause: {
+     		selector: '.pauseButton'
+     	},
+     	
+     	next: {
+     		selector: '.skipButton'
+     	},
+     	
+     	like: {
+     		selector: '.thumbUpButton'
+     	},
+     		
+    	playing: {
+    		selector:  '.playButton',
+      		attrName:  'style',
+      		testValue: /display: none;/
+     	},
+     
+     	liked: {
+      		selector:  '.thumbUpButton',
+  			attrName:  'class',
+      		testValue: /indicator/
+     	},
+     	
+      	title: {
+      		selector: '.songTitle'
+      	},
+      	
+     	artist: {
+      		selector: '.artistSummary'
+      	},
+      	
+     	album: {
+      		selector: '.albumTitle'
+      	}
 	};
 	
 	let self = this;

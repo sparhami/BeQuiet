@@ -7,34 +7,38 @@ Components.utils.import("chrome://BeQuiet/content/handlers/NodeBasedHandler.jsm"
 
 BeQuiet.EightTracks = function(aBrowser) {
 	const description = {
-	    control: {
-	     	play:  '#player_play_button',
-	     	pause: '#player_pause_button',
-	     	next:  '#player_skip_button',
-	    },
-	    	     
-	    status: {
-	    	playing: {
-	    		selector:  '#player_play_button',
-	      		attrName:  'style',
-	      		testValue: /display: none;/
-	     	},
-	     	
-	     	title: {
-	      		selector: '#now_playing',
-	      		subselector: '.title_artist .t'
-	      	},
-	      	
-	     	artist: {
-	      		selector: '#now_playing',
-	      		subselector: '.title_artist .a'
-	      	},
-	      	
-	    	album: {
-	      		selector: '#now_playing',
-	      		subselector: '.album .detail'
-	      	}
-	    }
+     	play: {
+     		selector: '#player_play_button'
+     	},
+     	
+     	pause: {
+     		selector: '#player_pause_button'
+     	},
+     	
+     	next: {
+     		selector: '#player_skip_button'
+     	},
+
+     	playing: {
+    		selector:  '#player_play_button',
+      		attrName:  'style',
+      		testValue: /display: none;/
+     	},
+     	
+     	title: {
+      		selector: '#now_playing',
+      		subselector: '.title_artist .t'
+      	},
+      	
+     	artist: {
+      		selector: '#now_playing',
+      		subselector: '.title_artist .a'
+      	},
+      	
+    	album: {
+      		selector: '#now_playing',
+      		subselector: '.album .detail'
+      	}
 	};
 	
 	let self = this;
