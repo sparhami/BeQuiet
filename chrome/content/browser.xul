@@ -129,6 +129,7 @@
 			label="&mediaTitle.label;"
 			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaSwitchToTab"
+			context="com_sppad_beQuiet_playPauseContext"
 			tooltip="com_sppad_beQuiet_media_title_tooltip">
 		</toolbarbutton>
 	</toolbarpalette>

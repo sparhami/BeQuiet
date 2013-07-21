@@ -37,20 +37,17 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
  * 
  * 		title : {
  * 			selector : selector,
- * 			subselector : selector
- * 		// optional
+ * 			subselector : selector  // optional
  * 		},
  * 
  * 		artist : {
  * 			selector : selector,
- * 			subselector : selector
- * 		// optional
+ * 			subselector : selector  // optional
  * 		},
  * 
  * 		album : {
  * 			selector : selector,
- * 			subselector : selector
- * 		// optional
+ * 			subselector : selector  // optional
  * 		}
  * 	}
  * }
