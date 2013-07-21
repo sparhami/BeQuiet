@@ -197,12 +197,18 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 			let node = self.doc.querySelector(control[name]);
 			self.controlButtons[name] = node;
 			
+			if(node === null)
+				dump("could not find node for " + name + " selector " + control[name] + "\n");
+			
 			initialized &= (node !== null)
 		}
 		
 		for(let name in status) {
 			let node = self.doc.querySelector(status[name].selector);
 			self.statusNodes[name] = node;
+			
+			if(node === null)
+				dump("could not find node for " + name + " selector " + status[name].selector + "\n");
 			
 			initialized &= (node !== null);
 		}

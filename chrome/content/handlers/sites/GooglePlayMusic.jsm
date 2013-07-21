@@ -1,0 +1,48 @@
+"use strict";
+
+var EXPORTED_SYMBOLS = [];
+
+Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/handlers/NodeBasedHandler.jsm");
+
+BeQuiet.GooglePlayMusic = function(aBrowser) {
+	const description = {
+	    control: {
+	     	play:  '#player [data-id="play-pause"]',
+	     	pause: '#player [data-id="play-pause"]',
+	     	next:  '#player [data-id="forward"]',
+	     	prev:  '#player [data-id="rewind"]'
+	    },
+	    	     
+	    status: {
+	    	playing: {
+	    		selector:  '#player [data-id="play-pause"]',
+	      		attrName:  'class',
+	      		testValue: /playing/
+	     	},
+	     	
+	      	title: {
+	      		selector: '#playerSongInfo',
+	      		subselector: '#playerSongTitle',
+	      	},
+	      	
+	     	artist: {
+	      		selector: '#playerSongInfo',
+	     		subselector: '#player .player-artist',
+	      	},
+	      	
+	     	album: {
+	      		selector: '#playerSongInfo',
+	     		subselector: '#player .player-album',
+	      	}
+	    }
+	};
+	
+	let self = this;
+	
+	self.base = BeQuiet.NodeBasedHandler;
+	self.base(aBrowser, description);
+};
+
+BeQuiet.GooglePlayMusic.prototype = Object.create(BeQuiet.NodeBasedHandler.prototype);
+BeQuiet.GooglePlayMusic.prototype.constructor = BeQuiet.GooglePlayMusic;

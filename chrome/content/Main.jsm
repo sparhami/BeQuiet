@@ -23,6 +23,7 @@ BeQuiet.Main = new function() {
 	                          { key: /last.fm$/, value: 'LastFM' },
 	                          { key: /grooveshark.com$/, value: 'Grooveshark' },
 	                          { key: /8tracks.com$/, value: 'EightTracks' },
+	                          { key: /play.google.com$/, value: 'GooglePlayMusic' },
 	                          { key: new RegExp("."), value: 'HtmlVideo' } ];
 	
 	let self = this;
