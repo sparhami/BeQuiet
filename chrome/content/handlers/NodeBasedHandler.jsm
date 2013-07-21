@@ -75,7 +75,10 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	self.description = aHandlerDescription;
 	
 	/** Tracks the nodes for controls and status */
-	self.nodes = {};
+	self.nodes = Object.create(null);
+	
+	/** Nodes that have yet to be initialized */
+	self.remainingNodes = Object.create(null);
 	
 	self.isLiked = function() {
 		return self.isStatus('liked');
@@ -193,20 +196,26 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	};
 
 	/**
-	 * Loads all nodes for control and status buttons.
+	 * Loads all nodes for control and status. Checks the nodes not yet loaded
+	 * and attempts to find them using the appropriate selector.
+	 * 
+	 * @return True if there are no more nodes to initialize, false otherwise.
 	 */
 	self.initialize = function() {
-		// Checks that all declared controls and status items are initialized
 		let initialized  = true;
 		
-		let items = self.description;
+		let items = self.remainingNodes;
 		
 		for(let key in items) {
-			let selector = items[key].selector;
+			let selector = self.description[key].selector;
 			let node = self.doc.querySelector(selector);
 			
 			self.nodes[key] = node;
-			initialized &= (node !== null)
+			
+			if(node !== null)
+				delete self.remainingNodes[key];
+			else
+				initialized = false;
 		}
 		
 		return initialized;
@@ -217,20 +226,24 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		self.mediaObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
 	        mutations.forEach(function(mutation) {
 	        	if(mutation.target === self.nodes.playing)
-	    			setTimeout(function() { self.updatePlayingState(); }, 1);
+	    			self.updatePlayingState();
 	        	else
-	    			setTimeout(function() { self.mediaInfoChanged(); }, 1);
+	    			self.mediaInfoChanged();
 	        }); 
 		});
 
-		// Observe all status nodes for mutations
-		for(let key in self.nodes)
-			self.mediaObserver.observe(self.nodes[key], { attributes : true });
+		// Observe status items for mutations for play status, like status and media info
+		for(let key of ['playing', 'liked', 'title'])
+			if(self.nodes[key]) // Make sure we have this node type
+				self.nodes[key] && self.mediaObserver.observe(self.nodes[key], { attributes: true, subtree: true });
 	};
 
 	self.unregisterListeners = function() {
 		self.mediaObserver.disconnect();
 	};
+	
+	for(let key in self.description)
+		self.remainingNodes[key] = key;
 
 	self.base = BeQuiet.Handler;
 	self.base(aBrowser, self);
