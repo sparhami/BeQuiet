@@ -68,6 +68,30 @@ BeQuiet.Controls = new function() {
 		}
 	};
 	
+	/**
+	 * Used to instantly show tooltip rather than delaying. Also sets the
+	 * position to anchor off the toolbar node and not the mouse.
+	 */
+	self.showTrackTooltip = function(aEvent) {
+		let node = aEvent.target;
+		let doc = node.ownerDocument;
+		let tooltip = doc.getElementById('com_sppad_beQuiet_media_title_tooltip');
+		
+		tooltip.openPopup(node, "after_start", 0, -21, false, false, aEvent);
+	};
+
+	/**
+	 * Because the track tooltip is opened manually, it needs to be closed
+	 * manually as well.
+	 */
+	self.hideTrackTooltip = function(aEvent) {
+		let node = aEvent.target;
+		let doc = node.ownerDocument;
+		let tooltip = doc.getElementById('com_sppad_beQuiet_media_title_tooltip');
+		
+		tooltip.hidePopup();
+	};
+	
 	self.updateTrackTooltip = function(aEvent) {
 		let node = aEvent.target;
 		let doc = node.ownerDocument;

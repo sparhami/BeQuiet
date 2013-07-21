@@ -28,8 +28,12 @@
 	filter: url("chrome://BeQuiet/skin/filters.svg#toOrange");
 }
 
+#com_sppad_beQuiet_media_title_tooltip {
+	min-width: 256px;
+}
+
 #com_sppad_beQuiet_media_title {
-	width: 256px;	
+	width: 256px;
 }
 
 #com_sppad_beQuiet_media_title image {
