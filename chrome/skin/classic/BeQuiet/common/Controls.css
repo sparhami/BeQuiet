@@ -29,14 +29,18 @@
 }
 
 #com_sppad_beQuiet_media_title {
-	width: 96px;	
+	width: 256px;	
 }
 
 #com_sppad_beQuiet_media_title image {
-	display: none;	
+	display: none;
 }
 
-#com_sppad_beQuiet_media_title label {
+#com_sppad_beQuiet_media_title[playing="false"] label {
+	display: none;
+}
+
+#com_sppad_beQuiet_media_title[playing="true"] label {
 	display: -moz-box !important;	
 }
 
