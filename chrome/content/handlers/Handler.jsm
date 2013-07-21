@@ -82,15 +82,8 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 		return self.implementation.hasMedia();
 	};
 
-	/**
-	 * Switches the current tab to the the tab for the handler. TODO - Find a
-	 * way to give focus to Window if in a different window.
-	 */
-	self.switchToTab = function() {
-		let tab = BeQuiet.Main.getTabForBrowser(self.browser);
-		let win = BeQuiet.Main.getWindowForBrowser(self.browser);
-
-		win.gBrowser.selectedTab = tab;
+	self.getTab = function() {
+		return BeQuiet.Main.getTabForBrowser(self.browser);
 	};
 
 	/**

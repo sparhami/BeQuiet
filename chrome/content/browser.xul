@@ -31,7 +31,7 @@
 			oncommand="BeQuiet.Controls.like();" />
 		<command
 			id="cmd_mediaSwitchToTab"
-			oncommand="BeQuiet.Controls.switchToTab();" />
+			oncommand="BeQuiet.Controls.switchToTab(event);" />
 		<command
 			id="cmd_com_sppad_BeQuiet_preferences"
 			oncommand="BeQuiet.Preferences.openPreferences(window);" />

@@ -130,13 +130,20 @@ BeQuiet.Controls = new function() {
 		BeQuiet.MediaState.pause();
 	};
 	
-	self.switchToTab = function() {
+	/**
+	 * Switches to the tab for the currently playing handler.
+	 */
+	self.switchToTab = function(aEvent) {
 		let handler = self.playingHandler;
 		
-		if(!handler || !handler.isPlaying())
+		if(!handler)
 			return;
-	
-		handler.switchToTab();
+		
+		let handlerTab = handler.getTab();
+		let handlerWindow = handlerTab.ownerDocument.defaultView;
+		
+		handlerWindow.gBrowser.selectedTab = handlerTab;
+		handlerWindow.focus();
 	};
 	
 	self.like = function() {
