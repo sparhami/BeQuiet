@@ -2,18 +2,16 @@
 
 @namespace BeQuiet url("http://sppad.com/ns/BeQuiet");
 
-
 .popup-notification-icon[popupid="com_sppad_BeQuiet_askMediaEvents"] {
-  list-style-image: url("chrome://BeQuiet/skin/images/BeQuiet.svg");
+	list-style-image: url("images/BeQuiet.svg");
 }
-
 
 tab[BeQuiet|mediaPlaying] {
 	font-style: italic;	
 }
 
 tab[BeQuiet|mediaPlaying] .tab-icon-image {
-	list-style-image: url("chrome://BeQuiet/skin/images/note.svg"); 
+	list-style-image: url("images/note.svg"); 
 }
 
 tab[BeQuiet|mediaPlaying][BeQuiet|usePlayingAnimation] .tab-icon-image {
@@ -23,12 +21,14 @@ tab[BeQuiet|mediaPlaying][BeQuiet|usePlayingAnimation] .tab-icon-image {
 }
 
 @keyframes bounce { 
-	0% {
+	0%,
+	100% {
         top: 0%;
        	margin-top: -5px !important;
     }
     
-    35% {
+    35%,
+    65% {
         top: 20%;
 		transform: scaleY(1.0);
     }
@@ -36,15 +36,5 @@ tab[BeQuiet|mediaPlaying][BeQuiet|usePlayingAnimation] .tab-icon-image {
     55% {
         top: 30%;
 		transform: scaleY(0.7);
-    }
-    
-    65% {
-        top: 20%;
-   		transform: scaleY(1.0);
-    }
-    
-    100% {
-        top: 0%;
-        margin-top: -5px !important;
     }
 }
