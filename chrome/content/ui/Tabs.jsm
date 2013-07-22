@@ -28,13 +28,11 @@ BeQuiet.Tabs = new function() {
     	let tab = BeQuiet.Main.getTabForBrowser(browser);
       	tab.setAttributeNS(BeQuiet.xmlns, 'mediaPlaying', 'true');
       	
-      	if(prefs.usePlayingIcon) {
+      	if(prefs.usePlayingIcon)
         	tab.removeAttribute('image');		
-      	}
       	
-      	if(prefs.usePlayingAnimation) {
+      	if(prefs.usePlayingAnimation)
       		tab.setAttributeNS(BeQuiet.xmlns, 'usePlayingAnimation', 'true');
-      	}
     };
     
     self.onMediaInfoChanged = function(aHandler) {

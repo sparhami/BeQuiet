@@ -98,9 +98,7 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 	 * media events and firing a play event if it does.
 	 */
 	self.onPlay = function() {
-		BeQuiet.SiteFilter.checkPermission(self.browser, function() {
-			self.handlePlay();
-		}, true);
+		BeQuiet.SiteFilter.checkPermission(self.browser, self.handlePlay, true);
 	};
 
 	/**
@@ -111,16 +109,14 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 	 */
 	self.onPause = function() {
 		clearTimeout(self.pauseCheckTimer);
-		self.pauseCheckTimer = setTimeout(function() {
-			self.handlePause();
-		}, Math.max(1, prefs.pauseCheckDelay));
+		self.pauseCheckTimer = setTimeout(self.handlePause, Math.max(1, prefs.pauseCheckDelay));
 	};
 
 	self.mediaInfoChanged = function() {
 		let timeUntilUpdate = (self.lastUpdateTime + MEDIA_INFO_UPDATE_INTERVAL) - Date.now();
 		
 		clearTimeout(self.mediaUpdateTimer);
-		self.mediaUpdateTimer = setTimeout(function() {
+		self.mediaUpdateTimer = setTimeout( () => {
 			self.lastUpdateTime = Date.now();
 			self.createEvent('com_sppad_handler_mediaInfo');
 		}, Math.max(1, timeUntilUpdate));

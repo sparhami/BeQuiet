@@ -82,9 +82,7 @@ BeQuiet.Iterable = function(iterator) {
 	 *            as a is less than, equal to or greater than b
 	 */
 	self.max = function(comparator) {
-		return self.reduce(function (previous, current) {
-			return comparator(previous, current) > 0 ? previous : current;
-		});
+		return self.reduce( (p, c) => comparator(p, c) > 0 ? p : c );
 	};
 	
 	/**
@@ -95,9 +93,7 @@ BeQuiet.Iterable = function(iterator) {
 	 *            as a is less than, equal to or greater than b
 	 */
 	self.min = function(comparator) {
-		return self.reduce(function (previous, current) {
-			return comparator(previous, current) < 0 ? previous : current;
-		});
+		return self.reduce( (p, c) => comparator(p, c) < 0 ? p : c );
 	};
 	
 	/**

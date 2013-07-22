@@ -2,7 +2,6 @@
 
 var EXPORTED_SYMBOLS = [];
 
-Components.utils.import("resource://gre/modules/Timer.jsm");
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 
 /**
@@ -141,32 +140,22 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		return self.initialized;
 	};
 	
-	/**
-	 * Causes the media to pause if the control exists.
-	 */
 	self.pause = function() {
-		// Need to check playing state since button could be play/pause toggle
+		// Need to check state as button could be a toggle
 		if(!self.nodes.pause || !self.isPlaying())
 			return;
 
 		self.nodes.pause.click();
 	};
 	
-	/**
-	 * Causes the media to play if the control exists.
-	 */
 	self.play = function() {
-		// Need to check playing state since button could be play/pause toggle
+		// Need to check state as button could be a toggle
 		if(!self.nodes.play || self.isPlaying())
 			return;
 
 		self.nodes.play.click();
 	};
 
-	
-	/**
-	 * Goes to the previous track if the control exists.
-	 */
 	self.previous = function() {
 		if(!self.nodes.prev)
 			return;
@@ -174,10 +163,6 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		self.nodes.prev.click();
 	};
 	
-	
-	/**
-	 * Goes to the next track if the control exists.
-	 */
 	self.next = function() {
 		if(!self.nodes.next)
 			return;
@@ -185,10 +170,8 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		self.nodes.next.click();
 	};
 	
-	/**
-	 * Performs a like if the control exists and the media is not already liked.
-	 */
 	self.like = function() {
+		// Need to check state as button could be a toggle
 		if(!self.nodes.like || self.isLiked())
 			return;
 

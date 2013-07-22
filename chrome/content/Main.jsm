@@ -105,7 +105,7 @@ BeQuiet.Main = new function() {
 		let gBrowser = self.getWindowForBrowser(aBrowser).gBrowser;
 		
 		return BeQuiet.Iterable.from(gBrowser.tabs)
-			.filter(function(tab) { return gBrowser.getBrowserForTab(tab) === aBrowser })
+			.filter( a => gBrowser.getBrowserForTab(a) === aBrowser )
 			.first();
 	};
 	
