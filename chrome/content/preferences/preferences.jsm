@@ -22,7 +22,11 @@ BeQuiet.PREFS = {
 	
 	usePlayingAnimation: false,
 	
-	showTrackInfoNotifications: true,
+	notifications: {
+		showTrackInfo: true,
+		showOnPlay: true,
+		maxCharactersPerLine: 40
+	},
 		
 	/*
 	 * When playing using a button/keyboard shortcut, play current tab if it has

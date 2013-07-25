@@ -94,12 +94,12 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 	};
 	
 	self.getTrackInfo = function() {
-		let title = self.implementation.getTitle();
-		let artist = self.implementation.getArtist();
-		let album = self.implementation.getAlbum();
-		let imageUri = self.implementation.getImageUri();
-		
-		return new BeQuiet.TrackInfo(title, artist, album, imageUri);
+		return {
+			title : self.implementation.getTitle(),
+			artist : self.implementation.getArtist(),
+			album : self.implementation.getAlbum(),
+			imageUri : self.implementation.getImageUri()
+		};
 	};
 
 	/**
@@ -197,27 +197,4 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 
 	self.browser.addEventListener("DOMContentLoaded", self.setup, false);
 	self.setup();
-};
-
-
-BeQuiet.TrackInfo = function(aTitle, aArtist, aAlbum, aImageUri) {
-
-	let self = this;
-
-	self.title = aTitle;
-	self.artist = aArtist;
-	self.album = aAlbum;
-	self.imageUri = aImageUri;
-	
-	self.getTitle = function() {
-		return self.title;
-	};
-	
-	self.getImageUri = function() {
-		return self.imageUri;
-	};
-	
-	self.getAdditionalInfo = function() {
-		return [self.artist, self.album].filter( a => a ).join("\n");
-	};
 };

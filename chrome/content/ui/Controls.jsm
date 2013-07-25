@@ -4,13 +4,9 @@ var EXPORTED_SYMBOLS = [];
 
 Components.utils.import("resource://gre/modules/Timer.jsm");
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
-
 Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
 
 BeQuiet.Controls = new function() {
-	const alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-		.getService(Components.interfaces.nsIAlertsService);
-	
 	const prefs = BeQuiet.CurrentPrefs;
 	
 	let self = this;
@@ -73,24 +69,8 @@ BeQuiet.Controls = new function() {
 		 	let titleButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_title');
 
 		 	likeButton && likeButton.setAttribute('liked',liked);
-		 	titleButton && titleButton.setAttribute('label', trackInfo.getTitle());
+		 	titleButton && titleButton.setAttribute('label', trackInfo.title);
 		}
-		
-		self.showTrackInfoAlert(trackInfo);
-	};
-	
-	self.showTrackInfoAlert = function(aTrackInfo) {
-		if(!prefs.showTrackInfoNotifications)
-			return;
-		
-		alertsService.showAlertNotification(
-				aTrackInfo.getImageUri(),
-				aTrackInfo.getTitle(),
-				aTrackInfo.getAdditionalInfo(),
-				false,
-				"",
-				null,
-				"BeQuiet_trackInfoAlert");
 	};
 	
 	/**
