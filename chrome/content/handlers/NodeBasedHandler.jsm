@@ -124,7 +124,7 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		let node = self.nodes[aStatusName];
 		node = subselector ? node.querySelector(subselector) : node;
 		
-		return node.innerHTML;
+		return node.textContent;
 		
 	};
 	
