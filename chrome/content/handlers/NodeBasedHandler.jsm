@@ -128,12 +128,20 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		
 	};
 	
-	self.getTrackInfo = function() {
-		return {
-			title: self.getTextInfo('title'),
-			artist: self.getTextInfo('artist'),
-			album: self.getTextInfo('album')
-		};
+	self.getTitle = function() {
+		return self.getTextInfo('title');
+	};
+	
+	self.getArtist = function() {
+		return self.getTextInfo('artist');
+	};
+	
+	self.getAlbum = function() {
+		return self.getTextInfo('album');
+	};
+	
+	self.getImageUri = function() {
+		return null;
 	};
 	
 	self.hasMedia = function() {

@@ -5,7 +5,14 @@ var EXPORTED_SYMBOLS = [];
 Components.utils.import("resource://gre/modules/Timer.jsm");
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 
+Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
+
 BeQuiet.Controls = new function() {
+	const alertsService = Components.classes["@mozilla.org/alerts-service;1"]
+		.getService(Components.interfaces.nsIAlertsService);
+	
+	const prefs = BeQuiet.CurrentPrefs;
+	
 	let self = this;
 	
 	self.playing = false;
@@ -47,7 +54,6 @@ BeQuiet.Controls = new function() {
 		self.playingHandler = aHandler;
 		self.setPlayingState(true);
 		
-		
 		setTimeout(function() {
 			self.onMediaInfoChanged(aHandler);
 		}, 1);
@@ -59,13 +65,32 @@ BeQuiet.Controls = new function() {
 	};
 	
 	self.onMediaInfoChanged = function(aHandler) {
+		let liked = aHandler.isLiked();
+		let trackInfo = aHandler.getTrackInfo();
+		
 		for(let browserWindow of BeQuiet.Main.getWindows()) {
 			let likeButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_like');
 		 	let titleButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_title');
 
-		 	likeButton && likeButton.setAttribute('liked', aHandler.isLiked());
-		 	titleButton && titleButton.setAttribute('label', aHandler.getTrackInfo().title);
+		 	likeButton && likeButton.setAttribute('liked',liked);
+		 	titleButton && titleButton.setAttribute('label', trackInfo.getTitle());
 		}
+		
+		self.showTrackInfoAlert(trackInfo);
+	};
+	
+	self.showTrackInfoAlert = function(aTrackInfo) {
+		if(!prefs.showTrackInfoNotifications)
+			return;
+		
+		alertsService.showAlertNotification(
+				aTrackInfo.getImageUri(),
+				aTrackInfo.getTitle(),
+				aTrackInfo.getAdditionalInfo(),
+				false,
+				"",
+				null,
+				"BeQuiet_trackInfoAlert");
 	};
 	
 	/**
@@ -107,16 +132,11 @@ BeQuiet.Controls = new function() {
 			return;
 			
 		let trackInfo = handler.getTrackInfo();
-		
-		for(let infoName in trackInfo) {
-			let value = trackInfo[infoName];
-			
-			if(!value)
-				continue;
-			
+	
+		for(let infoType of ['title', 'artist', 'album']) {
 			let label = doc.createElement('label');
-			label.setAttribute('type', infoName);
-			label.setAttribute('value', value);
+			label.setAttribute('type', infoType);
+			label.setAttribute('value', trackInfo[infoType]);
 			
 			node.appendChild(label);
 		}

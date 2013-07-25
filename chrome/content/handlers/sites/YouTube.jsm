@@ -43,6 +43,22 @@ BeQuiet.YouTube = function(aBrowser) {
 		};
 	};
 	
+	self.getTitle = function() {
+		return self.doc.title;
+	};
+	
+	self.getArtist = function() {
+		return null;
+	};
+	
+	self.getAlbum = function() {
+		return null;
+	};
+	
+	self.getImageUri = function() {
+		return null;
+	};
+	
 	self.hasMedia = function() {
 		return self.initialized;
 	};

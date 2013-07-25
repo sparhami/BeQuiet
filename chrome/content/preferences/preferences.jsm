@@ -21,6 +21,8 @@ BeQuiet.PREFS = {
 	usePlayingIcon: false,
 	
 	usePlayingAnimation: false,
+	
+	showTrackInfoNotifications: true,
 		
 	/*
 	 * When playing using a button/keyboard shortcut, play current tab if it has

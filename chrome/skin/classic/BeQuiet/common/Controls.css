@@ -48,6 +48,11 @@
 	display: -moz-box !important;	
 }
 
+#com_sppad_beQuiet_media_title_tooltip label,
+#com_sppad_beQuiet_media_title label {
+	-moz-margin-start: 6px !important;
+}
+
 #com_sppad_beQuiet_media_title_tooltip .notPlaying {
 	font-style: italic;
 }
@@ -59,6 +64,9 @@
 #com_sppad_beQuiet_media_title_tooltip label[type="title"] {
 	font-weight: bold;
 }
+
+#com_sppad_beQuiet_media_title_tooltip
+
 
 #com_sppad_beQuiet_playPauseContext menuitem[playing="true"] {
 	font-weight: bold;

@@ -23,10 +23,20 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 		return !self.media.paused;
 	};
 	
-	self.getTrackInfo = function() {
-		return {
-			title: self.doc.title
-		};
+	self.getTitle = function() {
+		return self.doc.title;
+	};
+	
+	self.getArtist = function() {
+		return null;
+	};
+	
+	self.getAlbum = function() {
+		return null;
+	};
+	
+	self.getImageUri = function() {
+		return null;
 	};
 
 	self.hasMedia = function() {
