@@ -3,27 +3,15 @@
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
 
-BeQuiet.Settings = new function() {
+new function() {
 	
 	const prefs = BeQuiet.CurrentPrefs;
 	
 	let self = this;
 	
     self.prefChanged = function(name, value) {
-        switch(name) {
-        	case 'enablePauseResume': 
-        		self.enablePauseResume(value);
-        		break;
-            default:
-                if(name.startsWith('shortcut')) {
-                	self.updateKeybind(name.split('\.')[1]);
-                }
-                break;
-        }
-    };
-    
-    self.enablePauseResume = function(enabled) {
-    	BeQuiet.Controls.setControlsEnabled(enabled);
+	    if(name.startsWith('shortcut'))
+	    	self.updateKeybind(name.split('\.')[1]);
     };
     
     /**
@@ -55,8 +43,7 @@ BeQuiet.Settings = new function() {
     	
     	let initialPrefs = ['shortcut.com_sppad_mediaToggleState.',
     	                    'shortcut.com_sppad_mediaNext.',
-    	                    'shortcut.com_sppad_mediaPrevious.',
-    	                    'enablePauseResume'];
+    	                    'shortcut.com_sppad_mediaPrevious.'];
     	
     	for(let pref of initialPrefs)
             self.prefChanged(pref, prefs[pref]);
