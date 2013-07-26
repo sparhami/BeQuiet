@@ -114,6 +114,9 @@ BeQuiet.Controls = new function() {
 		let trackInfo = handler.getTrackInfo();
 	
 		for(let infoType of ['title', 'artist', 'album']) {
+			if(!trackInfo[infoType])
+				continue;
+			
 			let label = doc.createElement('label');
 			label.setAttribute('type', infoType);
 			label.setAttribute('value', trackInfo[infoType]);
