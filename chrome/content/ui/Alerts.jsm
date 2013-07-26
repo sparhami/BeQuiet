@@ -10,30 +10,43 @@ BeQuiet.Alerts = new function() {
 	const alertsService = Components.classes["@mozilla.org/alerts-service;1"]
 		.getService(Components.interfaces.nsIAlertsService);
 	
+	const observerService = Components.classes["@mozilla.org/observer-service;1"]
+		.getService(Components.interfaces.nsIObserverService);
+	
 	const prefs = BeQuiet.CurrentPrefs;
 	
 	let self = this;
 	
-	self.onPlay = function(aHandler) {
-		if(!prefs['notifications.showOnPlay'])
+	self.observe = function(aSubject, aTopic, aData) {
+		switch(aTopic) {
+			case 'com_sppad_BeQuiet_mediaState':
+				self.mediaStateChange(aData);
+				break;
+			case 'com_sppad_BeQuiet_mediaTrackInfo':
+				self.mediaInfoChange();
+				break;
+		}
+		
+	};
+	
+	self.mediaStateChange = function(aState) {
+		if(aState !== 'play' || !prefs['notifications.showOnPlay'])
 			return;
 		
-		self.showAlert(aHandler);
+		self.showAlert();
 	};
 	
-	self.onPause = function(aHandler) {
-
+	
+	self.mediaInfoChange = function() {
+		self.showAlert();
 	};
 	
-	self.onMediaInfoChanged = function(aHandler) {
-		self.showAlert(aHandler);
-	};
-	
-	self.showAlert = function(aHandler) {
+	self.showAlert = function() {
 		if(!prefs['notifications.showTrackInfo'])
 			return;
 		
-		let trackInfo = aHandler.getTrackInfo();
+		let handler = BeQuiet.MediaState.playingHandler;
+		let trackInfo = handler.getTrackInfo();
 		
 		alertsService.showAlertNotification(
 				null,
@@ -61,5 +74,6 @@ BeQuiet.Alerts = new function() {
 		return aString.length <= n ? aString : aString.substr(0, n-3) + '...';
 	};
 	
-	BeQuiet.MediaState.addObserver(self);
+	observerService.addObserver(self, 'com_sppad_BeQuiet_mediaState', false);
+	observerService.addObserver(self, 'com_sppad_BeQuiet_mediaTrackInfo', false);
 };

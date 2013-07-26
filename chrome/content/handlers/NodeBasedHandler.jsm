@@ -213,24 +213,26 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	};
 
 	self.registerListeners = function() {
-		// Observes mutation events on nodes in order to to detect media events
-		self.mediaObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
-	        mutations.forEach(function(mutation) {
-	        	if(mutation.target === self.nodes.playing)
-	    			self.updatePlayingState();
-	        	else
-	    			self.mediaInfoChanged();
-	        }); 
-		});
-
-		// Observe status items for mutations for play status, like status and media info
-		for(let key of ['playing', 'liked', 'title'])
-			if(self.nodes[key]) // Make sure we have this node type
-				self.nodes[key] && self.mediaObserver.observe(self.nodes[key], { attributes: true, subtree: true });
+		let win = self.doc.defaultView;
+		
+		self.playObs = new win.MutationObserver( a => self.updatePlayingState() );
+		self.infObs = new win.MutationObserver( a => self.mediaInfoChanged() );
+		self.ratingObs = new win.MutationObserver( a => self.mediaRatingChanged() );
+		
+		if(self.nodes.playing) 
+			self.playObs.observe(self.nodes.playing, { attributes: true, subtree: true });
+		
+		if(self.nodes.title) 
+			self.infObs.observe(self.nodes.title, { attributes: true, subtree: true });
+		
+		if(self.nodes.liked)
+			self.ratingObs.observe(self.nodes.liked, { attributes: true, subtree: true });
 	};
 
 	self.unregisterListeners = function() {
-		self.mediaObserver.disconnect();
+		self.playObs.disconnect();
+		self.infObs.disconnect();
+		self.ratingObs.disconnect();
 	};
 	
 	for(let key in self.description)

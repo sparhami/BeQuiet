@@ -279,11 +279,11 @@ BeQuiet.Preferences = new function() {
             self._myListener.unregister();
         },
 
-    	addObserver : function(observer) {
+    	addPreferenceObserver : function(observer) {
     		self._observers.add(observer);
     	},
     	
-    	removeObserver : function(observer) {
+    	removePreferenceObserver : function(observer) {
     		self._observers.delete(observer);
     	},
     };

@@ -7,14 +7,28 @@ Components.utils.import("chrome://BeQuiet/content/ns.jsm");
 Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
 
 BeQuiet.Controls = new function() {
+	
+	const observerService = Components.classes["@mozilla.org/observer-service;1"]
+    	.getService(Components.interfaces.nsIObserverService);
+	
 	const prefs = BeQuiet.CurrentPrefs;
 	
 	let self = this;
 	
-	self.playing = false;
-	
-	/** The handler that is currently playing media */
-	self.playingHandler = null;
+	self.observe = function(aSubject, aTopic, aData) {
+		switch(aTopic) {
+			case 'com_sppad_BeQuiet_mediaState':
+				self.mediaStateChange(aData);
+				break;
+			case 'com_sppad_BeQuiet_mediaTrackInfo':
+				self.mediaInfoChange();
+				break;
+			case 'com_sppad_BeQuiet_mediaTrackRating':
+				self.mediaRatingChange();
+				break;
+		}
+		
+	};
 	
 	self.setPlayingState = function(playing) {
 		for(let browserWindow of BeQuiet.Main.getWindows()) {
@@ -41,35 +55,34 @@ BeQuiet.Controls = new function() {
 		}
 	};
 	
-	self.isPlaying = function() {
-		return self.playing;
-	};
-	
-	self.onPlay = function(aHandler) {
-		self.playing = true;
-		self.playingHandler = aHandler;
-		self.setPlayingState(true);
+	self.mediaStateChange = function(aState) {
+		let playing = aState === 'play';
+		self.setPlayingState(playing);
 		
-		setTimeout(function() {
-			self.onMediaInfoChanged(aHandler);
-		}, 1);
+		if(playing) {
+			self.mediaInfoChange();
+			self.mediaRatingChange();
+		}
+
+	};
+
+	self.mediaInfoChange = function() {
+		let handler = BeQuiet.MediaState.playingHandler;
+		let trackInfo = handler.getTrackInfo();
+		
+		for(let browserWindow of BeQuiet.Main.getWindows()) {
+			let titleButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_title');
+		 	titleButton && titleButton.setAttribute('label', trackInfo.title);
+		}
 	};
 	
-	self.onPause = function(aHandler) {
-		self.playing = false;
-		self.setPlayingState(false);
-	};
-	
-	self.onMediaInfoChanged = function(aHandler) {
-		let liked = aHandler.isLiked();
-		let trackInfo = aHandler.getTrackInfo();
+	self.mediaRatingChange = function() {
+		let handler = BeQuiet.MediaState.playingHandler;
+		let liked = handler.isLiked();
 		
 		for(let browserWindow of BeQuiet.Main.getWindows()) {
 			let likeButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_like');
-		 	let titleButton = browserWindow.document.getElementById('com_sppad_beQuiet_media_title');
-
-		 	likeButton && likeButton.setAttribute('liked',liked);
-		 	titleButton && titleButton.setAttribute('label', trackInfo.title);
+		 	likeButton && likeButton.setAttribute('liked', liked);
 		}
 	};
 	
@@ -100,7 +113,7 @@ BeQuiet.Controls = new function() {
 	self.updateTrackTooltip = function(aEvent) {
 		let node = aEvent.target;
 		let doc = node.ownerDocument;
-		let handler = self.playingHandler;
+		let handler = BeQuiet.MediaState.playingHandler;
 		
 		for(let item of node.querySelectorAll(':not([static])'))
 			node.removeChild(item);
@@ -137,7 +150,7 @@ BeQuiet.Controls = new function() {
 	 * Switches to the tab for the currently playing handler.
 	 */
 	self.switchToTab = function(aEvent) {
-		let handler = self.playingHandler;
+		let handler = BeQuiet.MediaState.playingHandler;
 		
 		if(!handler)
 			return;
@@ -150,14 +163,14 @@ BeQuiet.Controls = new function() {
 	};
 	
 	self.like = function() {
-		if(!self.playing)
+		if(!BeQuiet.MediaState.isPlaying())
 			return;
 		
-		self.playingHandler.like();
+		BeQuiet.MediaState.playingHandler.like();
 	};
 	
 	self.toggle = function() {
-		if(self.playing)
+		if(BeQuiet.MediaState.isPlaying())
 			self.pause();
 		else
 			self.play();
@@ -171,5 +184,7 @@ BeQuiet.Controls = new function() {
 		BeQuiet.MediaState.previous();
 	};
 	
-	BeQuiet.MediaState.addObserver(self);
+	observerService.addObserver(self, 'com_sppad_BeQuiet_mediaState', false);
+	observerService.addObserver(self, 'com_sppad_BeQuiet_mediaTrackInfo', false);
+	observerService.addObserver(self, 'com_sppad_BeQuiet_mediaTrackRating', false);
 };

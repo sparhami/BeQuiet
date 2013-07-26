@@ -39,7 +39,7 @@ new function() {
     };
 
     window.addEventListener('load', function() {
-     	BeQuiet.Preferences.addObserver(self);
+     	BeQuiet.Preferences.addPreferenceObserver(self);
     	
     	let initialPrefs = ['shortcut.com_sppad_mediaToggleState.',
     	                    'shortcut.com_sppad_mediaNext.',
@@ -50,6 +50,6 @@ new function() {
     });
     
     window.addEventListener('unload', function() {
-    	BeQuiet.Preferences.removeObserver(self);
+    	BeQuiet.Preferences.removePreferenceObserver(self);
     });
 };

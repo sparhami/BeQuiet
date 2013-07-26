@@ -157,11 +157,11 @@ BeQuiet.YouTube = function(aBrowser) {
             self.updatePlayingState();
         }, JAVASCRIPT_INJECTION_DELAY);
         
-		self.mediaInfoObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
-			self.mediaInfoChanged();
+		self.mediaRatingObserver = new self.doc.defaultView.MutationObserver(function(mutations) {
+			self.mediaRatingChanged();
 	    });
 		
-	    self.mediaInfoObserver.observe(self.likeButton, { attributes: true });
+	    self.mediaRatingObserver.observe(self.likeButton, { attributes: true });
 	};
 	
 	self.unregisterListeners = function() {

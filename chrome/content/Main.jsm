@@ -145,6 +145,11 @@ BeQuiet.Main = new function() {
     	for(let observer of self.observers)
 			observer.onMediaInfoChanged(aEvent.handler);
     };
+    
+    self.onMediaRatingChanged = function(aEvent) {
+    	for(let observer of self.observers)
+			observer.onMediaRatingChanged(aEvent.handler);
+    };
 	
 	self.addObserver = function(observer) {
 		self.observers.add(observer);
@@ -178,6 +183,7 @@ BeQuiet.Main = new function() {
 			aWindow.document.addEventListener("com_sppad_handler_play", self.onPlay, false);
 			aWindow.document.addEventListener("com_sppad_handler_pause", self.onPause, false);
 			aWindow.document.addEventListener("com_sppad_handler_mediaInfo", self.onMediaInfoChanged, false);
+			aWindow.document.addEventListener("com_sppad_handler_mediaRating", self.onMediaRatingChanged, false);
 		});
 		
 		aWindow.addEventListener("unload", function() {
@@ -190,6 +196,7 @@ BeQuiet.Main = new function() {
 			aWindow.document.removeEventListener("com_sppad_handler_play", self.onPlay);
 			aWindow.document.removeEventListener("com_sppad_handler_pause", self.onPause);
 			aWindow.document.removeEventListener("com_sppad_handler_mediaInfo", self.onMediaInfoChanged);
+			aWindow.document.removeEventListener("com_sppad_handler_mediaRating", self.onMediaRatingChanged);
 		});
 	};
 };

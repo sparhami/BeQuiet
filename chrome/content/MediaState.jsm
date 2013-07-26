@@ -9,6 +9,9 @@ Components.utils.import("chrome://BeQuiet/content/collect/Iterable.jsm");
 
 BeQuiet.MediaState = new function() {
 	
+	const observerService = Components.classes["@mozilla.org/observer-service;1"]
+		.getService(Components.interfaces.nsIObserverService);
+	
 	const prefs = BeQuiet.CurrentPrefs;
 	
 	let self = this;
@@ -22,8 +25,6 @@ BeQuiet.MediaState = new function() {
 	/** Timer that delays resuming video per preference */
 	self.resumeDelayTimer = null;
 	
-	self.observers = new Set();
-	
 	self.paused = false;
 	
     self.prefChanged = function(name, value) {
@@ -34,6 +35,9 @@ BeQuiet.MediaState = new function() {
         }
     };
     
+    self.isPlaying = function() {
+    	return self.playingHandler != null;
+    };
     
 	self.pause = function() {
 		self.paused = true;
@@ -117,8 +121,7 @@ BeQuiet.MediaState = new function() {
     	
        	self.playingHandler = null;
 
-    	for(let observer of self.observers)
-			observer.onPause(aHandler);
+    	observerService.notifyObservers(null, 'com_sppad_BeQuiet_mediaState', 'pause');
     	
 	  	if(!self.paused)
 	  		self.resume();
@@ -138,26 +141,23 @@ BeQuiet.MediaState = new function() {
     	if(self.pausedHandler != null)
     		self.pausedHandler.pause();
     	
-		for(let observer of self.observers)
-			observer.onPlay(aHandler);
+    	observerService.notifyObservers(null, 'com_sppad_BeQuiet_mediaState', 'play');
     };
     
     self.onMediaInfoChanged = function(aHandler) {
     	if(aHandler !== self.playingHandler)
     		return;
     	
-    	for(let observer of self.observers)
-			observer.onMediaInfoChanged(aHandler);
+    	observerService.notifyObservers(null, 'com_sppad_BeQuiet_mediaTrackInfo', null);
     };
     
-	self.addObserver = function(observer) {
-		self.observers.add(observer);
-	};
-	
-	self.removeObserver = function(observer) {
-		self.observers.delete(observer);
-	};
+    self.onMediaRatingChanged = function(aHandler) {
+    	if(aHandler !== self.playingHandler)
+    		return;
+    	
+    	observerService.notifyObservers(null, 'com_sppad_BeQuiet_mediaTrackRating', null);
+    };
 	
 	BeQuiet.Main.addObserver(self);
- 	BeQuiet.Preferences.addObserver(self);
+ 	BeQuiet.Preferences.addPreferenceObserver(self);
 };

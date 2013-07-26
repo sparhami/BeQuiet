@@ -131,6 +131,10 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 		}, Math.max(1, timeUntilUpdate));
 	};
 
+	self.mediaRatingChanged = function() {
+		self.createEvent('com_sppad_handler_mediaRating');
+	};
+	
 	self.handlePlay = function() {
 		clearTimeout(self.pauseCheckTimer);
 
