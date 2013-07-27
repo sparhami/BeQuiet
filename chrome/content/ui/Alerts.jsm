@@ -38,7 +38,8 @@ BeQuiet.Alerts = new function() {
 	
 	
 	self.mediaInfoChange = function() {
-		self.showAlert();
+		// Delay to let all status items to update
+		setTimeout(function() { self.showAlert(); }, 1000);
 	};
 	
 	self.showAlert = function() {

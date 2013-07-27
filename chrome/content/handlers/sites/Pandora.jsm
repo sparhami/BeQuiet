@@ -18,7 +18,7 @@ BeQuiet.Pandora = function(aBrowser) {
      	},
      	
      	trackChange: {
-      		selector: '#trackInfo .songTitle',
+      		selector: '#playerBar .playerBarSong',
   			attrName: 'href'
      	},
      	
@@ -35,15 +35,15 @@ BeQuiet.Pandora = function(aBrowser) {
      	},
      	
       	title: {
-      		selector: '#trackInfo .songTitle'
+      		selector: '#playerBar .playerBarSong'
       	},
       	
      	artist: {
-      		selector: '#trackInfo .artistSummary'
+      		selector: '#playerBar .playerBarArtist'
       	},
       	
      	album: {
-      		selector: '#trackInfo .albumTitle'
+      		selector: '#playerBar .playerBarAlbum'
       	},
       	
       	albumArt: {
