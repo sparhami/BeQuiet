@@ -47,9 +47,10 @@ BeQuiet.Alerts = new function() {
 		
 		let handler = BeQuiet.MediaState.playingHandler;
 		let trackInfo = handler.getTrackInfo();
+		let albumArt = handler.getAlbumArt();
 		
 		alertsService.showAlertNotification(
-				null,
+				albumArt,
 				self.getAlertTitle(trackInfo),
 				self.getAlertText(trackInfo),
 				false,

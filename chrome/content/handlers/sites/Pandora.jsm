@@ -45,6 +45,12 @@ BeQuiet.Pandora = function(aBrowser) {
       	
      	album: {
       		selector: '.albumTitle'
+      	},
+      	
+      	albumArt: {
+      		selector: '#playerBar .albumArt',
+      		subselector: 'img',
+  			attrName: 'src'
       	}
 	};
 	

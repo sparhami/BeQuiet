@@ -36,18 +36,24 @@ BeQuiet.LastFM = function(aBrowser) {
      	},
      	
      	title: {
-      		selector: '.track',
+      		selector: '#radioContent .track',
       		subselector: 'a'
       	},
       	
      	artist: {
-      		selector: '.artist',
+      		selector: '#radioContent .artist',
       		subselector: 'a'
       	},
       	
      	album: {
-      		selector: '.album',
+      		selector: '#radioContent .album',
       		subselector: 'a'
+      	},
+      	
+      	albumArt: {
+      		selector: '#webRadio',
+      		subselector: '#trackAlbum .albumCover img',
+  			attrName: 'src'
       	}
 	};
 	

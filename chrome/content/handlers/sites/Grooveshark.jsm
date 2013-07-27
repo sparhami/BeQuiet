@@ -47,6 +47,11 @@ BeQuiet.Grooveshark = function(aBrowser) {
 		artist : {
 			selector : '#now-playing-metadata',
 			subselector : '.artist'
+		},
+		
+		albumArt: {
+			selector : "#now-playing-image",
+			attrName : 'src'
 		}
 	};
 

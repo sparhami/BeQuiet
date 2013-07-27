@@ -38,6 +38,12 @@ BeQuiet.EightTracks = function(aBrowser) {
     	album: {
       		selector: '#now_playing',
       		subselector: '.album .detail'
+      	},
+      	
+    	albumArt: {
+      		selector: '#player_box',
+      		subselector: '.cover',
+      		attrName: 'src'
       	}
 	};
 	

@@ -37,6 +37,10 @@ BeQuiet.YouTube = function(aBrowser) {
 		return state == PLAYER_STATE_PLAYING;
 	};
 	
+	self.getAlbumArt = function() {
+		return null;
+	};
+	
 	self.getTrackInfo = function() {
 		return {
 			title: self.doc.title

@@ -87,45 +87,54 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		return self.isStatus('playing');
 	};
 	
-	/**
-	 * @param aStatusName
-	 *            the name of the status to check
-	 * @return The result of testing the attribute of the status against the
-	 *         test value
-	 */
+	self.getAlbumArt = function() {
+		return self.getValue('albumArt');
+	};
+	
+	self.getValue = function(aStatusName) {
+		let node = self.getNode(aStatusName);
+		
+		if(!node)
+			return null;
+		
+		let desc = self.description[aStatusName];
+		let attrName = desc.attrName;
+		
+		return node.getAttribute(attrName);
+	};
+	
 	self.isStatus = function(aStatusName) {
-		if(!self.nodes[aStatusName])
+		let node = self.getNode(aStatusName);
+		
+		if(!node)
 			return false;
 		
 		let desc = self.description[aStatusName];
 		let attrName = desc.attrName;
 		let testValue = desc.testValue;
-		let subselector = desc.subselector;
-		
-		let node = self.nodes[aStatusName];
-		node = subselector ? node.querySelector(subselector) : node;
 		
 		return testValue.test(node.getAttribute(attrName));
 	};
 	
-	/**
-	 * @param aStatusName
-	 *            the name of the status to check
-	 * @return The innerHTML of the status item
-	 */
-	self.getTextInfo = function(aStatusName) {
+	self.getNode = function(aStatusName) {
 		if(!self.nodes[aStatusName])
-			return undefined;
+			return null;
 		
 		let desc = self.description[aStatusName];
-		let testValue = desc.testValue;
 		let subselector = desc.subselector;
 		
 		let node = self.nodes[aStatusName];
-		node = subselector ? node.querySelector(subselector) : node;
+		return subselector ? node.querySelector(subselector) : node;
+	};
+	
+	
+	self.getTextInfo = function(aStatusName) {
+		let node = self.getNode(aStatusName);
+		
+		if(!node)
+			return null;
 		
 		return node.textContent;
-		
 	};
 	
 	self.getTitle = function() {
@@ -216,22 +225,22 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		let win = self.doc.defaultView;
 		
 		self.playObs = new win.MutationObserver( a => self.updatePlayingState() );
-		self.infObs = new win.MutationObserver( a => self.mediaInfoChanged() );
+		self.infoObs = new win.MutationObserver( a => self.mediaInfoChanged() );
 		self.ratingObs = new win.MutationObserver( a => self.mediaRatingChanged() );
 		
 		if(self.nodes.playing) 
-			self.playObs.observe(self.nodes.playing, { attributes: true, subtree: true });
+			self.playObs.observe(self.nodes.playing, { attributes: true, subtree: true, childList: true });
 		
 		if(self.nodes.title) 
-			self.infObs.observe(self.nodes.title, { attributes: true, subtree: true });
+			self.infoObs.observe(self.nodes.title, { attributes: true, subtree: true, childList: true });
 		
 		if(self.nodes.liked)
-			self.ratingObs.observe(self.nodes.liked, { attributes: true, subtree: true });
+			self.ratingObs.observe(self.nodes.liked, { attributes: true, subtree: true, childList: true });
 	};
 
 	self.unregisterListeners = function() {
 		self.playObs.disconnect();
-		self.infObs.disconnect();
+		self.infoObs.disconnect();
 		self.ratingObs.disconnect();
 	};
 	

@@ -42,7 +42,13 @@ BeQuiet.GooglePlayMusic = function(aBrowser) {
 		album : {
 			selector : '#playerSongInfo',
 			subselector : '#player .player-album',
-		}
+		},
+      	
+    	albumArt: {
+      		selector: '#player',
+      		subselector: '#playingAlbumArt',
+      		attrName: 'src'
+      	}
 	};
 
 	let self = this;
