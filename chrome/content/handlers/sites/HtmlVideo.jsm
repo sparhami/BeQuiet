@@ -39,10 +39,6 @@ BeQuiet.HtmlVideo = function(aBrowser) {
 		return null;
 	};
 	
-	self.getImageUri = function() {
-		return null;
-	};
-
 	self.hasMedia = function() {
 		return self.media != null || self.getFirstMedia() != null;
 	};

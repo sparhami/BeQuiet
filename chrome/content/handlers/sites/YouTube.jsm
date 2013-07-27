@@ -59,10 +59,6 @@ BeQuiet.YouTube = function(aBrowser) {
 		return null;
 	};
 	
-	self.getImageUri = function() {
-		return null;
-	};
-	
 	self.hasMedia = function() {
 		return self.initialized;
 	};

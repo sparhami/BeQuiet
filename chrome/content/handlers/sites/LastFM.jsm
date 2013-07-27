@@ -7,6 +7,49 @@ Components.utils.import("chrome://BeQuiet/content/handlers/NodeBasedHandler.jsm"
 
 BeQuiet.LastFM = function(aBrowser) {
 	const description = {
+		stateChange: {
+    		selector: '#webRadio',
+      		attrName: 'class'
+     	},
+     
+     	ratingChange: {	
+      		selector: '#radioPlayer',
+  			attrName: 'class'
+     	},
+     	
+     	trackChange: {
+      		selector: '#radioContent .track',
+      		subselector: 'a'
+     	},
+     	
+    	state: {
+    		selector: '#webRadio',
+      		attrName: 'class',
+      		testValue: 'playing'
+     	},
+     
+     	rating: {	
+      		selector: '#radioPlayer',
+  			attrName: 'class',
+      		testValue: 'loved'
+     	},
+     	
+    	title: {
+      		selector: '#radioContent .track a',
+      	},
+      	
+     	artist: {
+      		selector: '#radioContent .artist a',
+      	},
+      	
+     	album: {
+      		selector: '#radioContent .album a'
+      	},
+      	
+    	albumArt: {
+      		selector: '#trackAlbum .albumCover img',
+      	},
+      	
      	play: {
      		selector: '#radioControlPlay'
      	},
@@ -22,39 +65,6 @@ BeQuiet.LastFM = function(aBrowser) {
      	like: {
      		selector: '#radioControlLove'
      	},
-	    	     
-    	playing: {
-    		selector:  '#webRadio',
-      		attrName:  'class',
-      		testValue: /playing/
-     	},
-     
-     	liked: {	
-      		selector:  '#radioPlayer',
-  			attrName:  'class',
-      		testValue: /loved/
-     	},
-     	
-     	title: {
-      		selector: '#radioContent .track',
-      		subselector: 'a'
-      	},
-      	
-     	artist: {
-      		selector: '#radioContent .artist',
-      		subselector: 'a'
-      	},
-      	
-     	album: {
-      		selector: '#radioContent .album',
-      		subselector: 'a'
-      	},
-      	
-      	albumArt: {
-      		selector: '#webRadio',
-      		subselector: '#trackAlbum .albumCover img',
-  			attrName: 'src'
-      	}
 	};
 	
 	let self = this;

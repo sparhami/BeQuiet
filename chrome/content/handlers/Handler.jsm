@@ -98,7 +98,6 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 			title : self.implementation.getTitle(),
 			artist : self.implementation.getArtist(),
 			album : self.implementation.getAlbum(),
-			imageUri : self.implementation.getImageUri()
 		};
 	};
 

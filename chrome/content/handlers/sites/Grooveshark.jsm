@@ -7,51 +7,63 @@ Components.utils.import("chrome://BeQuiet/content/handlers/NodeBasedHandler.jsm"
 
 BeQuiet.Grooveshark = function(aBrowser) {
 	const description = {
-		play : {
-			selector : '#play-pause'
+		stateChange: {
+			selector : '#play-pause',
+			attrName : 'class'
 		},
 
-		pause : {
-			selector : '#play-pause'
+		ratingChange: {
+			selector : '#np-fav',
+			attrName : 'class'
 		},
-
-		next : {
-			selector : '#play-next'
+		
+		trackChange: {
+			selector : '#now-playing-metadata',
+			subselector : '.song'
 		},
-
-		prev : {
-			selector : '#play-prev'
-		},
-
-		like : {
-			selector : '#np-fav'
-		},
-
-		playing : {
+		
+		state: {
 			selector : '#play-pause',
 			attrName : 'class',
 			testValue : /playing/
 		},
 
-		liked : {
+		rating: {
 			selector : '#np-fav',
 			attrName : 'class',
 			testValue : /active/
 		},
 
-		title : {
-			selector : '#now-playing-metadata',
-			subselector : '.song'
+		title: {
+			selector : '#now-playing-metadata .song',
 		},
 
-		artist : {
-			selector : '#now-playing-metadata',
-			subselector : '.artist'
+		artist: {
+			selector : '#now-playing-metadata .artist',
 		},
 		
 		albumArt: {
 			selector : "#now-playing-image",
-			attrName : 'src'
+		},
+		
+		play: {
+			selector : '#play-pause'
+		},
+
+		pause: {
+			selector : '#play-pause'
+		},
+
+		next: {
+			selector : '#play-next'
+		},
+
+		prev: {
+			selector : '#play-prev'
+		},
+
+		like: {
+			selector : '#np-fav'
 		}
 	};
 

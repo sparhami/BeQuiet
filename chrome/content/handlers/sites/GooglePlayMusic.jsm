@@ -7,6 +7,49 @@ Components.utils.import("chrome://BeQuiet/content/handlers/NodeBasedHandler.jsm"
 
 BeQuiet.GooglePlayMusic = function(aBrowser) {
 	const description = {
+		stateChange : {
+			selector : '#player [data-id="play-pause"]',
+			attrName : 'class'
+		},
+		
+		ratingChange: {
+      		selector: '#player .player-rating-container [title="Thumbs up"]',
+  			attrName: 'class'
+     	},
+		
+     	trackChange : {
+			selector : '#playerSongTitle',
+			attrName : 'href'
+		},
+		
+		state : {
+			selector : '#player [data-id="play-pause"]',
+			attrName : 'class',
+			testValue : 'playing'
+		},
+		
+		rating : {
+      		selector: '#player .player-rating-container [title="Thumbs up"]',
+  			attrName: 'class',
+      		testValue: 'selected'
+		},
+
+		title : {
+			selector : '#playerSongTitle'
+		},
+
+		artist : {
+			selector : '#player .player-artist'
+		},
+
+		album : {
+			selector : '#player .player-album'
+		},
+      	
+    	albumArt: {
+      		selector: '#playingAlbumArt'
+      	},
+      	
 		play : {
 			selector : '#player [data-id="play-pause"]'
 		},
@@ -22,33 +65,10 @@ BeQuiet.GooglePlayMusic = function(aBrowser) {
 		prev : {
 			selector : '#player [data-id="rewind"]'
 		},
-
-		playing : {
-			selector : '#player [data-id="play-pause"]',
-			attrName : 'class',
-			testValue : /playing/
-		},
-
-		title : {
-			selector : '#playerSongInfo',
-			subselector : '#playerSongTitle',
-		},
-
-		artist : {
-			selector : '#playerSongInfo',
-			subselector : '#player .player-artist',
-		},
-
-		album : {
-			selector : '#playerSongInfo',
-			subselector : '#player .player-album',
-		},
-      	
-    	albumArt: {
-      		selector: '#player',
-      		subselector: '#playingAlbumArt',
-      		attrName: 'src'
-      	}
+		
+		like : {
+			selector : '#player .player-rating-container [title="Thumbs up"]'
+		}
 	};
 
 	let self = this;

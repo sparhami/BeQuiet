@@ -7,51 +7,64 @@ Components.utils.import("chrome://BeQuiet/content/handlers/NodeBasedHandler.jsm"
 
 BeQuiet.Pandora = function(aBrowser) {
 	const description = {
-     	play: {
-     		selector: '.playButton'
+    	stateChange: {
+    		selector: '#playbackControl .playButton',
+      		attrName: 'style'
+     	},
+     
+     	ratingChange: {
+      		selector: '#playbackControl .thumbUpButton',
+  			attrName: 'class'
      	},
      	
-     	pause: {
-     		selector: '.pauseButton'
+     	trackChange: {
+      		selector: '#trackInfo .songTitle',
+  			attrName: 'href'
      	},
      	
-     	next: {
-     		selector: '.skipButton'
-     	},
-     	
-     	like: {
-     		selector: '.thumbUpButton'
-     	},
-     		
-    	playing: {
-    		selector:  '.playButton',
-      		attrName:  'style',
+    	state: {
+    		selector: '#playbackControl .playButton',
+      		attrName: 'style',
       		testValue: /display: none;/
      	},
      
-     	liked: {
-      		selector:  '.thumbUpButton',
-  			attrName:  'class',
-      		testValue: /indicator/
+     	rating: {
+      		selector: '#playbackControl	 .thumbUpButton',
+  			attrName: 'class',
+      		testValue: 'indicator'
      	},
      	
       	title: {
-      		selector: '.songTitle'
+      		selector: '#trackInfo .songTitle'
       	},
       	
      	artist: {
-      		selector: '.artistSummary'
+      		selector: '#trackInfo .artistSummary'
       	},
       	
      	album: {
-      		selector: '.albumTitle'
+      		selector: '#trackInfo .albumTitle'
       	},
       	
       	albumArt: {
-      		selector: '#playerBar .albumArt',
-      		subselector: 'img',
-  			attrName: 'src'
-      	}
+      		selector: '#playerBar .albumArt img'
+      	},
+      	
+     	play: {
+     		selector: '#playbackControl .playButton'
+     	},
+     	
+     	pause: {
+     		selector: '#playbackControl .pauseButton'
+     	},
+     	
+     	next: {
+     		selector: '#playbackControl .skipButton'
+     	},
+     	
+     	like: {
+     		selector: '#playbackControl .thumbUpButton'
+     	}
 	};
 	
 	let self = this;
