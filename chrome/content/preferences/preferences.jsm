@@ -9,13 +9,13 @@ BeQuiet.PREF_WINDOW_ID = "BeQuiet-preferences-window";
 BeQuiet.PREF_BRANCH = "extensions.BeQuiet.";
 BeQuiet.PREFS = {
 		
-	/* Delay after detecting a potential pause before firing a pause event */
+	/** Delay after detecting a potential pause before firing a pause event */
 	pauseCheckDelay: 200,
 	
-	/* Automatically pause playing media when one starts playing */
+	/** Automatically pause playing media when one starts playing */
 	enablePauseResume: true,
 	
-	/* Delay after pausing before resuming last playing media */
+	/** Delay after pausing before resuming last playing media */
 	resumeDelay: 0,
 	
 	usePlayingIcon: false,
@@ -28,11 +28,20 @@ BeQuiet.PREFS = {
 		maxCharactersPerLine: 40
 	},
 		
-	/*
+	/**
 	 * When playing using a button/keyboard shortcut, play current tab if it has
 	 * media
 	 */
 	prioritizeCurrentTabForPlay: true,
+	
+	/** Whether or not to pause when the user becomes idle */
+	idlePause: false,
+	
+	/** Whthere or not to resume after the user returns from idle */
+	idleResume: false,
+	
+	/** The amount of time before the user is considered as idle, in minutes */
+	idleTime: 30.0,
 	
 	shortcut: {
 		com_sppad_mediaToggleState: {
