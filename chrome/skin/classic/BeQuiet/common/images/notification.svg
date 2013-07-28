@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 48 48">
+<defs>
+<radialGradient id="rg1" gradientUnits="userSpaceOnUse" cy="17.33" cx="22.14" gradientTransform="matrix(1.1450473,-1.1450473,0.79752499,0.79752493,-23.443072,29.2613)" r="18.66">
+<stop stop-color="#c5231a" offset="0"/>
+<stop stop-color="#bf0000" offset="1"/>
+</radialGradient>
+</defs>
+<rect stroke-dasharray="none" ry="7" height="40" width="40" stroke="#7d0d08" stroke-miterlimit="4" y="4" x="4" stroke-width="2" fill="url(#rg1)"/>
+<path d="m22.55,33,2.895,0c0.9088,0,1.727,0.6117,1.694,1.371l-0.1084,2.508c-0.03279,0.7589-0.7314,1.371-1.64,1.371h-2.786c-0.9088,0-1.607-0.6117-1.64-1.371l-0.109-2.508c-0.03297-0.7589,0.7855-1.371,1.694-1.371z" fill-rule="evenodd" fill="#FFF"/>
+<path d="m21.96,10,4.086,0c0.9087,0,1.662,0.6113,1.64,1.37l-0.5415,18.79c-0.02188,0.7592-0.7316,1.371-1.64,1.371h-3.002c-0.9088,0-1.618-0.6114-1.64-1.371l-0.5416-18.79c-0.02188-0.759,0.7314-1.37,1.64-1.37z" fill-rule="evenodd" fill="#FFF"/>
+</svg>

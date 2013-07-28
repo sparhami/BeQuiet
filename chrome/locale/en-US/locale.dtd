@@ -1,4 +1,5 @@
 <!ENTITY units.milliseconds "ms">
+<!ENTITY units.minutes "min">
 
 <!ENTITY next.tooltiptext "Next">
 <!ENTITY previous.tooltiptext "Previous">
@@ -13,10 +14,12 @@
 <!ENTITY noMediaSites.label "No Media Sites To Play">
 <!ENTITY settings.label "Settings">
 <!ENTITY automaticallyPauseResume.label "Automatically pause/resume">
+<!ENTITY idlePause.label "Pause when going idle">
 
 <!ENTITY preference.window.title "BeQuiet Preferences">
 <!ENTITY preference.generalPrefPane.label "General">
 <!ENTITY preference.siteFilterPrefPane.label "Sites">
+<!ENTITY preference.notificationsPrefPane.label "Notifications">
 
 <!ENTITY preference.key.label "Key">
 <!ENTITY preference.shift.label "Shift">
@@ -28,6 +31,11 @@
 <!ENTITY preference.enablePauseResume.label "Enabled">
 <!ENTITY preference.resumeDelay.label "Delay before resume">
 
+<!ENTITY preference.idle.label "Idle State">
+<!ENTITY preference.idlePause.label "Pause when going idle">
+<!ENTITY preference.idleResume.label "Play when returning from idle">
+<!ENTITY preference.idleTime.label "Time before idle state">
+
 <!ENTITY preference.keybindings.label "Key Bindings">
 <!ENTITY preference.keybindingsNote.label "Note: changing a key binding requires a browser restart.">
 
@@ -35,15 +43,18 @@
 <!ENTITY preference.mediaPrevious.label "Media previous">
 <!ENTITY preference.mediaToggleState.label "Media play/pause">
 
-<!ENTITY preference.style.label "Style">
-<!ENTITY preference.usePlayingIcon.label "Replace icon for playing sites">
-<!ENTITY preference.usePlayingAnimation.label "Play an icon animation when a tab start playing">
-
 <!ENTITY preference.controls.label "Controls">
 <!ENTITY preference.prioritizeCurrentTabForPlay.label "Use current tab when selecting play via button / keybind, if available">
 <!ENTITY preference.prioritizeCurrentTabForPlay.note "Note: by default, the last tab to play is always started">
 
-
 <!ENTITY preference.allowedSites.label "Media Events Used">
 <!ENTITY preference.blockedSites.label "Media Events Not Used">
 <!ENTITY preference.filterDeleteButton.label "Delete rule(s)">
+
+<!ENTITY preference.notifications.label "Desktop Notifications">
+<!ENTITY preference.notifications.trackInfo.enabled.label "Notifications enabled">
+<!ENTITY preference.notifications.trackInfo.onPlay.label "Show notifications when media starts playing">
+
+<!ENTITY preference.style.label "Tab Style">
+<!ENTITY preference.usePlayingIcon.label "Replace icon for playing sites">
+<!ENTITY preference.usePlayingAnimation.label "Play an icon animation when a tab start playing">

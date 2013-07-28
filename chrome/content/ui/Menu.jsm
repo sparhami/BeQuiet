@@ -29,6 +29,9 @@ BeQuiet.Menu = new function() {
 		
 		let toggleButton = browserDocument.getElementById('com_sppad_beQuiet_toggleEnabledButton');
 		toggleButton.setAttribute('checked', prefs.enablePauseResume);
+		
+		let idlePauseButton = browserDocument.getElementById('com_sppad_beQuiet_toggleIdlePauseButton');
+		idlePauseButton.setAttribute('checked', prefs.idlePause);
 	};
 	
 	self.cleanupPlayContext = function(event) {

@@ -15,7 +15,8 @@
 
 	<prefpane
 		id="generalPrefPane"
-		label="&preference.generalPrefPane.label;">
+		label="&preference.generalPrefPane.label;"
+		image="chrome://BeQuiet/skin/images/note.svg">
 		<preferences>
 			<preference
 				id="extensions.BeQuiet.enablePauseResume"
@@ -47,6 +48,18 @@
 				name="extensions.BeQuiet.shortcut.com_sppad_mediaToggleState.modifiers.meta"
 				type="bool" />
 
+			<preference
+				id="extensions.BeQuiet.idlePause"
+				name="extensions.BeQuiet.idlePause"
+				type="bool" />
+			<preference
+				id="extensions.BeQuiet.idleResume"
+				name="extensions.BeQuiet.idleResume"
+				type="bool" />
+			<preference
+				id="extensions.BeQuiet.idleTime"
+				name="extensions.BeQuiet.idleTime"
+				type="int" />
 
 			<preference
 				id="extensions.BeQuiet.shortcut.com_sppad_mediaNext.key"
@@ -91,16 +104,6 @@
 				name="extensions.BeQuiet.shortcut.com_sppad_mediaPrevious.modifiers.meta"
 				type="bool" />
 
-
-			<preference
-				id="extensions.BeQuiet.usePlayingIcon"
-				name="extensions.BeQuiet.usePlayingIcon"
-				type="bool" />
-			<preference
-				id="extensions.BeQuiet.usePlayingAnimation"
-				name="extensions.BeQuiet.usePlayingAnimation"
-				type="bool" />
-
 			<preference
 				id="extensions.BeQuiet.prioritizeCurrentTabForPlay"
 				name="extensions.BeQuiet.prioritizeCurrentTabForPlay"
@@ -129,6 +132,29 @@
 				<label
 					class="automaticPauseResume"
 					value="&units.milliseconds;" />
+			</hbox>
+		</groupbox>
+
+		<groupbox>
+			<caption label="&preference.idle.label;" />
+
+			<checkbox
+				label="&preference.idlePause.label;"
+				preference="extensions.BeQuiet.idlePause" />
+			<checkbox
+				label="&preference.idleResume.label;"
+				preference="extensions.BeQuiet.idleResume" />
+			<hbox align="center">
+				<label
+					value="&preference.idleTime.label;"
+					flex="1" />
+				<textbox
+					type="number"
+					min="1"
+					max="10000"
+					width="80"
+					preference="extensions.BeQuiet.idleTime" />
+				<label value="&units.minutes;" />
 			</hbox>
 		</groupbox>
 
@@ -213,17 +239,6 @@
 		</groupbox>
 
 		<groupbox>
-			<caption label="&preference.style.label;" />
-
-			<checkbox
-				label="&preference.usePlayingIcon.label;"
-				preference="extensions.BeQuiet.usePlayingIcon" />
-			<checkbox
-				label="&preference.usePlayingAnimation.label;"
-				preference="extensions.BeQuiet.usePlayingAnimation" />
-		</groupbox>
-
-		<groupbox>
 			<caption label="&preference.controls.label;" />
 
 			<checkbox
@@ -236,8 +251,58 @@
 	</prefpane>
 
 	<prefpane
+		id="notificationsPrefPane"
+		label="&preference.notificationsPrefPane.label;"
+		image="chrome://BeQuiet/skin/images/notification.svg">
+
+		<preferences>
+			<preference
+				id="extensions.BeQuiet.notifications.trackInfo.enabled"
+				name="extensions.BeQuiet.notifications.trackInfo.enabled"
+				type="bool" />
+			<preference
+				id="extensions.BeQuiet.notifications.trackInfo.onPlay"
+				name="extensions.BeQuiet.notifications.trackInfo.onPlay"
+				type="bool" />
+
+			<preference
+				id="extensions.BeQuiet.usePlayingIcon"
+				name="extensions.BeQuiet.usePlayingIcon"
+				type="bool" />
+			<preference
+				id="extensions.BeQuiet.usePlayingAnimation"
+				name="extensions.BeQuiet.usePlayingAnimation"
+				type="bool" />
+		</preferences>
+
+		<groupbox>
+			<caption label="&preference.notifications.label;" />
+
+			<checkbox
+				label="&preference.notifications.trackInfo.enabled.label;"
+				preference="extensions.BeQuiet.notifications.trackInfo.enabled" />
+			<checkbox
+				label="&preference.notifications.trackInfo.onPlay.label;"
+				preference="extensions.BeQuiet.notifications.trackInfo.onPlay" />
+
+		</groupbox>
+
+		<groupbox>
+			<caption label="&preference.style.label;" />
+
+			<checkbox
+				label="&preference.usePlayingIcon.label;"
+				preference="extensions.BeQuiet.usePlayingIcon" />
+			<checkbox
+				label="&preference.usePlayingAnimation.label;"
+				preference="extensions.BeQuiet.usePlayingAnimation" />
+		</groupbox>
+	</prefpane>
+
+	<prefpane
 		id="siteFilterPrefPane"
-		label="&preference.siteFilterPrefPane.label;">
+		label="&preference.siteFilterPrefPane.label;"
+		image="chrome://BeQuiet/skin/images/icons.svg#pause">
 
 		<hbox flex="1">
 			<vbox flex="1">

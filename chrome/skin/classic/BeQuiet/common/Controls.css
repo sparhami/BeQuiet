@@ -65,8 +65,9 @@
 	font-weight: bold;
 }
 
-#com_sppad_beQuiet_media_title_tooltip
-
+#com_sppad_beQuiet_playPauseContext {
+	max-width: 20em !important;
+}
 
 #com_sppad_beQuiet_playPauseContext menuitem[playing="true"] {
 	font-weight: bold;
@@ -78,8 +79,4 @@
 
 #com_sppad_beQuiet_playPauseContext[noMediaSites="false"] #com_sppad_beQuiet_noMediaSites {
 	display: none;
-}
-
-#com_sppad_beQuiet_toggleEnabledButton[enabled="true"] {
-	font-weight: bold;
 }

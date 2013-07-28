@@ -23,9 +23,11 @@ BeQuiet.PREFS = {
 	usePlayingAnimation: false,
 	
 	notifications: {
-		showTrackInfo: true,
-		showOnPlay: true,
-		maxCharactersPerLine: 40
+		trackInfo: {
+			enabled: true,
+			onPlay: true,
+			maxCharactersPerLine: 40
+		}
 	},
 		
 	/**

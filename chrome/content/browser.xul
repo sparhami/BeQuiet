@@ -38,6 +38,9 @@
 		<command
 			id="cmd_com_sppad_BeQuiet_toggleEnable"
 			oncommand="BeQuiet.Preferences.togglePreference('enablePauseResume');" />
+		<command
+			id="cmd_com_sppad_BeQuiet_toggleIdlePause"
+			oncommand="BeQuiet.Preferences.togglePreference('idlePause');" />
 	</commandset>
 
 	<keyset>
@@ -84,6 +87,11 @@
 					static="true"
 					label="&automaticallyPauseResume.label;"
 					command="cmd_com_sppad_BeQuiet_toggleEnable" />
+				<menuitem
+					id="com_sppad_beQuiet_toggleIdlePauseButton"
+					static="true"
+					label="&idlePause.label;"
+					command="cmd_com_sppad_BeQuiet_toggleIdlePause" />
 				<menuseparator static="true" />
 				<menuitem
 					static="true"

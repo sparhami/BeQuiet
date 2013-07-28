@@ -30,7 +30,7 @@ BeQuiet.Alerts = new function() {
 	};
 	
 	self.mediaStateChange = function(aState) {
-		if(aState !== 'play' || !prefs['notifications.showOnPlay'])
+		if(aState !== 'play' || !prefs['notifications.trackInfo.onPlay'])
 			return;
 		
 		self.showAlert();
@@ -43,7 +43,7 @@ BeQuiet.Alerts = new function() {
 	};
 	
 	self.showAlert = function() {
-		if(!prefs['notifications.showTrackInfo'])
+		if(!prefs['notifications.trackInfo.enabled'])
 			return;
 		
 		let handler = BeQuiet.MediaState.playingHandler;
@@ -61,13 +61,13 @@ BeQuiet.Alerts = new function() {
 	};
 	
 	self.getAlertTitle = function(trackInfo) {
-		return self.truncate(trackInfo.title, prefs['notifications.maxCharactersPerLine']);
+		return self.truncate(trackInfo.title, prefs['notifications.trackInfo.maxCharactersPerLine']);
 	};
 	
 	self.getAlertText = function(trackInfo) {
 		return [trackInfo.artist, trackInfo.album]
 			.filter( a => a )
-			.map( a => self.truncate(a, prefs['notifications.maxCharactersPerLine']) )
+			.map( a => self.truncate(a, prefs['notifications.trackInfo.maxCharactersPerLine']) )
 			.join("\n");
 	};
 	
