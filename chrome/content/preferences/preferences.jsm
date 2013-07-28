@@ -26,7 +26,8 @@ BeQuiet.PREFS = {
 		trackInfo: {
 			enabled: true,
 			onPlay: true,
-			maxCharactersPerLine: 40
+			maxCharactersPerLine: 40,
+			clickable: true
 		}
 	},
 		

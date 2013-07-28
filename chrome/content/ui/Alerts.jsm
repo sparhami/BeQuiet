@@ -4,6 +4,7 @@ var EXPORTED_SYMBOLS = [];
 
 Components.utils.import("resource://gre/modules/Timer.jsm");
 Components.utils.import("chrome://BeQuiet/content/ns.jsm");
+Components.utils.import("chrome://BeQuiet/content/MediaState.jsm");
 Components.utils.import("chrome://BeQuiet/content/preferences/preferences.jsm");
 
 BeQuiet.Alerts = new function() {
@@ -42,6 +43,13 @@ BeQuiet.Alerts = new function() {
 		setTimeout(function() { self.showAlert(); }, 1000);
 	};
 	
+	self.alertObserver = {
+		observe: function(subject, topic, data) {
+			if(topic === "alertclickcallback")
+				BeQuiet.MediaState.switchToTab();
+		}	
+	};
+	
 	self.showAlert = function() {
 		if(!prefs['notifications.trackInfo.enabled'])
 			return;
@@ -54,9 +62,9 @@ BeQuiet.Alerts = new function() {
 				albumArt,
 				self.getAlertTitle(trackInfo),
 				self.getAlertText(trackInfo),
-				false,
+				prefs['notifications.trackInfo.clickable'],
 				"",
-				null,
+				self.alertObserver,
 				"BeQuiet_trackInfoAlert");
 	};
 	

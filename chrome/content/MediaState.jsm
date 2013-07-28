@@ -63,6 +63,22 @@ BeQuiet.MediaState = new function() {
 			handler.play();
 	};
 	
+	/**
+	 * Switches to the tab for the currently playing handler.
+	 */
+	self.switchToTab = function() {
+		let handler = self.playingHandler;
+		
+		if(!handler)
+			return;
+		
+		let handlerTab = handler.getTab();
+		let handlerWindow = handlerTab.ownerDocument.defaultView;
+		
+		handlerWindow.gBrowser.selectedTab = handlerTab;
+		handlerWindow.focus();
+	};
+	
 	self.getLastHandler = function() {
 		let handler = BeQuiet.Iterable.from(BeQuiet.Main.getHandlers())
 			.filter( a => a.isActive() )
