@@ -25,6 +25,7 @@ BeQuiet.PREFS = {
 	notifications: {
 		trackInfo: {
 			enabled: true,
+			excludeLikedTracks: false,
 			onPlay: true,
 			maxCharactersPerLine: 40,
 			clickable: true

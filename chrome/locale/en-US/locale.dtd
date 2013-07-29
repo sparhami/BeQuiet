@@ -54,6 +54,7 @@
 <!ENTITY preference.notifications.label "Desktop Notifications">
 <!ENTITY preference.notifications.trackInfo.enabled.label "Notifications enabled">
 <!ENTITY preference.notifications.trackInfo.onPlay.label "Show notifications when media starts playing">
+<!ENTITY preference.notifications.trackInfo.excludeLikedTracks.label "Do not show for liked media">
 
 <!ENTITY preference.style.label "Tab Style">
 <!ENTITY preference.usePlayingIcon.label "Replace icon for playing sites">

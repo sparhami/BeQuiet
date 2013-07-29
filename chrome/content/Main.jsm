@@ -115,7 +115,7 @@ BeQuiet.Main = new function() {
 	    		if(browser === aBrowser)
 	    			return window;
 	    
-	    throw new Error("Window for browser not found");
+	    return self.getWindows().next();
 	};
 	
 	self.getWindows = function() {

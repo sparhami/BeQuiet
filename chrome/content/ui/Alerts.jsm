@@ -51,10 +51,14 @@ BeQuiet.Alerts = new function() {
 	};
 	
 	self.showAlert = function() {
+		let handler = BeQuiet.MediaState.playingHandler;
+		
 		if(!prefs['notifications.trackInfo.enabled'])
 			return;
 		
-		let handler = BeQuiet.MediaState.playingHandler;
+		if(prefs['notifications.trackInfo.excludeLikedTracks'] && handler.isLiked())
+			return;
+
 		let trackInfo = handler.getTrackInfo();
 		let albumArt = handler.getAlbumArt();
 		

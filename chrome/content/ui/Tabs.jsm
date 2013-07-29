@@ -14,8 +14,11 @@ BeQuiet.Tabs = new function() {
 	
     self.onPause = function(aHandler) {
     	let browser = aHandler.browser;
-    	
     	let tab = BeQuiet.Main.getTabForBrowser(browser);
+
+    	if(!tab)
+    		return;
+    		
     	tab.removeAttributeNS(BeQuiet.xmlns, 'mediaPlaying');
    		tab.removeAttributeNS(BeQuiet.xmlns, 'usePlayingAnimation');
     	
@@ -24,8 +27,11 @@ BeQuiet.Tabs = new function() {
     
     self.onPlay = function(aHandler) {
     	let browser = aHandler.browser;
-    	
     	let tab = BeQuiet.Main.getTabForBrowser(browser);
+    	
+    	if(!tab)
+    		return;
+    	
       	tab.setAttributeNS(BeQuiet.xmlns, 'mediaPlaying', 'true');
       	
       	if(prefs.usePlayingIcon)

@@ -261,6 +261,10 @@
 				name="extensions.BeQuiet.notifications.trackInfo.enabled"
 				type="bool" />
 			<preference
+				id="extensions.BeQuiet.notifications.trackInfo.excludeLikedTracks"
+				name="extensions.BeQuiet.notifications.trackInfo.excludeLikedTracks"
+				type="bool" />
+			<preference
 				id="extensions.BeQuiet.notifications.trackInfo.onPlay"
 				name="extensions.BeQuiet.notifications.trackInfo.onPlay"
 				type="bool" />
@@ -284,7 +288,9 @@
 			<checkbox
 				label="&preference.notifications.trackInfo.onPlay.label;"
 				preference="extensions.BeQuiet.notifications.trackInfo.onPlay" />
-
+			<checkbox
+				label="&preference.notifications.trackInfo.excludeLikedTracks.label;"
+				preference="extensions.BeQuiet.notifications.trackInfo.excludeLikedTracks" />
 		</groupbox>
 
 		<groupbox>
