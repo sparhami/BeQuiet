@@ -81,7 +81,8 @@ BeQuiet.Main = new function() {
 	
 	self.onTabClose = function(aEvent) {
 		let tab = aEvent.target;
-		let browser = gBrowser.getBrowserForTab(tab);
+		let win = tab.ownerDocument.defaultView;
+		let browser = win.gBrowser.getBrowserForTab(tab);
 		
 	    self.unregisterHandlers(browser.contentDocument);
 	};
