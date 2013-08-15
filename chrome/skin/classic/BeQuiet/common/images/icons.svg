@@ -33,7 +33,7 @@ svg > :not(defs):not(:target) { display: none; }
 </style>
 <g id="thumbsUp">
 <use xlink:href="#p2" stroke="#4d4e53" stroke-width="4"/>
-<use xlink:href="#p2" stroke="#FFF" troke-width="1.4" fill="url(#lg1)"/>
+<use xlink:href="#p2" stroke="#FFF" stroke-width="1.4" fill="url(#lg1)"/>
 </g>
 <g id="thumbsUp-selected">
 <use xlink:href="#p2" stroke="#4d4e53" stroke-width="4"/>
