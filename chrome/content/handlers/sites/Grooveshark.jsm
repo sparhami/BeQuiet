@@ -25,13 +25,13 @@ BeQuiet.Grooveshark = function(aBrowser) {
 		state: {
 			selector : '#play-pause',
 			attrName : 'class',
-			testValue : /playing/
+			testValue : 'playing'
 		},
 
 		rating: {
 			selector : '#np-fav',
 			attrName : 'class',
-			testValue : /active/
+			testValue : 'active'
 		},
 
 		title: {
