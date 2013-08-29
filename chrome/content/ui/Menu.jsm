@@ -27,10 +27,10 @@ BeQuiet.Menu = new function() {
 		
 		menu.setAttribute('noMediaSites', handlerCount === 0);
 		
-		let toggleButton = browserDocument.getElementById('com_sppad_beQuiet_toggleEnabledButton');
+		let toggleButton = menu.querySelector('#com_sppad_beQuiet_toggleEnabledButton');
 		toggleButton.setAttribute('checked', prefs.enablePauseResume);
 		
-		let idlePauseButton = browserDocument.getElementById('com_sppad_beQuiet_toggleIdlePauseButton');
+		let idlePauseButton = menu.querySelector('#com_sppad_beQuiet_toggleIdlePauseButton');
 		idlePauseButton.setAttribute('checked', prefs.idlePause);
 	};
 	

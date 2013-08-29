@@ -61,46 +61,46 @@
 			modifiers="alt,shift" />
 	</keyset>
 
-	<window>
-		<popupset>
-			<tooltip
-				id="com_sppad_beQuiet_media_playPause_tooltip"
-				onpopupshowing="BeQuiet.Controls.updateToggleTooltip(event);" />
-			<tooltip
-				id="com_sppad_beQuiet_media_title_tooltip"
-				onpopupshowing="BeQuiet.Controls.updateTrackTooltip(event);">
-				<label
-					class="notPlaying"
-					static="true"
-					value="Nothing Playing" />
-			</tooltip>
-			<menupopup
-				id="com_sppad_beQuiet_playPauseContext"
-				onpopupshowing="BeQuiet.Menu.preparePlayContext(event);"
-				onpopuphidden="BeQuiet.Menu.cleanupPlayContext(event);">
-				<menuitem
-					static="true"
-					label="&settings.label;"
-					command="cmd_com_sppad_BeQuiet_preferences" />
-				<menuitem
-					id="com_sppad_beQuiet_toggleEnabledButton"
-					static="true"
-					label="&automaticallyPauseResume.label;"
-					command="cmd_com_sppad_BeQuiet_toggleEnable" />
-				<menuitem
-					id="com_sppad_beQuiet_toggleIdlePauseButton"
-					static="true"
-					label="&idlePause.label;"
-					command="cmd_com_sppad_BeQuiet_toggleIdlePause" />
-				<menuseparator static="true" />
-				<menuitem
-					static="true"
-					id="com_sppad_beQuiet_noMediaSites"
-					disabled="true"
-					label="&noMediaSites.label;" />
-			</menupopup>
-		</popupset>
-	</window>
+	<popupset id="mainPopupSet">
+		<tooltip
+			id="com_sppad_beQuiet_media_playPause_tooltip"
+			onpopupshowing="BeQuiet.Controls.updateToggleTooltip(event);" />
+		<tooltip
+			id="com_sppad_beQuiet_media_title_tooltip"
+			onpopupshowing="BeQuiet.Controls.updateTrackTooltip(event);">
+			<label
+				class="notPlaying"
+				static="true"
+				value="Nothing Playing" />
+		</tooltip>
+		<menupopup
+			id="com_sppad_beQuiet_playPauseContext"
+			onpopupshowing="BeQuiet.Menu.preparePlayContext(event);"
+			onpopuphidden="BeQuiet.Menu.cleanupPlayContext(event);">
+			<menuitem
+				static="true"
+				label="&settings.label;"
+				command="cmd_com_sppad_BeQuiet_preferences" />
+			<menuitem
+				id="com_sppad_beQuiet_toggleEnabledButton"
+				static="true"
+				type="checkbox"
+				label="&automaticallyPauseResume.label;"
+				command="cmd_com_sppad_BeQuiet_toggleEnable" />
+			<menuitem
+				id="com_sppad_beQuiet_toggleIdlePauseButton"
+				static="true"
+				type="checkbox"
+				label="&idlePause.label;"
+				command="cmd_com_sppad_BeQuiet_toggleIdlePause" />
+			<menuseparator static="true" />
+			<menuitem
+				static="true"
+				id="com_sppad_beQuiet_noMediaSites"
+				disabled="true"
+				label="&noMediaSites.label;" />
+		</menupopup>
+	</popupset>
 
 	<toolbarpalette id="BrowserToolbarPalette">
 		<toolbarbutton
