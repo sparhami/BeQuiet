@@ -12,7 +12,7 @@
 <!ENTITY mediaTitle.label "Media title">
 
 <!ENTITY noMediaSites.label "No Media Sites To Play">
-<!ENTITY settings.label "Settings">
+<!ENTITY settings.label "Preferences...">
 <!ENTITY automaticallyPauseResume.label "Automatically pause/resume">
 <!ENTITY idlePause.label "Pause when going idle">
 

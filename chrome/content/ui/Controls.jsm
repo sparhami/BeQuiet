@@ -40,7 +40,7 @@ BeQuiet.Controls = new function() {
 	};
 	
 	self.updateToggleTooltip = function(aEvent) {
-		aEvent.target.setAttribute('label', self.playing ? 'Pause' : 'Play');
+		aEvent.target.setAttribute('label', BeQuiet.MediaState.isPlaying() ? 'Pause' : 'Play');
 	};
 	
 	self.setControlsEnabled = function(enabled) {
