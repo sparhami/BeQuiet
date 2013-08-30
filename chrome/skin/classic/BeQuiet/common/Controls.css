@@ -7,24 +7,24 @@
 	transform: scaleX(-1);
 }
 
-#com_sppad_beQuiet_media_playPause image {
+#com_sppad_beQuiet_media_playPause {
 	list-style-image: url("images/icons.svg#play");
 }
 
-#com_sppad_beQuiet_media_playPause[playing="true"] image {
+#com_sppad_beQuiet_media_playPause[playing="true"] {
 	list-style-image: url("images/icons.svg#pause");
 }
 
-#com_sppad_beQuiet_media_next image,
-#com_sppad_beQuiet_media_previous image {
+#com_sppad_beQuiet_media_next,
+#com_sppad_beQuiet_media_previous {
 	list-style-image: url("images/icons.svg#next");
 }
 
-#com_sppad_beQuiet_media_like image {
+#com_sppad_beQuiet_media_like {
 	list-style-image: url("images/icons.svg#thumbsUp");
 }
 
-#com_sppad_beQuiet_media_like[playing="true"][liked="true"] image {
+#com_sppad_beQuiet_media_like[playing="true"][liked="true"] {
 	list-style-image: url("images/icons.svg#thumbsUp-selected");
 }
 
