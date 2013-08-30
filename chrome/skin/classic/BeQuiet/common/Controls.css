@@ -8,24 +8,24 @@
 }
 
 #com_sppad_beQuiet_media_playPause {
-	list-style-image: url("images/icons.svg#play");
+	list-style-image: url("images/icons.svg#play") !important;
 }
 
 #com_sppad_beQuiet_media_playPause[playing="true"] {
-	list-style-image: url("images/icons.svg#pause");
+	list-style-image: url("images/icons.svg#pause") !important;
 }
 
 #com_sppad_beQuiet_media_next,
 #com_sppad_beQuiet_media_previous {
-	list-style-image: url("images/icons.svg#next");
+	list-style-image: url("images/icons.svg#next") !important;
 }
 
 #com_sppad_beQuiet_media_like {
-	list-style-image: url("images/icons.svg#thumbsUp");
+	list-style-image: url("images/icons.svg#thumbsUp") !important;
 }
 
 #com_sppad_beQuiet_media_like[playing="true"][liked="true"] {
-	list-style-image: url("images/icons.svg#thumbsUp-selected");
+	list-style-image: url("images/icons.svg#thumbsUp-selected") !important;
 }
 
 #com_sppad_beQuiet_media_title_tooltip {
