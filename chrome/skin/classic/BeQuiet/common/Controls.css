@@ -1,6 +1,8 @@
 .com_sppad_beQuiet_mediaControl image {
 	width: 16px;
 	height: 16px;
+	/* Make sure no padding is set, since it will reduce the icon size */
+	padding: 0 !important;
 }
 
 #com_sppad_beQuiet_media_previous image {
@@ -8,24 +10,24 @@
 }
 
 #com_sppad_beQuiet_media_playPause {
-	list-style-image: url("images/icons.svg#play") !important;
+	list-style-image: url("images/icons.svg#play");
 }
 
 #com_sppad_beQuiet_media_playPause[playing="true"] {
-	list-style-image: url("images/icons.svg#pause") !important;
+	list-style-image: url("images/icons.svg#pause");
 }
 
 #com_sppad_beQuiet_media_next,
 #com_sppad_beQuiet_media_previous {
-	list-style-image: url("images/icons.svg#next") !important;
+	list-style-image: url("images/icons.svg#next");
 }
 
 #com_sppad_beQuiet_media_like {
-	list-style-image: url("images/icons.svg#thumbsUp") !important;
+	list-style-image: url("images/icons.svg#thumbsUp");
 }
 
 #com_sppad_beQuiet_media_like[playing="true"][liked="true"] {
-	list-style-image: url("images/icons.svg#thumbsUp-selected") !important;
+	list-style-image: url("images/icons.svg#thumbsUp-selected");
 }
 
 #com_sppad_beQuiet_media_title_tooltip {
