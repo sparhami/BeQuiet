@@ -43,19 +43,19 @@
 			oncommand="BeQuiet.Preferences.togglePreference('idlePause');" />
 	</commandset>
 
-	<keyset>
+	<keyset id="mainKeyset">
 		<key
-			id="com_sppad_mediaToggleState"
+			id="key_com_sppad_mediaToggleState"
 			command="cmd_mediaToggleState"
 			key="p"
 			modifiers="alt" />
 		<key
-			id="com_sppad_mediaNext"
+			id="key_com_sppad_mediaNext"
 			command="cmd_mediaNext"
 			key="n"
 			modifiers="alt" />
 		<key
-			id="com_sppad_mediaPrevious"
+			id="key_com_sppad_mediaPrevious"
 			command="cmd_mediaPrevious"
 			key="n"
 			modifiers="alt,shift" />

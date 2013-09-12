@@ -27,7 +27,7 @@ new function() {
     		.filter(function(mod) { return prefs[modBranch + mod]; })
     		.join(',');
     	
-    	let commandNode = window.document.getElementById(name);
+    	let commandNode = window.document.getElementById('key_' + name);
     	
     	if(enabled)
     		commandNode.removeAttribute('disabled');
