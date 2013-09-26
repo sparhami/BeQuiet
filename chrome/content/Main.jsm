@@ -18,13 +18,13 @@ BeQuiet.Main = new function() {
 	 * Maps regular expressions to the handlers for that site. A site can have
 	 * more than one handler (e.g. YouTube, one for Flash and one for Hmtl5).
 	 */
-	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: 'YouTube' },
-	                          { key: /pandora.com$/, value: 'Pandora' },
-	                          { key: /last.fm$/, value: 'LastFM' },
-	                          { key: /grooveshark.com$/, value: 'Grooveshark' },
-	                          { key: /8tracks.com$/, value: 'EightTracks' },
-	                          { key: /play.google.com$/, value: 'GooglePlayMusic' },
-	                          { key: new RegExp("."), value: 'HtmlVideo' } ];
+	const HANDLER_MAPPING = [ { key: /youtube.com$/, value: ['YouTube', 'HtmlVideo'] },
+	                          { key: /pandora.com$/, value: ['Pandora'] },
+	                          { key: /last.fm$/, value: ['LastFM'] },
+	                          { key: /grooveshark.com$/, value: ['Grooveshark'] },
+	                          { key: /8tracks.com$/, value: ['EightTracks'] },
+	                          { key: /play.google.com$/, value: ['GooglePlayMusic'] },
+	                          { key: new RegExp("."), value: ['HtmlVideo'] } ];
 	
 	let self = this;
 
@@ -59,13 +59,17 @@ BeQuiet.Main = new function() {
     		if(!entry.key.test(aHost))
     			continue;
     		
-    		Components.utils.import("chrome://BeQuiet/content/handlers/sites/" + entry.value + ".jsm");
+    		for(let cls of entry.value) {
+        		Components.utils.import("chrome://BeQuiet/content/handlers/sites/" + cls + ".jsm");
+        		
+    			let constructor = BeQuiet[cls];
+    			let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
+       				
+    			let handler = new factoryFunction(aBrowser);
+    			contentDocument.com_sppad_BeQuiet_handlers.add(handler);
+    		}
     		
-			let constructor = BeQuiet[entry.value];
-			let factoryFunction =  constructor.bind.apply(constructor, [ aBrowser ]);
-   				
-			let handler = new factoryFunction(aBrowser);
-			contentDocument.com_sppad_BeQuiet_handlers.add(handler);
+    		break;
     	}
     };
     
