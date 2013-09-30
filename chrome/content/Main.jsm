@@ -24,6 +24,7 @@ BeQuiet.Main = new function() {
 	                          { key: /grooveshark.com$/, value: ['Grooveshark'] },
 	                          { key: /8tracks.com$/, value: ['EightTracks'] },
 	                          { key: /play.google.com$/, value: ['GooglePlayMusic'] },
+	                          { key: /soundcloud.com$/, value: ['Soundcloud'] },
 	                          { key: new RegExp("."), value: ['HtmlVideo'] } ];
 	
 	let self = this;

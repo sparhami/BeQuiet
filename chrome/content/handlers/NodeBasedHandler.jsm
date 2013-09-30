@@ -147,7 +147,8 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 		let desc = self.description;
 		
 		for(let name of ['trackChange', 'stateChange', 'ratingChange'])
-			self.nodes[name] = self.doc.querySelector(desc[name].selector);
+			if(desc[name])
+				self.nodes[name] = self.doc.querySelector(desc[name].selector);
 			
 		return self.nodes.stateChange != null;
 	};
@@ -176,6 +177,9 @@ BeQuiet.NodeBasedHandler = function(aBrowser, aHandlerDescription) {
 	
 	self.isStatus = function(aStatusName) {
 		let node = self.getNode(aStatusName);
+		
+		if(!node)
+			return false;
 		
 		let desc = self.description[aStatusName];
 		let attrName = desc.attrName;
