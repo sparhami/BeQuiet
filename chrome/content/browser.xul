@@ -71,7 +71,7 @@
 			<label
 				class="notPlaying"
 				static="true"
-				value="Nothing Playing" />
+				value="&nothingPlaying.label;" />
 		</tooltip>
 		<menupopup
 			id="com_sppad_beQuiet_playPauseContext"
@@ -100,6 +100,9 @@
 				disabled="true"
 				label="&noMediaSites.label;" />
 		</menupopup>
+		<tooltip
+			id="com_sppad_beQuiet_menuSiteCommandTooltip"
+			label="&menuSiteCommandTooltip.label;" />
 	</popupset>
 
 	<toolbarpalette id="BrowserToolbarPalette">

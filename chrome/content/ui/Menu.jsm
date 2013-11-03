@@ -52,6 +52,7 @@ BeQuiet.Menu = new function() {
 		item.setAttribute('class', 'menuitem-iconic');
 		item.setAttribute('label', label);
 		item.setAttribute('playing', handler.playing);
+		item.setAttribute('tooltip', 'com_sppad_beQuiet_menuSiteCommandTooltip');
 
 		faviconService.getFaviconURLForPage(browser.currentURI, function(icon) {
 			let image = handler.playing ? 'chrome://BeQuiet/skin/images/note.svg'
@@ -62,15 +63,17 @@ BeQuiet.Menu = new function() {
 		});
 		
 		item.addEventListener('command', self.menuitemCommand, false);
-
+		
 		menu.appendChild(item);
 	};
 	
 	self.menuitemCommand = function(aEvent) {
 		let handler = aEvent.target.handler;
 		
-		if(handler.isPlaying())
-			handler.switchToTab();
+		if(aEvent.ctrlKey)
+		    handler.switchToTab();
+		else if(handler.isPlaying())
+			handler.pause();
 		else
 			handler.play();
 	};

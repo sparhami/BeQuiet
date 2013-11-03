@@ -85,6 +85,14 @@ BeQuiet.Handler = function(aBrowser, aImplementation) {
 	self.getTab = function() {
 		return BeQuiet.Main.getTabForBrowser(self.browser);
 	};
+	
+	self.switchToTab = function() {
+	    let handlerTab = self.getTab();
+	    let handlerWindow = handlerTab.ownerDocument.defaultView;
+        
+	    handlerWindow.gBrowser.selectedTab = handlerTab;
+	    handlerWindow.focus();  
+	};
 
 	/**
 	 * @return The timestamp of the last time the handler started playing

@@ -5,6 +5,10 @@
 <!ENTITY previous.tooltiptext "Previous">
 <!ENTITY like.tooltiptext "Like">
 
+<!ENTITY nothingPlaying.label "Nothing Playing">
+<!ENTITY menuSiteCommandTooltip.label "Click to play/pause, ctrl-click to switch to tab">
+
+
 <!ENTITY mediaToggleState.label "Media play/pause">
 <!ENTITY mediaNext.label "Media next">
 <!ENTITY mediaPrevious.label "Media previous">

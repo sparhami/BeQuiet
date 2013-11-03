@@ -46,10 +46,8 @@ BeQuiet.Iterable = function(iterator) {
 	 *            A function to apply on each element
 	 */
 	self.forEach = function(func) {
-		return new BeQuiet.Iterable(new function() {
-			for(let item of self.iterator)
-				func(item);
-		});
+		for(let item of self.iterator)
+			func(item);
 	};
 	
 	/**

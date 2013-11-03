@@ -72,11 +72,7 @@ BeQuiet.MediaState = new function() {
 		if(!handler)
 			return;
 		
-		let handlerTab = handler.getTab();
-		let handlerWindow = handlerTab.ownerDocument.defaultView;
-		
-		handlerWindow.gBrowser.selectedTab = handlerTab;
-		handlerWindow.focus();
+		handler.switchToTab();
 	};
 	
 	self.getLastHandler = function() {
