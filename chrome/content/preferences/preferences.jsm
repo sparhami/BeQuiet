@@ -15,6 +15,9 @@ BeQuiet.PREFS = {
 	/** Automatically pause playing media when one starts playing */
 	enablePauseResume: true,
 	
+	/** Pause media on same page for HTML5 video/audio */
+	pauseMediaOnSamePage: true,
+	
 	/** Delay after pausing before resuming last playing media */
 	resumeDelay: 0,
 	
