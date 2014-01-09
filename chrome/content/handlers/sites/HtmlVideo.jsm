@@ -138,7 +138,9 @@ BeQuiet.HtmlVideo = function(aBrowser) {
     self.nodeRemoved = function(aNode) {
         switch(aNode.tagName) {
         case 'IFRAME':
-            setTimeout(self.removeDeadNodes, 1);
+            setTimeout(function() {
+                self.removeDeadNodes();
+            }, 1);
             break;
         case 'AUDIO':
         case 'VIDEO':
