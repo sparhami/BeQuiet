@@ -138,7 +138,6 @@
 		<toolbarbutton
 			id="com_sppad_beQuiet_media_title"
 			label="&mediaTitle.label;"
-			align="center"
 			class="toolbarbutton-1 chromeclass-toolbar-additional com_sppad_beQuiet_mediaControl"
 			command="cmd_mediaSwitchToTab"
 			context="com_sppad_beQuiet_playPauseContext"

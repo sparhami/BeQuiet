@@ -21,7 +21,7 @@
 <path id="p3" d="m10.16,7.9,0,15.47,0,15.47,13.32-7.74,13.34-7.74-13.34-7.74-13.32-7.74z"/>
 <g id="s1">
 <rect height="35" width="10" stroke="#494a4e" stroke-width="3" />
-<rect height="35" width="10" stroke="#FFF" stroke-width="1.65" fill="url(#lg1)" x="3" y="3" />
+<rect height="33" width="8" stroke="#FFF" stroke-width="1.65" fill="url(#lg1)" x="1" y="1" />
 </g>
 <g id="s2">
 <use xlink:href="#p1" transform="matrix(1.1609594,0,0,1.1957943,-48.905538,-28.16906)" stroke="#4d4e53" stroke-width="1.3"/>

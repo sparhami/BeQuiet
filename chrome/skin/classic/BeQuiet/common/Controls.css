@@ -42,12 +42,12 @@
 	display: none;
 }
 
-#com_sppad_beQuiet_media_title[playing="false"] label {
+#com_sppad_beQuiet_media_title label {
 	display: none;
 }
 
-#com_sppad_beQuiet_media_title[playing="true"] label {
-	display: -moz-box !important;	
+#com_sppad_beQuiet_media_title[playing="true"] .toolbarbutton-text {
+	display: -moz-box;
 }
 
 #com_sppad_beQuiet_media_title_tooltip label,
